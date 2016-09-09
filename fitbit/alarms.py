@@ -4,10 +4,10 @@ import json, requests
 
 add_alarm_url = "https://api.fitbit.com/1/user/-/devices/tracker/*/alarms.json"
 
-def set_alarm_for (user, device, time):
+def set_alarm_for (user, device, time, day):
 	fitted_alarm_url = add_alarm_url.replace("-", user.fitbit_id).replace("*", device.fitbit_id)
 	headers = authorization.api_request_header_for(user)
-	parameters = {'time': time, 'enabled': "true", 'recurring': "false", 'weekDays': 'WEDNESDAY'}
+	parameters = {'time': time, 'enabled': "true", 'recurring': "false", 'weekDays': day}
 	response = requests.post(fitted_alarm_url, headers= headers, data=parameters)
 	json_response = json.loads(response.content)
 	print json_response

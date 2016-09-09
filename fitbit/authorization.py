@@ -1,4 +1,5 @@
-from . import device, alarms
+import alarms
+import device
 import views
 from .models import User 
 import json, requests

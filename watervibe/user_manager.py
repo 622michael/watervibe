@@ -1,8 +1,9 @@
 from datetime import datetime
+import dateutil.parser
+
 
 def period_for_user (user):
-	user.start_of_period = "2016-09-08 8:30"
-	user.end_of_period = "2016-09-08 20:30"
-	user.save()
+	default_start_value = '08:30-04:00'
+	default_end_value = '20:30-04:00'
 
-	return datetime.strptime(user.start_of_period), datetime.strptime(user.end_of_period)
+	return dateutil.parser.parse(default_start_value), dateutil.parser.parse(default_end_value)
