@@ -2,8 +2,6 @@ from .models import User, Device, Alarm
 import authorization
 import json, requests
 
-client_id = "227RR9"
-base_64_client_id_secret_encode = "MjI3UlI5OmMxYmI3YWNmNTI5YjJkZTA2ODk1YWU1YzM4N2RmYzAx"
 add_alarm_url = "https://api.fitbit.com/1/user/-/devices/tracker/*/alarms.json"
 
 def set_alarm_for (user, device, time):
