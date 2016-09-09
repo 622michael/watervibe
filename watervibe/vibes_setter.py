@@ -25,12 +25,11 @@ def add_vibes_for_next_period_for_user(user):
 		reminder = Reminder.objects.create(time = time)
 
 		devices = fitbit.fitbit.devices_for_user(user)
-		try:
-			for device in devices:
-				alarms.set_alarm_for(user, device, time)
-		except:
-			# Called when there are no devices
-			# @update load user's devices
+		for device in devices:
+			fitbit.fitbit.set_alarm_for_user_device_time(user, device, time)
+		# except:
+		# 	# Called when there are no devices
+		# 	# @update load user's devices
 			
-			print "No Devices"
-			return
+		# 	print "No Devices"
+		# 	return

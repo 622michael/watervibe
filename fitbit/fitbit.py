@@ -1,8 +1,9 @@
-import models
+from .models import Device
+from . import alarms
 		
 def devices_for_user(user):
-	try:
-		devices = Device.objects.get(user_id=user.id)
-		return devices
-	except:
-		return None
+	devices = Device.objects.filter(user=user.id)
+	return devices
+
+def set_alarm_for_user_device_time(user, device, time):
+	alarms.set_alarm_for(user, device, time)

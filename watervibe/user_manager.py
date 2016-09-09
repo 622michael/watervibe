@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 
 def period_for_user (user):
 	user.start_of_period = "2016-09-08 8:30"
