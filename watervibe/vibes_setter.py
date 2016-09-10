@@ -16,6 +16,7 @@ def add_vibes_for_next_period_for_user(user):
 	print number_of_reminders
 
 	for reminder_index in range(0, int(number_of_reminders)):
+		print "Creating alarm..."
 		reminder_datetime = start_of_period + timedelta(seconds=reminder_index*(period_length.seconds/number_of_reminders))
 		reminder = Reminder.objects.create(time = reminder_datetime)
 

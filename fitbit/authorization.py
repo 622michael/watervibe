@@ -15,11 +15,33 @@ access_token_request_url = "https://api.fitbit.com/oauth2/token"
 base_64_clinet_id_secret_encode = "MjI3UlI5OmMxYmI3YWNmNTI5YjJkZTA2ODk1YWU1YzM4N2RmYzAx"
 api_scope = ["activity", "heartrate", "location", "profile", "settings", "sleep", "weight"]
 
+##	Permissions Request
+##  --------------------------------------
+##	Loads the redirect to begin oauth process 
+##
+##
 
+def permissions_request(request):
+	base_url = scope_request_url
+	scope = ""
+	for data_point in api_scope: 
+		scope += data_point + " "
 
+	parameters = {"client_id": client_id, "scope": scope, "response_type": "code"}
+	url = base_url + urllib.urlencode(parameters)
+
+	redirect_reponse = HttpResponse("", status=302)
+	redirect_reponse["location"] = url 
+	return redirect_reponse
+
+##	Authorize
+##  --------------------------------------
+##	handles the request from the fitbit server	
+##  after a new user authorizes the app
+##
 def authorize (request):
 
-	access_info, errors = request_access_info(request.GET['code'])
+	access_info, errors = request_access_info(code = request.GET['code'])
 	if errors is not None:
 		return views.authorization_failed(errors, request)
 
@@ -27,8 +49,6 @@ def authorize (request):
 	access_token = access_info["access_token"]
 	scope = access_info["scope"]
 	refresh_token = access_info["refresh_token"]
-
-	print scope
 
 	try:
 		user = User.objects.get(fitbit_id=user_id)
@@ -49,28 +69,36 @@ def authorize (request):
 
 	return views.authorization_success(scope, request)
 
-def permissions_request(request):
-	base_url = scope_request_url
-	scope = ""
-	for data_point in api_scope: 
-		scope += data_point + " "
+##	Refresh Access
+##  --------------------------------------
+##	uses the refresh token to refresh the access token	
+##
+##
 
-	parameters = {"client_id": client_id, "scope": scope, "response_type": "code"}
-
-	url = base_url + urllib.urlencode(parameters)
-
-	redirect_reponse = HttpResponse("", status=302)
-	redirect_reponse["location"] = url 
-	return redirect_reponse
+def refresh_access_for_user(user):
+	access_info, errors = request_access_info(refresh_token = user.refresh_token, grant_type = "refresh_token")
+	if errors is not None:
+		print errors
+		return None
 
 
-def request_access_info (code, grant_type = "authorization_code"):
-	parameters = {'code': code, 'grant_type': grant_type, 'client_id': client_id}
+	user.access_token = access_info["access_token"]
+	user.refresh_token = access_info["refresh_token"]
+	user.save
+
+
+##	Request Access Info
+##  --------------------------------------
+##	used get the user's authorization code 
+##	param code is the code from fitbit server
+##	returns access token, scope, refresh token	
+
+def request_access_info (code = "", refresh_token = "", grant_type = "authorization_code"):
+	parameters = {'code': code, 'grant_type': grant_type, 'client_id': client_id, 'refresh_token': refresh_token}
 	headers = {"content-type":"application/x-www-form-urlencoded", "Authorization": "Basic " + base_64_clinet_id_secret_encode}
 	response = requests.post(access_token_request_url, headers= headers, data= parameters)
 	json_response = json.loads(response.content)
 	if json_response.get('success', True) is False:
-		print json_response
 		return None, json_response['errors']
 
 	return json_response, None
