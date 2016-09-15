@@ -2,11 +2,22 @@ from __future__ import unicode_literals
 
 from django.db import models
 
-# Create your models here.
-
 # Right now this app has a dependency on the FitBit app
 # Reminder model should eventually include refrence to an abstract user class
 # That is not reliant on the specific fitbit.user class
+
+class User(models.Model):
+	app = models.CharField(max_length=256)
+	app_id = models.IntegerField(default = 0)
+
+	start_of_period = models.DateTimeField(null = True)
+	end_of_period = models.DateTimeField(null= True)
+	next_sync_time = models.DateTimeField(null = True)
+
+	ounces_in_a_day = models.FloatField(default = 64.0, null = True)
+	drink_size = models.FloatField(default = 8.0)
+
+	maximum_reminders = models.IntegerField(default=8)
 
 
 class Reminder(models.Model):

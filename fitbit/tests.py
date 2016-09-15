@@ -32,7 +32,7 @@ class FitBitTestClass(AppTestClass):
 	def test_set_alarm_for_user(self):
 		time_string = "12:10-04:00"
 		date = dateutil.parser.parse(time_string)
-		fitbit.set_alarm_for_user_device_time(self.user, self.device, date)
+		fitbit.set_alarm (self.user, self.device, date)
 
 
 class AlarmTestClass(AppTestClass):

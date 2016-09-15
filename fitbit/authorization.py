@@ -7,6 +7,7 @@ import urllib
 from django.http import HttpResponse, HttpResponseRedirect
 import datetime
 import webbrowser
+import watervibe
 from watervibe import vibes_setter
 
 client_id = "227RR9"
@@ -65,7 +66,7 @@ def authorize (request):
 
 	
 	device.get_devices_for(user)
-	vibes_setter.add_vibes_for_next_period_for_user(user)
+	watervibe.watervibe.register_fitbit_user(user)
 
 	return views.authorization_success(scope, request)
 

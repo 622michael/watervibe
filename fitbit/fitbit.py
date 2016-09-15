@@ -12,8 +12,10 @@ def devices_for_user(user):
 	devices = Device.objects.filter(user=user.id)
 	return devices
 
-def set_alarm_for_user_device_time(user, device, time):
+def set_alarm (user, device, time):
 	day_int = time.isoweekday()
 	day = fitbit_time.convert_isoweekday_to_string(day_int)
+
+	device = devices_for_user(user).first()
 
 	alarms.set_alarm(user, device, time, day)

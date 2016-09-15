@@ -1,12 +1,12 @@
 from datetime import timedelta
-from . import user_manager
+from . import users
 from .models import Reminder
 import math
 import fitbit.fitbit
 
 def add_vibes_for_next_period_for_user(user):
 	
-	start_of_period, end_of_period = user_manager.period_for_user(user)
+	start_of_period, end_of_period = users.period_for_user(user)
 
 	period_length = start_of_period - end_of_period
 
