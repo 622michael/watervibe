@@ -10,9 +10,9 @@ class User(models.Model):
 	app = models.CharField(max_length=256)
 	app_id = models.IntegerField(default = 0)
 
-	start_of_period = models.DateTimeField(null = True)
-	end_of_period = models.DateTimeField(null= True)
-	next_sync_time = models.DateTimeField(null = True)
+	start_of_period = models.CharField(max_length=22, null = True)
+	end_of_period = models.CharField(max_length=22, null= True)
+	next_sync_time = models.CharField(max_length=22, null = True)
 
 	ounces_in_a_day = models.FloatField(default = 64.0, null = True)
 	drink_size = models.FloatField(default = 8.0)
@@ -21,4 +21,8 @@ class User(models.Model):
 
 
 class Reminder(models.Model):
-	time = models.DateField()
+	time = models.CharField(max_length = 22)
+	user = models.ForeignKey(User, on_delete = models.CASCADE, null = True)
+	app = models.CharField(max_length = 256, default = "fitbit")
+	app_id = models.IntegerField(null = True)
+

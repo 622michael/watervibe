@@ -1,11 +1,20 @@
 from datetime import datetime, timedelta
+from reminders import last_reminder_for_user
+import dateutil
+import users
 
 def date_for_string(string):
-	return datetime.strptime(remove_timezone_from_string(string), "%Y-%m-%d %H:%M")
+	if len(string) > 11:
+		date = datetime.strptime(remove_timezone_from_string(string), "%Y-%m-%d %H:%M")
+	else:
+		date = datetime.strptime(remove_timezone_from_string(string), "%H:%M")
+	date = date.replace(tzinfo = dateutil.tz.tzoffset(None, hours_offset(string)*60*60))
+	return date
 
-def string_for_date(date, offset=0):
-	time = "%02d:%02d"
-	if utc_offset < 0:
+def string_for_date(date):
+	offset = date.utcoffset().total_seconds()/60/60
+	time = "%(hour)02d:%(minute)02d" % {'hour': date.hour, 'minute': date.minute}
+	if offset < 0:
 		utc_offset_string = "-%02d:00" % abs(offset)
 	else:
 		utc_offset_string = "+%02d:00" % abs(offset)
@@ -27,8 +36,23 @@ def hours_offset (string):
 
 def time_till_sync(user):
 	sync_datetime = date_for_string (user.next_sync_time) + timedelta(hours=hours_offset(user.next_sync_time))
-	time_till_sync = sync_datetime - datetime.now()
+	time_till_sync = sync_datetime - now_in_user_timezone(user)
 	return time_till_sync
 
 def seconds_till_sync(user):
 	return time_till_sync(user).total_seconds()
+
+def time_till_update(user):
+	next_reminder = users.reminders(user).order_by("time").first()
+	next_reminder_time = date_for_string(next_reminder.time)
+	time_till_update = next_reminder_time - now_in_user_timezone(user)
+	return time_till_update
+
+
+def seconds_till_update(user):
+	return time_till_update(user).total_seconds()
+
+def now_in_user_timezone(user):
+	date = datetime.utcnow() + timedelta(hours=hours_offset(user.start_of_period))
+	return date.replace(tzinfo = users.user_timezone(user))
+

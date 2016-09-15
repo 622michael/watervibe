@@ -7,8 +7,7 @@ import urllib
 from django.http import HttpResponse, HttpResponseRedirect
 import datetime
 import webbrowser
-import watervibe
-from watervibe import vibes_setter
+import watervibe.watervibe
 
 client_id = "227RR9"
 scope_request_url = "https://www.fitbit.com/oauth2/authorize?"

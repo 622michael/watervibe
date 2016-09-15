@@ -1,13 +1,13 @@
 from models import Reminder, User
 from datetime import datetime, date, timedelta
-from watervibe_time import time_zone_offset, date_for_string
+from watervibe_time import time_zone_offset, date_for_string, hours_offset
 import dateutil.parser
 import importlib
 
 
 def calculate_stats(user): 
-	user.start_period = calculate_start_period(user)
-	user.end_period = calculate_end_period(user)
+	user.start_of_period = calculate_start_period(user)
+	user.end_of_period = calculate_end_period(user)
 	user.ounces_in_a_day = calculate_ounces_in_a_day(user)
 	user.drink_size = calculate_drink_size(user)
 	user.next_sync_time = calculate_sync_time(user)
@@ -36,19 +36,20 @@ def calculate_sync_time(user):
 	return default_sync_time
 
 def calculate_maximum_reminders(user):
-	print "Test: " + user.start_period
 	app = importlib.import_module(user.app + "." + user.app)
 	return app.available_reminders_for_user(user.app_id)
 
 
 def period_for_user (user):
-	return dateutil.parser.parse(calculate_start_period(user)), dateutil.parser.parse(calculate_end_period(user))
+	start_time =  date_for_string(user.start_of_period)
+	end_time = date_for_string(user.end_of_period)
+	return start_time, end_time
 
 def user_timezone(user): 
-	return int(time_zone_offset(user.start_period))
+	return dateutil.tz.tzoffset(None, hours_offset(user.start_of_period)*60*60)
 
 def reminders_availabe_at_next_sync(user):
-	reminders = Reminder.objects.filter(user = user.id).order_by('-time')
+	reminders = reminders(user).order_by('-time')
 	available_spots = user.maximum_reminders
 	next_sync_time = date_for_string(user.next_sync_time)
 	for reminder in reminders:
@@ -58,3 +59,7 @@ def reminders_availabe_at_next_sync(user):
 			break
 
 	return available_spots
+
+def reminders(user):
+	return Reminder.objects.filter(user = user.id)
+
