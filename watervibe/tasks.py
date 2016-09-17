@@ -21,8 +21,7 @@ def update(user):
 	users.calculate_stats(user)
 	reminders.create_reminders_for_user(user)
 
-	# update.apply_async(args= [user], countdown=seconds_till_update(user))
-	update.apply_async(args= [user], countdown = 10)
+	update.apply_async(args= [user], countdown=seconds_till_update(user))
 
 @app.task(ignore_result = True)
 def sync(user):

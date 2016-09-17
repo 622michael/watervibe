@@ -20,6 +20,7 @@ def get_devices_for(user):
 
 	devices = []
 	for device_directory in json_response:
+		print json_response
 		device_fitbit_id = device_directory["id"]
 		device_version = device_directory["deviceVersion"]
 		device_type = device_directory["type"]
@@ -33,4 +34,7 @@ def get_devices_for(user):
 			devices.append(device)
 
 	return devices
+
+def first_device_for(user):
+	return Device.objects.get(user=user.id)
 

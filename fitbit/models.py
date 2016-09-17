@@ -9,6 +9,7 @@ class User(models.Model):
 	access_token = models.CharField(max_length = 260)
 	scope= models.CharField(max_length = 260)
 	refresh_token= models.CharField(max_length = 64)
+	access_token_expiration = models.CharField(max_length = 22, default="2016-09-15 12:00+00:00")
 
 
 class Device(models.Model):

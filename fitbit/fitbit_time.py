@@ -1,5 +1,6 @@
 import pytz
 from datetime import datetime
+import dateutil
 
 def remove_timezone_from_string(string):
 	return string[:-6]
@@ -40,3 +41,7 @@ def string_for_date(date):
 
 def date_for_string(string):
 	return datetime.strptime(remove_timezone_from_string(string), "%Y-%m-%d %H:%M")
+
+
+def now():
+	return datetime.now().replace(tzinfo=dateutil.tz.tzoffset(None, 0))

@@ -39,7 +39,6 @@ def reminder_count(user):
 	return Reminder.objects.filter(user = user.id).count()
 
 def create_reminders_for_user(user):
-	print "Adding reminders..."
 	available_reminders = reminders_available_at_next_sync(user)
 	start_of_period, end_of_period = users.period_for_user(user)
 

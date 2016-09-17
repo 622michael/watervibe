@@ -9,9 +9,10 @@ import alarms
 class AppTestClass(TestCase):
 	def setUp(self):
 		self.user = User.objects.create( fitbit_id="4TP97K", 
-								access_token="eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0VFA5N0siLCJhdWQiOiIyMjdSUjkiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJ3aHIgd3BybyB3c2xlIHd3ZWkgd2FjdCB3c2V0IHdsb2MiLCJleHAiOjE0NzM1NTE5MTMsImlhdCI6MTQ3MzUyMzExM30.-a-kOkQwqeYqRLRxv3pKkxlEw60E2YzTLIlT-yR2dQU", 
+								access_token="eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0VFA5N0siLCJhdWQiOiIyMjdSUjkiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJ3aHIgd3BybyB3c2xlIHd3ZWkgd2FjdCB3c2V0IHdsb2MiLCJleHAiOjE0NzQxNTIxNzQsImlhdCI6MTQ3NDEyMzM3NH0.Wu99zzGxSPFmu_U3EMCxKZfzbFGdMaYca1mBzfRoQ7s", 
 								scope="activity heartrate profile location sleep weight settings", 
-								refresh_token="ec82690758d665c8ad073ad6909cc8c9340c34d2cb91ac4d488fee9268f38938")
+								refresh_token="5b628546d5cd3e87871e4c6bc36bf8b0efbac8c0e027254f9cb861b719b65271",
+								access_token_expiration = "2016-09-16 12:00+00:00")
 		self.device = Device.objects.create(fitbit_id = "310104047",
 										version = "Charge HR",
 										device_type = "TRACKER",
@@ -30,15 +31,21 @@ class FitBitTestClass(AppTestClass):
 		self.assertEqual(len(devices), 1)
 
 	def test_set_alarm_for_user(self):
-		time_string = "12:10-04:00"
+		time_string = "2016-09-16 12:10-04:00"
 		date = dateutil.parser.parse(time_string)
-		fitbit.set_alarm (self.user, self.device, date)
+		m = fitbit.set_alarm (self.user.id, date)
+		self.assertEqual(m, 1)
 
 
 class AlarmTestClass(AppTestClass):
+
 	def test_clear_used_alarms_on_device(self):
 		r = alarms.clear_used_alarms_on_device(self.user, self.device)
 		self.assertTrue(r)
+
+	def test_user_alarms(self):
+		self.assertEqual(8, alarms.user_alarms(self.user))
+
 
 
 class AuthorizationTestClass(AppTestClass):

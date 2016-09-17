@@ -5,9 +5,10 @@ from .models import User
 import json, requests
 import urllib
 from django.http import HttpResponse, HttpResponseRedirect
-import datetime
+from datetime import datetime, timedelta
 import webbrowser
 import watervibe.watervibe
+import fitbit_time
 
 client_id = "227RR9"
 scope_request_url = "https://www.fitbit.com/oauth2/authorize?"
@@ -49,12 +50,15 @@ def authorize (request):
 	access_token = access_info["access_token"]
 	scope = access_info["scope"]
 	refresh_token = access_info["refresh_token"]
+	expiration_date = fitbit_time.now() + timedelta(seconds = access_info["expires_in"])
+	expiration_date = fitbit_time.string_for_date(expiration_date)
 
 	try:
 		user = User.objects.get(fitbit_id=user_id)
 		user.access_token = access_token
 		user.scope = scope
 		user.refresh_token = refresh_token
+		user.access_token_expiration = expiration_date
 		user.save()
 	except:
 		user = User.objects.create( fitbit_id=user_id, 
@@ -82,8 +86,11 @@ def refresh_access_for_user(user):
 		return None
 
 
+	expiration_date = fitbit_time.now() + timedelta(seconds = access_info["expires_in"])
+
 	user.access_token = access_info["access_token"]
 	user.refresh_token = access_info["refresh_token"]
+	user.access_token_expiration = fitbit_time.string_for_date(expiration_date)
 	user.save
 
 
@@ -103,6 +110,16 @@ def request_access_info (code = "", refresh_token = "", grant_type = "authorizat
 
 	return json_response, None
 
+##	Request Header
+##  --------------------------------------
+##	returns the header necessary to make
+## 	an api calls. It also refreshes the
+##	access token if it is out of date
 def api_request_header_for(user):
+	expiration_date = fitbit_time.date_for_string(user.access_token_expiration)
+
+	if expiration_date < datetime.now():
+		refresh_access_for_user(user)
+
 	headers = {'Authorization': 'Bearer ' + user.access_token}
 	return headers
