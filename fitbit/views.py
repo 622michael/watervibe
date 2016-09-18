@@ -22,5 +22,4 @@ def request_permissions(request):
 	return redirect_reponse
 
 def alarms_full(request): 
-	return render(request, 'fitbit/full.html')
-
+	return render(request, 'fitbit/full.html', {})

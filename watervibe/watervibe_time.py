@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 from reminders import last_reminder_for_user
 import dateutil
 import users
+import reminders
 
 def date_for_string(string):
 	if len(string) > 11:
@@ -43,7 +44,10 @@ def seconds_till_sync(user):
 	return time_till_sync(user).total_seconds()
 
 def time_till_update(user):
-	next_reminder = users.reminders(user).order_by("time").first()
+	next_reminder = reminders.next_reminder_for(user)
+	if next_reminder is None:
+		return time_till_sync(user)
+
 	next_reminder_time = date_for_string(next_reminder.time)
 	time_till_update = next_reminder_time - now_in_user_timezone(user)
 	return time_till_update

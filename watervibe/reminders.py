@@ -28,6 +28,16 @@ def create_reminder(time, user):
 							user= user)
 	reminder.save()
 
+def next_reminder_for(user): 
+	reminders = users.reminders(user).order_by("time")
+	now = watervibe_time.now_in_user_timezone(user)
+	for reminder in reminders:
+		reminder_date = watervibe_time.date_for_string(reminder.time)
+		if now < reminder_date:
+			return reminder
+
+	return None
+
 
 def last_reminder_for_user(user):
 	return Reminder.objects.filter(user = user.id).last()
