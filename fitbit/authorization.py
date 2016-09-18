@@ -70,6 +70,11 @@ def authorize (request):
 
 	
 	device.get_devices_for(user)
+
+	if(alarms.user_alarms_count(user) == 8): 
+		print "User account is full"
+		return views.alarms_full(request)
+
 	watervibe.watervibe.register_fitbit_user(user)
 
 	return views.authorization_success(scope, request)

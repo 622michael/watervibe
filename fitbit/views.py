@@ -20,3 +20,7 @@ def permission_button(request):
 def request_permissions(request): 
 	redirect_reponse = authorization.permissions_request()
 	return redirect_reponse
+
+def alarms_full(request): 
+	return render(request, 'fitbit/full.html')
+
