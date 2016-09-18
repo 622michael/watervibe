@@ -20,10 +20,10 @@ def get_devices_for(user):
 
 	devices = []
 	for device_directory in json_response:
-		print json_response
 		device_fitbit_id = device_directory["id"]
 		device_version = device_directory["deviceVersion"]
 		device_type = device_directory["type"]
+		print device_fitbit_id
 		try:
 			device = Device.objects.get(fitbit_id = device_fitbit_id)
 		except:

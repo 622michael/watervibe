@@ -9,9 +9,9 @@ import alarms
 class AppTestClass(TestCase):
 	def setUp(self):
 		self.user = User.objects.create( fitbit_id="4TP97K", 
-								access_token="eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0VFA5N0siLCJhdWQiOiIyMjdSUjkiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJ3aHIgd3BybyB3c2xlIHd3ZWkgd2FjdCB3c2V0IHdsb2MiLCJleHAiOjE0NzQxNTIxNzQsImlhdCI6MTQ3NDEyMzM3NH0.Wu99zzGxSPFmu_U3EMCxKZfzbFGdMaYca1mBzfRoQ7s", 
+								access_token="eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0VFA5N0siLCJhdWQiOiIyMjdSUjkiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJ3aHIgd3BybyB3c2xlIHd3ZWkgd3NldCB3YWN0IHdsb2MiLCJleHAiOjE0NzQyMzY1NDUsImlhdCI6MTQ3NDIwNzc0NX0.gd5wi7tzLefN3gnPKVMW8MqoLcO0MjHRDSLPAe6Oa78", 
 								scope="activity heartrate profile location sleep weight settings", 
-								refresh_token="5b628546d5cd3e87871e4c6bc36bf8b0efbac8c0e027254f9cb861b719b65271",
+								refresh_token="c55925bcf38da16825c46b4c3f3bd1b8d1c94088e41a1adc38776055f8e1dc21",
 								access_token_expiration = "2016-09-16 12:00+00:00")
 		self.device = Device.objects.create(fitbit_id = "310104047",
 										version = "Charge HR",

@@ -1,8 +1,9 @@
 from fitbit.tests import AppTestClass
 import watervibe
-from .models import User
+from .models import User, Reminder
 import reminders, users
 from watervibe_time import now_in_user_timezone
+from tasks import sync
 
 class WaterVibeTestClass(AppTestClass):
 	def test_setup(self):
@@ -17,6 +18,13 @@ class WaterVibeTestClass(AppTestClass):
 			self.assertEqual(8.0, user.drink_size)
 		except:
 			assert("NoUser")
+
+	def test_sync(self):
+		user = User.objects.create(app= "fitbit", app_id= 1, start_of_period= "08:30-04:00", end_of_period="20:30-04:00",
+									next_sync_time= "2016-09-19 00:00-04:00", maximum_reminders = 7)
+		reminder = Reminder.objects.create(app = "fitbit", time = "2016-09-18 11:30-04:00", user_id= 1)
+		sync(user)
+		self.assertEqual(reminder.app_id, 1)
 
 class RemindersTestClass(AppTestClass):
 	def setUp(self):

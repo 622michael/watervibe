@@ -19,21 +19,22 @@ def set_alarm (user, device, date, day):
 
 	json_response = json.loads(response.content)
 
-	try:
-		json_response = json_response["trackerAlarm"]
-		alarm_id = json_response["alarmId"]
-		alarm_time = fitbit_time.string_for_date(date)
-		alarm = Alarm.objects.create(fitbit_id=alarm_id,
-									 time= alarm_time,
-									 user=user,
-									 device=device)
-		alarm.save()
-	except:
-		alarms_cleared = clear_used_alarms_on_device(user, device)
-		if alarms_cleared == True:
-			print "Trying again..."
-			set_alarm(user, device, date, day)
-		return None 
+	# try:
+	print json_response
+	json_response = json_response["trackerAlarm"]
+	alarm_id = json_response["alarmId"]
+	alarm_time = fitbit_time.string_for_date(date)
+	alarm = Alarm.objects.create(fitbit_id=alarm_id,
+								 time= alarm_time,
+								 user=user,
+								 device=device)
+	alarm.save()
+	# except:
+	# 	alarms_cleared = clear_used_alarms_on_device(user, device)
+	# 	if alarms_cleared == True:
+	# 		print "Trying again..."
+	# 		set_alarm(user, device, date, day)
+	# 	return None 
 
 	return alarm
 
@@ -43,7 +44,7 @@ def set_alarm (user, device, date, day):
 ##	Returns the alarms set on the user's
 ##	Device which were not set by the app
 ##
-def user_alarms(user):
+def user_alarms_count(user):
 	device = first_device_for(user)
 	fitted_alarm_url = add_alarm_url.replace("-", user.fitbit_id).replace("*", device.fitbit_id)
 	headers = authorization.api_request_header_for(user)

@@ -29,7 +29,11 @@ def sync(user):
 
 	for reminder in users.reminders(user):
 		if reminder.app_id is None:
-			reminder.app_id = app.set_alarm (user.app_id, date_for_string(reminder.time))
+			alarm_app_id = app.set_alarm(user.app_id, date_for_string(reminder.time))
+			if alarm_app_id is None:
+				return
+
+			reminder.app_id = alarm_app_id
 			reminder.save()
 
 	sync.apply_async(args= [user], countdown=seconds_till_sync(user))

@@ -53,6 +53,7 @@ def authorize (request):
 	expiration_date = fitbit_time.now() + timedelta(seconds = access_info["expires_in"])
 	expiration_date = fitbit_time.string_for_date(expiration_date)
 
+	print user_id
 	try:
 		user = User.objects.get(fitbit_id=user_id)
 		user.access_token = access_token

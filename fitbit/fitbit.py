@@ -21,11 +21,7 @@ def set_alarm (user_id, time):
 
 	device = devices_for_user(user).first()
 
-	print "Getting alarms..."
-
 	alarm = alarms.set_alarm(user, device, time, day)
-
-	print "Alarm id: %d" % alarm.id
 
 	if alarm is not None:
 		return alarm.id
@@ -35,4 +31,4 @@ def set_alarm (user_id, time):
 def available_reminders_for_user(user_id):
 	user = User.objects.get(id = user_id)
 
-	return 8 - len(alarms.user_alarms(user))
+	return 8 - alarms.user_alarms_count(user)
