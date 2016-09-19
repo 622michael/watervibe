@@ -32,7 +32,6 @@ def calculate_drink_size(user):
 
 def calculate_sync_time(user):
 	tomorrow = date.today() + timedelta(days=1)
-	tomorrow = date.today()
 	default_sync_time = "%(year)02d-%(month)02d-%(day)02d 00:00-04:00" % {'year': tomorrow.year, 'month': tomorrow.month, 'day': tomorrow.day}
 	return default_sync_time
 
