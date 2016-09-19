@@ -9,4 +9,4 @@ def register_fitbit_user(fitbit_user):
 							   app_id = fitbit_user.id
 							  )
 	 	user.save()
-	 	setup(user).delay()
+	 	setup().delay(user)

@@ -40,7 +40,7 @@ def hours_offset (string):
 	return int(time_zone_offset(string) [:3])
 
 def time_till_sync(user):
-	sync_datetime = date_for_string (user.next_sync_time) + timedelta(hours=hours_offset(user.next_sync_time))
+	sync_datetime = date_for_string (user.next_sync_time)
 	time_till_sync = sync_datetime - now_in_user_timezone(user)
 	return time_till_sync
 
