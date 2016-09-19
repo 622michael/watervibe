@@ -15,7 +15,7 @@ def calculate_stats(user):
 	user.save()
 
 def calculate_start_period(user):
-	default_start_value = '08:40-04:00'
+	default_start_value = '08:30-04:00'
 	return default_start_value
 
 def calculate_end_period(user):
