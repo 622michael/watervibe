@@ -31,4 +31,4 @@ def set_alarm (user_id, time):
 def available_reminders_for_user(user_id):
 	user = User.objects.get(id = user_id)
 
-	return 8 - alarms.user_alarms_count(user)
+	return 2 - alarms.user_alarms_count(user)

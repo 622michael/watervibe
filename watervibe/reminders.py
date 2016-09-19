@@ -3,12 +3,12 @@
 ## 
 ##
 ##
-
 import users
 import watervibe_time
 # from watervibe_time import date_for_string, string_for_datepyth
 from models import Reminder
 from datetime import timedelta
+import tasks
 
 def reminders_available_at_next_sync(user):
 	reminders = Reminder.objects.filter(user = user.id).order_by('-time')
@@ -28,6 +28,8 @@ def create_reminder(time, user):
 							user= user)
 	reminder.save()
 
+	tasks.update.apply_async(args= [user], countdown=watervibe_time.seconds_till_reminder(reminder))
+
 def next_reminder_for(user): 
 	reminders = users.reminders(user).order_by("time")
 	now = watervibe_time.now_in_user_timezone(user)
@@ -43,7 +45,7 @@ def last_reminder_for_user(user):
 	return Reminder.objects.filter(user = user.id).last()
 
 def time_between_reminders_for_user(user):
-	return timedelta(hours= 1, minutes=30)
+	return timedelta(hours = 1, minutes = 30)
 
 def reminder_count(user):
 	return Reminder.objects.filter(user = user.id).count()

@@ -1,6 +1,6 @@
 from models import Reminder, User
 from datetime import datetime, date, timedelta
-from watervibe_time import time_zone_offset, date_for_string, hours_offset
+from watervibe_time import time_zone_offset, date_for_string, hours_offset, string_for_date, now_in_user_timezone
 import dateutil.parser
 import importlib
 
@@ -15,7 +15,7 @@ def calculate_stats(user):
 	user.save()
 
 def calculate_start_period(user):
-	default_start_value = '08:30-04:00'
+	default_start_value = '08:40-04:00'
 	return default_start_value
 
 def calculate_end_period(user):
@@ -32,6 +32,7 @@ def calculate_drink_size(user):
 
 def calculate_sync_time(user):
 	tomorrow = date.today() + timedelta(days=1)
+	tomorrow = date.today()
 	default_sync_time = "%(year)02d-%(month)02d-%(day)02d 00:00-04:00" % {'year': tomorrow.year, 'month': tomorrow.month, 'day': tomorrow.day}
 	return default_sync_time
 

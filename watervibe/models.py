@@ -19,6 +19,9 @@ class User(models.Model):
 
 	maximum_reminders = models.IntegerField(default=8)
 
+	last_update = models.CharField(max_length=22, null = True)
+	last_sync = models.CharField(max_length=22, null = True)
+
 
 class Reminder(models.Model):
 	time = models.CharField(max_length = 22)

@@ -13,7 +13,11 @@ def date_for_string(string):
 	return date
 
 def string_for_date(date):
-	offset = date.utcoffset().total_seconds()/60/60
+	try:
+		offset = date.utcoffset().total_seconds()/60/60
+	except:
+		offset = 0.0
+
 	time = "%(hour)02d:%(minute)02d" % {'hour': date.hour, 'minute': date.minute}
 	if offset < 0:
 		utc_offset_string = "-%02d:00" % abs(offset)
@@ -42,6 +46,9 @@ def time_till_sync(user):
 
 def seconds_till_sync(user):
 	return time_till_sync(user).total_seconds()
+
+def seconds_till_reminder(reminder):
+	return (date_for_string(reminder.time) - now_in_user_timezone(reminder.user)).total_seconds()
 
 def time_till_update(user):
 	next_reminder = reminders.next_reminder_for(user)

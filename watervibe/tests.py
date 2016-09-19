@@ -2,8 +2,9 @@ from fitbit.tests import AppTestClass
 import watervibe
 from .models import User, Reminder
 import reminders, users
-from watervibe_time import now_in_user_timezone
+from watervibe_time import now_in_user_timezone, seconds_till_reminder
 from tasks import sync
+from datetime import timedelta
 
 # class WaterVibeTestClass(AppTestClass):
 # 	def test_setup(self):
@@ -35,13 +36,25 @@ class RemindersTestClass(AppTestClass):
 		
 		self.user = User.objects.create(app= "fitbit", app_id= 1, start_of_period= "08:30-04:00", end_of_period="20:30-04:00",
 		 							next_sync_time = "2016-09-19 00:00-04:00", maximum_reminders = 7)
-		Reminder.objects.create(app = "fitbit", time = "2016-09-18 14:30-04:00", user = self.user )
-		Reminder.objects.create(app = "fitbit", time = "2016-09-18 16:30-04:00", user = self.user )
-		Reminder.objects.create(app = "fitbit", time = "2016-09-18 11:30-04:00", user = self.user )
+		self.reminder = Reminder.objects.create(app = "fitbit", time = "2016-09-19 14:30-04:00", user = self.user )
+		Reminder.objects.create(app = "fitbit", time = "2016-09-19 16:30-04:00", user = self.user )
+		Reminder.objects.create(app = "fitbit", time = "2016-09-19 11:30-04:00", user = self.user )
+
 
 	def test_next_reminder_for(self):
 		reminder = reminders.next_reminder_for(self.user)
-		self.assertEqual(reminder.time, "2016-09-18 14:30-04:00")
+		self.assertEqual(reminder.time, "2016-09-19 14:30-04:00")
+
+	def test_time_till_sync(self):
+		print "Seconds till: %d" % seconds_till_reminder(self.reminder)
+
+	def test_create_reminder(self):
+		time = now_in_user_timezone(self.user) + timedelta(seconds= 10)
+		reminders.create_reminder(time, self.user)
+		time = now_in_user_timezone(self.user) + timedelta(seconds= 20)
+		reminders.create_reminder(time, self.user)
+
+
 
 
 
