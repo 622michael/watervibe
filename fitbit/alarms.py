@@ -5,6 +5,7 @@ import json, requests
 import fitbit
 import fitbit_time
 import datetime
+from datetime import timedelta
 
 add_alarm_url = "https://api.fitbit.com/1/user/-/devices/tracker/*/alarms.json"
 delete_alarm_url = "https://api.fitbit.com/1/user/-/devices/tracker/*/alarms/$.json"
@@ -13,7 +14,7 @@ def set_alarm (user, device, date, day):
 	fitted_alarm_url = add_alarm_url.replace("-", user.fitbit_id).replace("*", device.fitbit_id)
 	headers = authorization.api_request_header_for(user)
 	fitbit_t = fitbit_time.time_from_date(date)
-	print "Fitbit time: " + fitbit_t
+	print "Setting alarm for " + fitbit_t
 	parameters = {'time': fitbit_t, 'enabled': "true", 'recurring': "false", 'weekDays': day}
 	response = requests.post(fitted_alarm_url, headers= headers, data=parameters)
 
@@ -29,18 +30,23 @@ def set_alarm (user, device, date, day):
 									 device=device)
 		alarm.save()
 	except:
-		alarms_cleared = clear_used_alarms_on_device(user, device)
-		if alarms_cleared == True:
-			print "Trying again..."
-			set_alarm(user, device, date, day)
-		return None 
+		if json_response["errors"][0]["message"] == "Cannot add more than 8 alarms to tracker.":
+			alarms_cleared = clear_used_alarms_on_device(user, device)
+			if alarms_cleared == True:
+				return set_alarm(user, device, date, day)
+			print "Failed to set alarm for %s. No spots." % fitbit_t
+			return None
+		else:
+			print "Failed to set alarm for %s. %s" % (fitbit_t, json_response)
+			return None
 
+	print "Success."
 	return alarm
 
 
 ##	User Alarms
 ##  --------------------------------------
-##	Returns the alarms set on the user's
+##	Returns the number of alarms set on the user's
 ##	Device which were not set by the app
 ##
 def user_alarms_count(user):
@@ -66,10 +72,11 @@ def user_alarms_count(user):
 		return json_response["errors"]
 
 def delete_alarm(user, device, alarm):
-	fitted_alarm_url = add_alarm_url.replace("-", user.fitbit_id).replace("*", device.fitbit_id).replace('$', alarm.fitbit_id)
+	print "Deleting: " + alarm.time
+	fitted_alarm_url = delete_alarm_url.replace("-", user.fitbit_id).replace("*", device.fitbit_id).replace('$', alarm.fitbit_id)
 	headers = authorization.api_request_header_for(user)
+	
 	requests.delete(fitted_alarm_url, headers=headers)
-
 	alarm.delete()
 
 def clear_used_alarms_on_device (user, device):
@@ -77,7 +84,8 @@ def clear_used_alarms_on_device (user, device):
 	try:
 		alarms = Alarm.objects.filter(user=user.id, device=device.id)
 		for alarm in alarms:
-			if fitbit_time.date_for_string(alarm.time) < datetime.datetime.now():
+			now_in_user_time = datetime.datetime.now() + timedelta(hours = fitbit_time.timezone_offset(alarm.time))
+			if fitbit_time.date_for_string(alarm.time) < now_in_user_time:
 				delete_alarm(user, device, alarm)
 				result = True
 		return result

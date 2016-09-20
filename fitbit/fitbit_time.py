@@ -22,7 +22,11 @@ def convert_isoweekday_to_string(isoweekday):
 		return "SUNDAY"
 
 def time_from_date(date):
-	utc_offset = int(date.utcoffset().total_seconds()/3600)
+	if date.utcoffset() is not None:
+		utc_offset = int(date.utcoffset().total_seconds()/3600)
+	else:
+		utc_offset = 0.0
+
 	utc_offset_string = ""
 	if utc_offset < 0:
 		utc_offset_string = "-%02d:00" % abs(utc_offset)
@@ -45,3 +49,7 @@ def date_for_string(string):
 
 def now():
 	return datetime.now().replace(tzinfo=dateutil.tz.tzoffset(None, 0))
+
+
+def timezone_offset(string):
+	return int(string[16:19])

@@ -9,6 +9,7 @@ from datetime import datetime, timedelta
 import webbrowser
 import watervibe.watervibe
 import fitbit_time
+from django.conf import settings
 
 client_id = "227RR9"
 scope_request_url = "https://www.fitbit.com/oauth2/authorize?"
@@ -124,7 +125,8 @@ def request_access_info (code = "", refresh_token = "", grant_type = "authorizat
 def api_request_header_for(user):
 	expiration_date = fitbit_time.date_for_string(user.access_token_expiration)
 
-	if expiration_date < datetime.now():
+	if expiration_date < datetime.now() and not settings.TESTING:
+		print "Updating access token..."
 		refresh_access_for_user(user)
 
 	headers = {'Authorization': 'Bearer ' + user.access_token}

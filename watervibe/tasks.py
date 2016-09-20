@@ -19,7 +19,7 @@ def setup(user):
 @app.task(ignore_result = True)
 def update(user):
 	if user.last_update is not None:
-		if date_for_string(user.last_update) - now_in_user_timezone(user) > timedelta(seconds=30):
+		if date_for_string(user.last_update) - now_in_user_timezone(user) < timedelta(seconds=30):
 			print "Extra Celery Process. Ignoring."
 			return 
 
@@ -33,7 +33,8 @@ def update(user):
 def sync(user):
 	print "Next sync time: " + user.next_sync_time
 	if user.last_sync is not None:
-		if date_for_string(user.last_sync) - now_in_user_timezone(user) > timedelta(seconds=30):
+		print "Sync previously..."
+		if date_for_string(user.last_sync) - now_in_user_timezone(user) < timedelta(seconds=30):
 			print "Extra Celery Process. Ignoring."
 			return 
 
@@ -42,9 +43,6 @@ def sync(user):
 	for reminder in users.reminders(user):
 		if reminder.app_id is None:
 			alarm_app_id = app.set_alarm(user.app_id, date_for_string(reminder.time))
-			if alarm_app_id is None:
-				return
-
 			reminder.app_id = alarm_app_id
 			reminder.save()
 
@@ -52,4 +50,4 @@ def sync(user):
 	user.next_sync_time = users.calculate_sync_time(user)
 	user.save()
 
-	sync.apply_async(args= [user], countdown=seconds_till_sync(user))
+	# sync.apply_async(args= [user], countdown=seconds_till_sync(user))

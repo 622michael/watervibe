@@ -39,7 +39,6 @@ def calculate_maximum_reminders(user):
 	app = importlib.import_module(user.app + "." + user.app)
 	return app.available_reminders_for_user(user.app_id)
 
-
 def period_for_user (user):
 	start_time =  date_for_string(user.start_of_period)
 	end_time = date_for_string(user.end_of_period)
