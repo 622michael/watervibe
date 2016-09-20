@@ -50,4 +50,4 @@ def sync(user):
 	user.next_sync_time = users.calculate_sync_time(user)
 	user.save()
 
-	# sync.apply_async(args= [user], countdown=seconds_till_sync(user))
+	sync.apply_async(args= [user], countdown=seconds_till_sync(user))
