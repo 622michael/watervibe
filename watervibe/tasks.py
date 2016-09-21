@@ -19,7 +19,8 @@ def setup(user):
 @app.task(ignore_result = True)
 def update(user):
 	if user.last_update is not None:
-		if date_for_string(user.last_update) - now_in_user_timezone(user) < timedelta(seconds=30):
+		time_since_last_update = date_for_string(user.last_sync) - now_in_user_timezone(user)
+		if abs(time_since_last_sync.total_seconds()) < abs(timedelta(minutes=60).total_seconds()):
 			print "Extra Celery Process. Ignoring."
 			return 
 
@@ -33,9 +34,9 @@ def update(user):
 def sync(user):
 	print "Next sync time: " + user.next_sync_time
 	if user.last_sync is not None:
-		print "Sync previously..."
-		if date_for_string(user.last_sync) - now_in_user_timezone(user) < timedelta(seconds=30):
-			print "Extra Celery Process. Ignoring."
+		time_since_last_sync = date_for_string(user.last_sync) - now_in_user_timezone(user)
+		if  abs(time_since_last_sync.total_seconds()) < abs(timedelta(minutes=60).total_seconds()):
+			print "Extra Celery Process. Last Synced: %d seconds ago." % time_since_last_sync.total_seconds()
 			return 
 
 	app = importlib.import_module(user.app + "." + user.app)
