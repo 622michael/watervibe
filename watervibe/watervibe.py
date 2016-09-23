@@ -24,7 +24,7 @@ def sync(user):
 
 def register_fitbit_user(fitbit_user):
 	try:
-		user = User.objects.get(app_id = user_id)
+		user = User.objects.get(app_id = fitbit_user.id)
 	except:
 		user = User.objects.create(app = 'fitbit',
 							   app_id = fitbit_user.id
