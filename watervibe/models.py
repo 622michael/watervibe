@@ -28,4 +28,3 @@ class Reminder(models.Model):
 	user = models.ForeignKey(User, on_delete = models.CASCADE, null = True)
 	app = models.CharField(max_length = 256, default = "fitbit")
 	app_id = models.IntegerField(null = True)
-

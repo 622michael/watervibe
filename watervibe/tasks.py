@@ -13,8 +13,7 @@ from datetime import datetime, timedelta
 
 @app.task(ignore_result = True)
 def setup(user):
-	update(user)
-	sync(user)
+	users.calculate_stats(user)
 
 @app.task(ignore_result = True)
 def update(user):

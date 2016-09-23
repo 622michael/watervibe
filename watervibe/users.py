@@ -39,26 +39,48 @@ def calculate_maximum_reminders(user):
 	app = importlib.import_module(user.app + "." + user.app)
 	return app.available_reminders_for_user(user.app_id)
 
+def start_of_period (user):
+	return date_for_string(user.start_of_period)
+
+def end_of_period (user): 
+	return date_for_string(user.end_of_period)
+
 def period_for_user (user):
-	start_time =  date_for_string(user.start_of_period)
-	end_time = date_for_string(user.end_of_period)
+	start_time =  start_of_period(user)
+	end_time = end_of_period(user)
 	return start_time, end_time
+
+def maximum_reminders(user):
+	user_app = importlib.import_module(user.app + "." + user.app)
+	return user_app.max_reminders()
 
 def user_timezone(user): 
 	return dateutil.tz.tzoffset(None, hours_offset(user.start_of_period)*60*60)
 
-def reminders_availabe_at_next_sync(user):
-	reminders = reminders(user).order_by('-time')
-	available_spots = user.maximum_reminders
+def maximum_time_between_reminders(user):
+	return timedelta(hours = 1, minute= 30)
+
+## Determines which reminders will have not fired
+## When the next sync occurs for the user.
+##
+def reminders_at_next_sync(user):
+	all_reminders = user_reminders(user)
+	reminders = []
 	next_sync_time = date_for_string(user.next_sync_time)
+
 	for reminder in reminders:
-		if reminder.time > next_sync_time:
-			available_spots = available_spots - 1
+		time = date_for_string(reminder.time)
+		if time > next_sync_time:
+			reminders.append(reminder)
 		else:
 			break
 
-	return available_spots
+	return reminders
 
-def reminders(user):
+def reminders_availabe_at_next_sync(user):
+	available_spots = maximum_reminders(user)
+	return available_spots - reminders_at_next_sync(user).count()
+
+def user_reminders(user):
 	return Reminder.objects.filter(user = user.id)
 

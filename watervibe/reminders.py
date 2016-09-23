@@ -8,11 +8,14 @@ import watervibe_time
 # from watervibe_time import date_for_string, string_for_datepyth
 from models import Reminder
 from datetime import timedelta
-import tasks
+
+def date(reminder):
+	return watervibe_time.date_for_string(reminder.time)
+
 
 def reminders_available_at_next_sync(user):
 	reminders = Reminder.objects.filter(user = user.id).order_by('-time')
-	available_spots = user.maximum_reminders
+	available_spots =  users.maximum_reminders(user)
 	next_sync_time = watervibe_time.date_for_string(user.next_sync_time)
 	for reminder in reminders:
 		if watervibe_time.date_for_string(reminder.time) > next_sync_time:
@@ -28,10 +31,8 @@ def create_reminder(time, user):
 							user= user)
 	reminder.save()
 
-	tasks.update.apply_async(args= [user], countdown=watervibe_time.seconds_till_reminder(reminder))
-
 def next_reminder_for(user): 
-	reminders = users.reminders(user).order_by("time")
+	reminders = users.user_reminders(user)
 	now = watervibe_time.now_in_user_timezone(user)
 	for reminder in reminders:
 		reminder_date = watervibe_time.date_for_string(reminder.time)
@@ -65,7 +66,6 @@ def create_reminders_for_user(user):
 			next_reminder_date = next_reminder_date.replace(hour = next_reminder_time.hour, 
 									   					  minute = next_reminder_time.minute)
 
-			print "%s is the first alarm" % watervibe_time.string_for_date(next_reminder_date)
 			while next_reminder_date < now:
 				next_reminder_date = next_reminder_date + time_between_reminders_for_user(user)
 

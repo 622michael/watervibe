@@ -28,6 +28,9 @@ def set_alarm (user_id, time):
 	else:
 		return None
 
+def max_reminders():
+	return 8
+
 def available_reminders_for_user(user_id):
 	user = User.objects.get(id = user_id)
 
