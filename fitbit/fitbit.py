@@ -19,9 +19,8 @@ def set_alarm (user_id, time):
 	day_int = time.isoweekday()
 	day = fitbit_time.convert_isoweekday_to_string(day_int)
 
-	device = devices_for_user(user).first()
-
-	alarm = alarms.set_alarm(user, device, time, day)
+	for device in devices_for_user(user):
+		alarm = alarms.set_alarm(user, device, time, day)
 
 	if alarm is not None:
 		return alarm.id

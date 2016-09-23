@@ -36,5 +36,6 @@ def get_devices_for(user):
 	return devices
 
 def first_device_for(user):
-	return Device.objects.get(user=user.id)
+	devices = Device.objects.filter(user = user.id)
+	return devices.first()
 
