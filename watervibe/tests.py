@@ -36,10 +36,10 @@ class WaterVibeAppTestClass(AppTestClass):
 		Reminder.objects.create(app= "fitbit", user= self.watervibe_user, 
 								time = "2016-09-20 19:00-04:00")
 
-class WaterVibeTaskTestClass(WaterVibeAppTestClass):
-	def test_sync(self):
-		sync(self.watervibe_user)
-		sync(self.watervibe_user)
+#class WaterVibeTaskTestClass(WaterVibeAppTestClass):
+	# def test_sync(self):
+	#	sync(self.watervibe_user)
+	#	sync(self.watervibe_user)
 
 # class WaterVibeTestClass(AppTestClass):
 # 	def test_setup(self):
@@ -94,7 +94,9 @@ class WaterVibeTaskTestClass(WaterVibeAppTestClass):
 
 
 
-# class UsersTestClass(AppTestClass):
+class UsersTestClass(WaterVibeAppTestClass):
+	def test_user_alarms(self): 
+		self.assertEqual(8, len(users.user_reminders(self.watervibe_user)))
 # 	def setUp(self):
 # 		self.watervibe_user = User.objects.create(app= 'fitbit', app_id=1, start_of_period = "08:30-04:00")
 

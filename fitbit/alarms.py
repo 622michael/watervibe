@@ -30,6 +30,7 @@ def set_alarm (user, device, date, day):
 									 device=device)
 		alarm.save()
 	except:
+		print json_response
 		if json_response["errors"][0]["fieldName"] == 'deviceId':
 			# Device probably doesn't support alarms
 			device.delete()

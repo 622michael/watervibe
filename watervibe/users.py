@@ -58,21 +58,23 @@ def user_timezone(user):
 	return dateutil.tz.tzoffset(None, hours_offset(user.start_of_period)*60*60)
 
 def maximum_time_between_reminders(user):
-	return timedelta(hours = 1, minute= 30)
+	return timedelta(hours = 1, minutes = 30)
 
 ## Determines which reminders will have not fired
 ## When the next sync occurs for the user.
 ##
 def reminders_at_next_sync(user):
-	all_reminders = user_reminders(user)
+	all_reminders = user_reminders(user).order_by("-time")
 	reminders = []
 	next_sync_time = date_for_string(user.next_sync_time)
 
-	for reminder in reminders:
+	for reminder in all_reminders:
 		time = date_for_string(reminder.time)
 		if time > next_sync_time:
+			print "%s is after %s" % (time, next_sync_time) 
 			reminders.append(reminder)
 		else:
+			print "%s is before %s" % (time, next_sync_time)
 			break
 
 	return reminders
@@ -82,5 +84,5 @@ def reminders_availabe_at_next_sync(user):
 	return available_spots - reminders_at_next_sync(user).count()
 
 def user_reminders(user):
-	return Reminder.objects.filter(user = user.id)
+	return Reminder.objects.filter(user_id = user.id)
 
