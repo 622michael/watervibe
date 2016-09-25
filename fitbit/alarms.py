@@ -33,6 +33,7 @@ def set_alarm (user, device, date, day):
 		if json_response["errors"][0]["fieldName"] == 'deviceId':
 			# Device probably doesn't support alarms
 			device.delete()
+			return None
 		elif json_response["errors"][0]["message"] == "Cannot add more than 8 alarms to tracker.":
 			alarms_cleared = clear_used_alarms_on_device(user, device)
 			if alarms_cleared == True:
