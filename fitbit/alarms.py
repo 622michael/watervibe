@@ -29,7 +29,6 @@ def set_alarm (user, device, date, day):
 									 user=user,
 									 device=device)
 		alarm.save()
-		fieldName': u'deviceId
 	except:
 		if json_response["errors"][0]["fieldName"] == 'deviceId':
 			# Device probably doesn't support alarms
