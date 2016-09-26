@@ -30,19 +30,23 @@ def set_alarm (user, device, date, day):
 									 device=device)
 		alarm.save()
 	except:
-		print json_response
-		if json_response["errors"][0]["fieldName"] == 'deviceId':
-			# Device probably doesn't support alarms
-			device.delete()
-			return None
-		elif json_response["errors"][0]["message"] == "Cannot add more than 8 alarms to tracker.":
-			alarms_cleared = clear_used_alarms_on_device(user, device)
-			if alarms_cleared == True:
-				return set_alarm(user, device, date, day)
-			print "Failed to set alarm for %s. No spots." % fitbit_t
-			return None
-		else:
-			print "Failed to set alarm for %s. %s" % (fitbit_t, json_response)
+		try:
+			if json_response["errors"][0]["fieldName"] == 'deviceId':
+				# Device probably doesn't support alarms
+				device.delete()
+				return None
+			elif json_response["errors"][0]["message"] == "Cannot add more than 8 alarms to tracker.":
+				alarms_cleared = clear_used_alarms_on_device(user, device)
+				if alarms_cleared == True:
+					return set_alarm(user, device, date, day)
+				print "Failed to set alarm for %s. No spots." % fitbit_t
+				return None
+			else:
+				print "Failed to set alarm for %s. %s" % (fitbit_t, json_response)
+				return None
+		except:
+			# Often an authorization error
+			print "Failed to set alarm for %s: %s" % (fitbit_t, json_response)
 			return None
 
 	print "Success."
