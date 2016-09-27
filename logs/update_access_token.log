@@ -1,0 +1,118 @@
+[START CRONTAB]
+None
+[{u'message': u'Refresh token invalid: 6f8e12b7e5d88e40d5147409faf56c8b93aff103afecc041528a48c768f01e84. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'invalid_grant'}]
+None
+[{u'message': u'Refresh token invalid: 17d3740e900662b237352a120d72726fe3262402b289df8f89e7595218d512e2. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'invalid_grant'}]
+[END CRONTAB]
+[START CRONTAB]
+None
+[{u'message': u'Refresh token invalid: 6f8e12b7e5d88e40d5147409faf56c8b93aff103afecc041528a48c768f01e84. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'invalid_grant'}]
+None
+[{u'message': u'Refresh token invalid: 17d3740e900662b237352a120d72726fe3262402b289df8f89e7595218d512e2. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'invalid_grant'}]
+[END CRONTAB]
+[START CRONTAB]
+{u'user_id': u'4TP97K', u'access_token': u'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0VFA5N0siLCJhdWQiOiIyMjdSUjkiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJ3aHIgd3BybyB3c2xlIHd3ZWkgd3NldCB3YWN0IHdsb2MiLCJleHAiOjE0NzQ5MTk2MjQsImlhdCI6MTQ3NDg5MDgyNH0.a7IPSKP5oDlAVW0vZU_X2TWNg1ZvxDyOlVR1I0wmuWE', u'expires_in': 28800, u'token_type': u'Bearer', u'scope': u'location profile weight heartrate settings activity sleep', u'refresh_token': u'48fa57b10be1d2e6adb26ae61953c94a357d60a7756ce6969fc1cc18851bc616'}
+None
+[{u'message': u'Refresh token invalid: 17d3740e900662b237352a120d72726fe3262402b289df8f89e7595218d512e2. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'invalid_grant'}]
+[END CRONTAB]
+[START CRONTAB]
+{u'user_id': u'4TP97K', u'access_token': u'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0VFA5N0siLCJhdWQiOiIyMjdSUjkiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJ3aHIgd3BybyB3c2xlIHd3ZWkgd3NldCB3YWN0IHdsb2MiLCJleHAiOjE0NzQ5MTk2MjQsImlhdCI6MTQ3NDg5MDgyNH0.a7IPSKP5oDlAVW0vZU_X2TWNg1ZvxDyOlVR1I0wmuWE', u'expires_in': 28800, u'token_type': u'Bearer', u'scope': u'location profile weight heartrate settings activity sleep', u'refresh_token': u'48fa57b10be1d2e6adb26ae61953c94a357d60a7756ce6969fc1cc18851bc616'}
+None
+[{u'message': u'Refresh token invalid: 17d3740e900662b237352a120d72726fe3262402b289df8f89e7595218d512e2. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'invalid_grant'}]
+[END CRONTAB]
+[START CRONTAB]
+[{u'message': u'Refresh token invalid: 17d3740e900662b237352a120d72726fe3262402b289df8f89e7595218d512e2. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'invalid_grant'}]
+[END CRONTAB]
+[START CRONTAB]
+[{u'message': u'Refresh token invalid: 2dea49a66cf77971b1ca17ad28f97ec8c5647efcbdc1d63a8f54fc71966c9604. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'invalid_grant'}]
+[{u'message': u'Refresh token invalid: 17d3740e900662b237352a120d72726fe3262402b289df8f89e7595218d512e2. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'invalid_grant'}]
+[END CRONTAB]
+[START CRONTAB]
+[{u'message': u'Refresh token invalid: 17d3740e900662b237352a120d72726fe3262402b289df8f89e7595218d512e2. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'invalid_grant'}]
+[END CRONTAB]
+[START CRONTAB]
+[{u'message': u'Refresh token invalid: 17d3740e900662b237352a120d72726fe3262402b289df8f89e7595218d512e2. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'invalid_grant'}]
+[END CRONTAB]
+[START CRONTAB]
+[{u'message': u'Refresh token invalid: 17d3740e900662b237352a120d72726fe3262402b289df8f89e7595218d512e2. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'invalid_grant'}]
+[END CRONTAB]
+[START CRONTAB]
+[{u'message': u'Refresh token invalid: b61a7fefd312dd7539ab7b222eef6de712746ca7e321d75ed4a993c871bf2f20. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'invalid_grant'}]
+[{u'message': u'Refresh token invalid: 17d3740e900662b237352a120d72726fe3262402b289df8f89e7595218d512e2. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'invalid_grant'}]
+[END CRONTAB]
+[START CRONTAB]
+[{u'message': u'Refresh token invalid: b61a7fefd312dd7539ab7b222eef6de712746ca7e321d75ed4a993c871bf2f20. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'invalid_grant'}]
+[{u'message': u'Refresh token invalid: 17d3740e900662b237352a120d72726fe3262402b289df8f89e7595218d512e2. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'invalid_grant'}]
+[END CRONTAB]
+[START CRONTAB]
+Failed to update!
+[{u'message': u'Refresh token invalid: 042cb9a6895b25b5d61af5debef2f6a4f5e387b876bfac6532b84b4b1298b2d0. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'invalid_grant'}]
+Failed to update!
+[{u'message': u'Refresh token invalid: 17d3740e900662b237352a120d72726fe3262402b289df8f89e7595218d512e2. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'invalid_grant'}]
+[END CRONTAB]
+[START CRONTAB]
+Failed to update!
+[{u'message': u'Refresh token invalid: 042cb9a6895b25b5d61af5debef2f6a4f5e387b876bfac6532b84b4b1298b2d0. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'invalid_grant'}]
+Failed to update!
+[{u'message': u'Refresh token invalid: 17d3740e900662b237352a120d72726fe3262402b289df8f89e7595218d512e2. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'invalid_grant'}]
+[END CRONTAB]
+[START CRONTAB]
+Saved: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0VFA5N0siLCJhdWQiOiIyMjdSUjkiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJ3aHIgd3BybyB3c2xlIHd3ZWkgd2FjdCB3c2V0IHdsb2MiLCJleHAiOjE0NzQ5NjM5ODIsImlhdCI6MTQ3NDkzNTE4Mn0.l2YG-4jLvAcBqH0976KsR9qNX8KYRej4b-B7Pfaber0
+Couldn't load success. {u'errors': [{u'message': u'Refresh token invalid: 17d3740e900662b237352a120d72726fe3262402b289df8f89e7595218d512e2. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'invalid_grant'}], u'success': False}
+Failed to update!
+[{u'message': u'Refresh token invalid: 17d3740e900662b237352a120d72726fe3262402b289df8f89e7595218d512e2. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'invalid_grant'}]
+[END CRONTAB]
+[START CRONTAB]
+Saved: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0VFA5N0siLCJhdWQiOiIyMjdSUjkiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJ3aHIgd3BybyB3c2xlIHd3ZWkgd3NldCB3YWN0IHdsb2MiLCJleHAiOjE0NzQ5NjQwNDEsImlhdCI6MTQ3NDkzNTI0MX0.gl4gmjCi0vmLseNb0ZbPatIsO84MgHKWjsn0b-CMi8A
+Couldn't load success. {u'errors': [{u'message': u'Refresh token invalid: 17d3740e900662b237352a120d72726fe3262402b289df8f89e7595218d512e2. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'invalid_grant'}], u'success': False}
+Failed to update!
+[{u'message': u'Refresh token invalid: 17d3740e900662b237352a120d72726fe3262402b289df8f89e7595218d512e2. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'invalid_grant'}]
+[END CRONTAB]
+[START CRONTAB]
+Saved: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0VFA5N0siLCJhdWQiOiIyMjdSUjkiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJ3aHIgd3BybyB3c2xlIHd3ZWkgd3NldCB3YWN0IHdsb2MiLCJleHAiOjE0NzQ5NjQxMDEsImlhdCI6MTQ3NDkzNTMwMX0.pXzy2HTNSH5gYJYaJKCMp4K--7wXmnwunZgZpphwIJ8
+Couldn't load success. {u'errors': [{u'message': u'Refresh token invalid: 17d3740e900662b237352a120d72726fe3262402b289df8f89e7595218d512e2. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'invalid_grant'}], u'success': False}
+Failed to update!
+[{u'message': u'Refresh token invalid: 17d3740e900662b237352a120d72726fe3262402b289df8f89e7595218d512e2. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'invalid_grant'}]
+[END CRONTAB]
+[START CRONTAB]
+Saved: ade8e3d80c8a05a701a8ebc841f9251b05e402b4e5abb120b5cf77ae69fd5fbf
+Couldn't load success. {u'errors': [{u'message': u'Refresh token invalid: 17d3740e900662b237352a120d72726fe3262402b289df8f89e7595218d512e2. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'invalid_grant'}], u'success': False}
+Failed to update!
+[{u'message': u'Refresh token invalid: 17d3740e900662b237352a120d72726fe3262402b289df8f89e7595218d512e2. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'invalid_grant'}]
+[END CRONTAB]
+[START CRONTAB]
+Saved: 3f862def17e9d3297355642a058eec48a8756fc60f324c32c8c1fecd7736be4b
+Couldn't load success. {u'errors': [{u'message': u'Refresh token invalid: 17d3740e900662b237352a120d72726fe3262402b289df8f89e7595218d512e2. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'invalid_grant'}], u'success': False}
+Failed to update!
+[{u'message': u'Refresh token invalid: 17d3740e900662b237352a120d72726fe3262402b289df8f89e7595218d512e2. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'invalid_grant'}]
+[END CRONTAB]
+[START CRONTAB]
+Saved: d64794e078ded226b3daa1f8a5f6f8144a30ed2ad651da1fd9999bc92ff6ec03
+Couldn't load success. {u'errors': [{u'message': u'Refresh token invalid: 17d3740e900662b237352a120d72726fe3262402b289df8f89e7595218d512e2. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'invalid_grant'}], u'success': False}
+Failed to update!
+[{u'message': u'Refresh token invalid: 17d3740e900662b237352a120d72726fe3262402b289df8f89e7595218d512e2. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'invalid_grant'}]
+[END CRONTAB]
+[START CRONTAB]
+Saved: 2e29e3f81877db12b14e8c27637cd82d1ad7a5bf593333b1315ce83cb237a36d
+Couldn't load success. {u'errors': [{u'message': u'Refresh token invalid: 17d3740e900662b237352a120d72726fe3262402b289df8f89e7595218d512e2. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'invalid_grant'}], u'success': False}
+Failed to update!
+[{u'message': u'Refresh token invalid: 17d3740e900662b237352a120d72726fe3262402b289df8f89e7595218d512e2. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'invalid_grant'}]
+[END CRONTAB]
+[START CRONTAB]
+Saved: 3918dfde71d52bce0ca9c56318af412518b133202d033e700c986b455a63e4be
+Couldn't load success. {u'errors': [{u'message': u'Refresh token invalid: 17d3740e900662b237352a120d72726fe3262402b289df8f89e7595218d512e2. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'invalid_grant'}], u'success': False}
+Failed to update!
+[{u'message': u'Refresh token invalid: 17d3740e900662b237352a120d72726fe3262402b289df8f89e7595218d512e2. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'invalid_grant'}]
+[END CRONTAB]
+[START CRONTAB]
+Saved: c24f975c20396d6217326868ee1d54900c16c44a8ffd22ee7f57112268e09a61
+Couldn't load success. {u'errors': [{u'message': u'Refresh token invalid: 17d3740e900662b237352a120d72726fe3262402b289df8f89e7595218d512e2. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'invalid_grant'}], u'success': False}
+Failed to update!
+[{u'message': u'Refresh token invalid: 17d3740e900662b237352a120d72726fe3262402b289df8f89e7595218d512e2. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'invalid_grant'}]
+[END CRONTAB]
+[START CRONTAB]
+Saved: 3f78379fe179075b31ba8efeae9fb8316c1f94aca50c0399453de38c318442f2
+Couldn't load success. {u'errors': [{u'message': u'Refresh token invalid: 17d3740e900662b237352a120d72726fe3262402b289df8f89e7595218d512e2. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'invalid_grant'}], u'success': False}
+Failed to update!
+[{u'message': u'Refresh token invalid: 17d3740e900662b237352a120d72726fe3262402b289df8f89e7595218d512e2. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'invalid_grant'}]
+[END CRONTAB]

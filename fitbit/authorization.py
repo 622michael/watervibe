@@ -87,18 +87,18 @@ def authorize (request):
 ##
 
 def refresh_access_for_user(user):
+	
 	access_info, errors = request_access_info(refresh_token = user.refresh_token, grant_type = "refresh_token")
 	if errors is not None:
-		print errors
 		return None
 
 
 	expiration_date = fitbit_time.now() + timedelta(seconds = access_info["expires_in"])
-
+	
 	user.access_token = access_info["access_token"]
 	user.refresh_token = access_info["refresh_token"]
 	user.access_token_expiration = fitbit_time.string_for_date(expiration_date)
-	user.save
+	user.save()
 
 
 ##	Request Access Info
