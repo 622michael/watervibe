@@ -24,7 +24,7 @@ api_scope = ["activity", "heartrate", "location", "profile", "settings", "sleep"
 ##
 
 def permissions_request(request):
-	base_url = scope_request_url
+	base_url = scope_requesttests_url
 	scope = ""
 	for data_point in api_scope: 
 		scope += data_point + " "
@@ -126,7 +126,6 @@ def api_request_header_for(user):
 	expiration_date = fitbit_time.date_for_string(user.access_token_expiration)
 
 	if expiration_date < datetime.now() and not settings.TESTING:
-		print "Updating access token..."
 		refresh_access_for_user(user)
 
 	headers = {'Authorization': 'Bearer ' + user.access_token}

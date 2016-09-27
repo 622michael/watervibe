@@ -57,12 +57,19 @@ def maximum_reminders(user):
 def user_timezone(user): 
 	return dateutil.tz.tzoffset(None, hours_offset(user.start_of_period)*60*60)
 
+##	Maximum Time Between Reminders
+##  --------------------------------------
+##	Calculates how much time must be
+##  Between reminders in order for the
+##  Base amount of ounces is met.
 def maximum_time_between_reminders(user):
 	return timedelta(hours = 1, minutes = 30)
 
-## Determines which reminders will have not fired
-## When the next sync occurs for the user.
-##
+##	Reminders at next sync
+##  --------------------------------------
+##	A list of reminders that will not have
+##  Fired at the next sync time.
+## 
 def reminders_at_next_sync(user):
 	all_reminders = user_reminders(user).order_by("-time")
 	reminders = []

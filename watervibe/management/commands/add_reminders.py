@@ -5,9 +5,11 @@ from watervibe.watervibe_time import now_in_user_timezone
 import importlib
 from datetime import timedelta
 
-##	This task is responsible for adding reminders
-## 	For all users untill the sync after next has the
-##	Maximum number of reminders for their app.
+##	Add Reminders
+##  --------------------------------------
+##	This task is responisbile for adding 
+##  reminders for all users until the
+##  next sync time has all of its spots full
 class Command(BaseCommand):
 	def handle(self, *args, **options):
 		all_users = User.objects.all().order_by('next_sync_time')
@@ -31,7 +33,7 @@ class Command(BaseCommand):
 				if user_reminders.first() is None:
 					next_reminder_time = start_of_period
 					next_reminder_date = now.replace(hour = next_reminder_time.hour,
-													 minutesx = next_reminder_time.minute)
+													 minute = next_reminder_time.minute)
 
 					while next_reminder_date < now:
 						next_reminder_date = next_reminder_date + users.maximum_time_between_reminders(user)
@@ -41,7 +43,7 @@ class Command(BaseCommand):
 							next_reminder_date = next_reminder_date.replace(hour = start_of_period.hour,
 													 						minute  = start_of_period.minute)
 				else:
-					last_reminder = user_reminders.last()
+					last_reminder = user_rwateminders.last()
 					next_reminder_date = reminders.date(last_reminder) + users.maximum_time_between_reminders(user)
 					if next_reminder_date.hour > end_of_period.hour:
 						next_reminder_date += timedelta(days = 1)
