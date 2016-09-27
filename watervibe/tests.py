@@ -4,7 +4,7 @@ from .models import User, Reminder
 import reminders, users
 from watervibe_time import now_in_user_timezone, seconds_till_reminder
 from tasks import sync
-from datetime import timedelta
+from datetime import timedelta, datetime
 
 
 class WaterVibeAppTestClass(AppTestClass): 
@@ -95,8 +95,11 @@ class WaterVibeAppTestClass(AppTestClass):
 
 
 class UsersTestClass(WaterVibeAppTestClass):
-	def test_user_alarms(self): 
-		self.assertEqual(8, len(users.user_reminders(self.watervibe_user)))
+	def test_maximum_time_between_reminders (self):
+		max_time = users.maximum_time_between_reminders(self.watervibe_user, datetime.now())
+		self.assertEqual(max_time, timedelta(seconds = 3842.194193))
+	# def test_user_alarms(self): 
+	# 	self.assertEqual(8, len(users.user_reminders(self.watervibe_user)))
 # 	def setUp(self):
 # 		self.watervibe_user = User.objects.create(app= 'fitbit', app_id=1, start_of_period = "08:30-04:00")
 

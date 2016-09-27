@@ -17,6 +17,8 @@ def sync(user):
 			alarm_app_id = app.set_alarm(user.app_id, reminders.date(reminder))
 			reminder.app_id = alarm_app_id
 			reminder.save()
+			if alarm_app_id is None:
+				break
 
 	user.last_sync = string_for_date(now_in_user_timezone(user))
 	user.next_sync_time = users.calculate_sync_time(user)

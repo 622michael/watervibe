@@ -4,7 +4,6 @@ from watervibe_time import time_zone_offset, date_for_string, hours_offset, stri
 import dateutil.parser
 import importlib
 
-
 def calculate_stats(user): 
 	user.start_of_period = calculate_start_period(user)
 	user.end_of_period = calculate_end_period(user)
@@ -50,6 +49,26 @@ def period_for_user (user):
 	end_time = end_of_period(user)
 	return start_time, end_time
 
+def period_for_date (user, date):
+	start_time, end_time = period_for_user(user)
+	start_date = start_time.replace(day = date.day, 
+									month = date.month, 
+									year = date.year)
+	end_date = end_time.replace(day = date.day,
+								month = date.month,
+								year = date.year)
+
+	return start_date, end_date
+
+def ounces_in_period (user, start_date, end_date):
+	app = importlib.import_module(user.app + "." + user.app)
+	weight = app.weight_for_user(user.app_id)
+
+	base_ounces = (2.0/3.0) * weight
+
+	return base_ounces
+
+
 def maximum_reminders(user):
 	user_app = importlib.import_module(user.app + "." + user.app)
 	return user_app.max_reminders()
@@ -62,8 +81,18 @@ def user_timezone(user):
 ##	Calculates how much time must be
 ##  Between reminders in order for the
 ##  Base amount of ounces is met.
-def maximum_time_between_reminders(user):
-	return timedelta(hours = 1, minutes = 30)
+##  Input: user -> watervibe_user, date -> datetime
+def maximum_time_between_reminders(user, date):
+	start_of_period, end_of_period = period_for_date(user, date)
+	ounces = ounces_in_period (user, start_of_period, end_of_period)
+	drink_size = user.drink_size
+
+	length_of_period = (end_of_period - start_of_period).total_seconds()
+	num_reminders = ounces/drink_size
+
+	time_between_reminders = length_of_period/num_reminders
+	print "Seconds: %f" % time_between_reminders
+	return timedelta(seconds = length_of_period/num_reminders)
 
 ##	Reminders at next sync
 ##  --------------------------------------

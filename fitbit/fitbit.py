@@ -34,3 +34,8 @@ def available_reminders_for_user(user_id):
 	user = User.objects.get(id = user_id)
 
 	return 8 - alarms.user_alarms_count(user)
+
+def weight_for_user (user_id):
+	user = User.objects.get(id = user_id)
+
+	return user.weight

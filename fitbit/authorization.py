@@ -9,6 +9,7 @@ from datetime import datetime, timedelta
 import webbrowser
 import watervibe.watervibe
 import fitbit_time
+import users
 from django.conf import settings
 
 client_id = "227RR9"
@@ -56,20 +57,20 @@ def authorize (request):
 
 	print user_id
 	try:
-		user = User.objects.get(fitbit_id=user_id)
+		user = User.objects.get(fitbit_id = user_id)
 		user.access_token = access_token
 		user.scope = scope
 		user.refresh_token = refresh_token
 		user.access_token_expiration = expiration_date
 		user.save()
 	except:
-		user = User.objects.create( fitbit_id=user_id, 
-								access_token=access_token, 
-								scope=scope, 
-								refresh_token=refresh_token)
+		user = User.objects.create( fitbit_id = user_id, 
+								access_token = access_token, 
+								scope = scope, 
+								refresh_token = refresh_token)
 		user.save()
 
-	
+	users.update_profile(user)
 	device.get_devices_for(user)
 
 	if(alarms.user_alarms_count(user) == 8): 
