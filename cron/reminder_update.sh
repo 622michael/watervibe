@@ -1,5 +1,6 @@
 #!/bin/bash
 
-echo "Adding reminders..."
+echo "[START CRONTAB]"
 cd /home/watervibe
 python manage.py add_reminders
+echo "[END CRONTAB]"

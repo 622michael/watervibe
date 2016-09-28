@@ -1,103 +1,10 @@
--bash: ./cron/app_sync.sh: Permission denied
-sudo: ./cron/app_sync.sh: command not found
--bash: ./home/watervibe/cron/app_sync.sh: No such file or directory
--bash: ./app_sync.sh: Permission denied
 Running sync...
-Updating access token...
 Setting alarm for 11:30-04:00
-{u'errors': [{u'message': u'Cannot add more than 8 alarms to tracker.', u'errorType': u'request', u'fieldName': u'n/a'}]}
-Deleting: 2016-09-25 20:30-04:00
-Setting alarm for 11:30-04:00
-Success.
-Updating access token...
-[{u'message': u'Refresh token invalid: 17d3740e900662b237352a120d72726fe3262402b289df8f89e7595218d512e2. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'invalid_grant'}]
-Setting alarm for 13:00-04:00
-{u'errors': [{u'message': u'Access token expired: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzTk1NS0YiLCJhdWQiOiIyMjdSUjkiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJ3aHIgd3BybyB3c2xlIHd3ZWkgd3NldCB3YWN0IHdsb2MiLCJleHAiOjE0NzQ2Nzk3MzEsImlhdCI6MTQ3NDY1MDkzMX0.HJftE8Y6o2vdxxhg3ngwTb4f04gNRuGFMfcXrXaUYHM. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'expired_token'}], u'success': False}
-Traceback (most recent call last):
-  File "manage.py", line 22, in <module>
-    execute_from_command_line(sys.argv)
-  File "/usr/local/lib/python2.7/dist-packages/django/core/management/__init__.py", line 367, in execute_from_command_line
-    utility.execute()
-  File "/usr/local/lib/python2.7/dist-packages/django/core/management/__init__.py", line 359, in execute
-    self.fetch_command(subcommand).run_from_argv(self.argv)
-  File "/usr/local/lib/python2.7/dist-packages/django/core/management/base.py", line 294, in run_from_argv
-    self.execute(*args, **cmd_options)
-  File "/usr/local/lib/python2.7/dist-packages/django/core/management/base.py", line 345, in execute
-    output = self.handle(*args, **options)
-  File "/home/watervibe/watervibe/management/commands/sync.py", line 9, in handle
-    watervibe.sync(user)
-  File "/home/watervibe/watervibe/watervibe.py", line 17, in sync
-    alarm_app_id = app.set_alarm(user.app_id, reminders.date(reminder))
-  File "/home/watervibe/fitbit/fitbit.py", line 23, in set_alarm
-    alarm = alarms.set_alarm(user, device, time, day)
-  File "/home/watervibe/fitbit/alarms.py", line 34, in set_alarm
-    if json_response["errors"][0]["fieldName"] == 'deviceId':
-KeyError: 'fieldName'
-Running sync...
-Updating access token...
-[{u'message': u'Refresh token invalid: a92116a41520f48cdebcb09bd840c31ae6bf3e8bb6bee6c68ac4865924a78234. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'invalid_grant'}]
-Setting alarm for 13:00-04:00
-{u'errors': [{u'message': u'Access token expired: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0VFA5N0siLCJhdWQiOiIyMjdSUjkiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJ3aHIgd3BybyB3c2xlIHd3ZWkgd2FjdCB3c2V0IHdsb2MiLCJleHAiOjE0NzQ4NzMxODcsImlhdCI6MTQ3NDg0NDM4N30.-5AeVU_riIdX8tP_ioQXEy5EEGAGAvj7dOxZbzFnAS8. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'expired_token'}], u'success': False}
-Traceback (most recent call last):
-  File "manage.py", line 22, in <module>
-    execute_from_command_line(sys.argv)
-  File "/usr/local/lib/python2.7/dist-packages/django/core/management/__init__.py", line 367, in execute_from_command_line
-    utility.execute()
-  File "/usr/local/lib/python2.7/dist-packages/django/core/management/__init__.py", line 359, in execute
-    self.fetch_command(subcommand).run_from_argv(self.argv)
-  File "/usr/local/lib/python2.7/dist-packages/django/core/management/base.py", line 294, in run_from_argv
-    self.execute(*args, **cmd_options)
-  File "/usr/local/lib/python2.7/dist-packages/django/core/management/base.py", line 345, in execute
-    output = self.handle(*args, **options)
-  File "/home/watervibe/watervibe/management/commands/sync.py", line 9, in handle
-    watervibe.sync(user)
-  File "/home/watervibe/watervibe/watervibe.py", line 17, in sync
-    alarm_app_id = app.set_alarm(user.app_id, reminders.date(reminder))
-  File "/home/watervibe/fitbit/fitbit.py", line 23, in set_alarm
-    alarm = alarms.set_alarm(user, device, time, day)
-  File "/home/watervibe/fitbit/alarms.py", line 34, in set_alarm
-    if json_response["errors"][0]["fieldName"] == 'deviceId':
-KeyError: 'fieldName'
-Running sync...
-Setting alarm for 13:00-04:00
-{u'errors': [{u'message': u'Cannot add more than 8 alarms to tracker.', u'errorType': u'request', u'fieldName': u'n/a'}]}
-Failed to set alarm for 13:00-04:00. No spots.
-Setting alarm for 14:30-04:00
-{u'errors': [{u'message': u'Cannot add more than 8 alarms to tracker.', u'errorType': u'request', u'fieldName': u'n/a'}]}
-Failed to set alarm for 14:30-04:00. No spots.
-Setting alarm for 16:00-04:00
-{u'errors': [{u'message': u'Cannot add more than 8 alarms to tracker.', u'errorType': u'request', u'fieldName': u'n/a'}]}
-Failed to set alarm for 16:00-04:00. No spots.
-Setting alarm for 17:30-04:00
-{u'errors': [{u'message': u'Cannot add more than 8 alarms to tracker.', u'errorType': u'request', u'fieldName': u'n/a'}]}
-Failed to set alarm for 17:30-04:00. No spots.
+Failed to set alarm for 11:30-04:00. No spots.
 Setting alarm for 19:00-04:00
-{u'errors': [{u'message': u'Cannot add more than 8 alarms to tracker.', u'errorType': u'request', u'fieldName': u'n/a'}]}
 Failed to set alarm for 19:00-04:00. No spots.
-Setting alarm for 20:30-04:00
-{u'errors': [{u'message': u'Cannot add more than 8 alarms to tracker.', u'errorType': u'request', u'fieldName': u'n/a'}]}
-Failed to set alarm for 20:30-04:00. No spots.
-Updating access token...
-[{u'message': u'Refresh token invalid: 17d3740e900662b237352a120d72726fe3262402b289df8f89e7595218d512e2. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'invalid_grant'}]
-Setting alarm for 13:00-04:00
-{u'errors': [{u'message': u'Access token expired: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzTk1NS0YiLCJhdWQiOiIyMjdSUjkiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJ3aHIgd3BybyB3c2xlIHd3ZWkgd3NldCB3YWN0IHdsb2MiLCJleHAiOjE0NzQ2Nzk3MzEsImlhdCI6MTQ3NDY1MDkzMX0.HJftE8Y6o2vdxxhg3ngwTb4f04gNRuGFMfcXrXaUYHM. Visit https://dev.fitbit.com/docs/oauth2 for more information on the Fitbit Web API authorization process.', u'errorType': u'expired_token'}], u'success': False}
-Traceback (most recent call last):
-  File "manage.py", line 22, in <module>
-    execute_from_command_line(sys.argv)
-  File "/usr/local/lib/python2.7/dist-packages/django/core/management/__init__.py", line 367, in execute_from_command_line
-    utility.execute()
-  File "/usr/local/lib/python2.7/dist-packages/django/core/management/__init__.py", line 359, in execute
-    self.fetch_command(subcommand).run_from_argv(self.argv)
-  File "/usr/local/lib/python2.7/dist-packages/django/core/management/base.py", line 294, in run_from_argv
-    self.execute(*args, **cmd_options)
-  File "/usr/local/lib/python2.7/dist-packages/django/core/management/base.py", line 345, in execute
-    output = self.handle(*args, **options)
-  File "/home/watervibe/watervibe/management/commands/sync.py", line 9, in handle
-    watervibe.sync(user)
-  File "/home/watervibe/watervibe/watervibe.py", line 17, in sync
-    alarm_app_id = app.set_alarm(user.app_id, reminders.date(reminder))
-  File "/home/watervibe/fitbit/fitbit.py", line 23, in set_alarm
-    alarm = alarms.set_alarm(user, device, time, day)
-  File "/home/watervibe/fitbit/alarms.py", line 34, in set_alarm
-    if json_response["errors"][0]["fieldName"] == 'deviceId':
-KeyError: 'fieldName'
+Running sync...
+Setting alarm for 11:30-04:00
+Failed to set alarm for 11:30-04:00. No spots.
+Setting alarm for 19:00-04:00
+Failed to set alarm for 19:00-04:00. No spots.

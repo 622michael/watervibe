@@ -43,7 +43,7 @@ class Command(BaseCommand):
 							next_reminder_date = next_reminder_date.replace(hour = start_of_period.hour,
 													 						minute  = start_of_period.minute)
 				else:
-					last_reminder = user_rwateminders.last()
+					last_reminder = user_reminders.last()
 					next_reminder_date = reminders.date(last_reminder) + users.maximum_time_between_reminders(user)
 					if next_reminder_date.hour > end_of_period.hour:
 						next_reminder_date += timedelta(days = 1)
