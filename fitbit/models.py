@@ -9,7 +9,7 @@ class User(models.Model):
 	access_token = models.CharField(max_length = 260)
 	scope= models.CharField(max_length = 260)
 	refresh_token= models.CharField(max_length = 64)
-	access_token_expiration = models.CharField(max_length = 22, default="2090-09-15 12:00+00:00")
+	access_token_expiration = models.CharField(max_length = 22, default="2012-09-15 12:00+00:00")
 	
 	# Profile fields
 	weight = models.FloatField(default = 0.0)

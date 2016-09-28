@@ -9,7 +9,7 @@ def calculate_stats(user):
 	user.end_of_period = calculate_end_period(user)
 	user.ounces_in_a_day = calculate_ounces_in_a_day(user)
 	user.drink_size = calculate_drink_size(user)
-	user.next_sync_time = calculate_sync_time(user)
+	user.next_sync_time = sync_time(user)
 	user.maximum_reminders = calculate_maximum_reminders(user)
 	user.save()
 
@@ -29,10 +29,10 @@ def calculate_drink_size(user):
 	default_drink_size = 8.0
 	return default_drink_size
 
-def calculate_sync_time(user):
-	tomorrow = date.today() + timedelta(days=1)
-	default_sync_time = "%(year)02d-%(month)02d-%(day)02d 00:00-04:00" % {'year': tomorrow.year, 'month': tomorrow.month, 'day': tomorrow.day}
-	return default_sync_time
+def sync_time(user):
+	an_hour_from_now = now_in_user_timezone(user) + timedelta(hours = 1)
+	beginning_of_hour = an_hour_from_now.replace(minute = 0) # Sets to beginning of hour
+	return string_for_date(beginning_of_hour)
 
 def calculate_maximum_reminders(user):
 	app = importlib.import_module(user.app + "." + user.app)
@@ -107,10 +107,8 @@ def reminders_at_next_sync(user):
 	for reminder in all_reminders:
 		time = date_for_string(reminder.time)
 		if time > next_sync_time:
-			print "%s is after %s" % (time, next_sync_time) 
 			reminders.append(reminder)
 		else:
-			print "%s is before %s" % (time, next_sync_time)
 			break
 
 	return reminders

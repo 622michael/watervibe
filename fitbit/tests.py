@@ -10,7 +10,7 @@ import users
 class AppTestClass(TestCase):
 	def setUp(self):
 		self.user = User.objects.create( fitbit_id="4TP97K", 
-								access_token="eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0VFA5N0siLCJhdWQiOiIyMjdSUjkiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJ3aHIgd3BybyB3c2xlIHd3ZWkgd2FjdCB3c2V0IHdsb2MiLCJleHAiOjE0NzUwMjAxNzcsImlhdCI6MTQ3NDk5MTM3N30.6Ft6ytXekIHU_4PsUjhm7SUTYuH8oS-fxqaAXRO2nHU", 
+								access_token="eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0VFA5N0siLCJhdWQiOiIyMjdSUjkiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJ3aHIgd3BybyB3c2xlIHd3ZWkgd3NldCB3YWN0IHdsb2MiLCJleHAiOjE0NzUwNzEyMDMsImlhdCI6MTQ3NTA0MjQwM30.NJKhIv_ESEPUNqe0Izrjq_O893m-4L72cir04bIIBZQ", 
 								scope="activity heartrate profile location sleep weight settings", 
 								refresh_token="e6188a45d20779cb8c4c4ae0b62c4dfb590823d40f1f5c86a5f6c5f1add9ece8",
 								access_token_expiration = "2016-09-25 12:00+00:00")

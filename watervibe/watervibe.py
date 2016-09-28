@@ -21,7 +21,7 @@ def sync(user):
 				break
 
 	user.last_sync = string_for_date(now_in_user_timezone(user))
-	user.next_sync_time = users.calculate_sync_time(user)
+	user.next_sync_time = users.sync_time(user)
 	user.save()
 
 def register_fitbit_user(fitbit_user):

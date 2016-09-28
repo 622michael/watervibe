@@ -98,6 +98,11 @@ class UsersTestClass(WaterVibeAppTestClass):
 	def test_maximum_time_between_reminders (self):
 		max_time = users.maximum_time_between_reminders(self.watervibe_user, datetime.now())
 		self.assertEqual(max_time, timedelta(seconds = 3842.194193))
+
+	def test_calculate_sync_time(self):
+		next_sync_time = users.sync_time(self.watervibe_user)
+		self.assertEqual(next_sync_time, "2016-09-28 09:00-04:00")
+
 	# def test_user_alarms(self): 
 	# 	self.assertEqual(8, len(users.user_reminders(self.watervibe_user)))
 # 	def setUp(self):
