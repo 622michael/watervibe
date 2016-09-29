@@ -36,7 +36,7 @@ class Command(BaseCommand):
 													 minute = next_reminder_time.minute)
 
 					while next_reminder_date < now:
-						next_reminder_date = next_reminder_date + users.maximum_time_between_reminders(user)
+						next_reminder_date = next_reminder_date + users.maximum_time_between_reminders(user, now)
 
 						if next_reminder_date.hour > end_of_period.hour:
 							next_reminder_date += timedelta(days = 1)
@@ -44,7 +44,7 @@ class Command(BaseCommand):
 													 						minute  = start_of_period.minute)
 				else:
 					last_reminder = user_reminders.last()
-					next_reminder_date = reminders.date(last_reminder) + users.maximum_time_between_reminders(user)
+					next_reminder_date = reminders.date(last_reminder) + users.maximum_time_between_reminders(user, reminders.date(last_reminder))
 					if next_reminder_date.hour > end_of_period.hour:
 						next_reminder_date += timedelta(days = 1)
 						next_reminder_date = next_reminder_date.replace(hour = start_of_period.hour,
