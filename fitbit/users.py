@@ -1,7 +1,7 @@
 from .models import User, Sleep
 import authorization
 import json, requests
-from fitbit_time import string_for_date, now, log_date_for_string
+from fitbit_time import string_for_date, now, log_date_for_string, date_for_string
 from datetime import timedelta
 
 profile_url = "https://api.fitbit.com/1/user/-/profile.json"
@@ -52,7 +52,7 @@ def update_weight (user, user_profile):
 ##	into fitbit.sleep.
 
 def sync_sleep_logs (user): 
-	last_sleep_sync = user.last_sleep_sync
+	last_sleep_sync = date_for_string(user.last_sleep_sync)
 
 	if last_sleep_sync is None:
 		last_sleep_sync = now() - timedelta(days = 30)
