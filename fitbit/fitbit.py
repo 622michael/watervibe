@@ -1,4 +1,4 @@
-from .models import Device, User
+from .models import Device, User, Sleep
 import alarms
 import fitbit_time
 import authorization
@@ -39,3 +39,11 @@ def weight_for_user (user_id):
 	user = User.objects.get(id = user_id)
 
 	return user.weight
+
+def wake_times (user_id):
+	times = []
+	for sleep in Sleep.objects.filter(user_id = user_id):
+		if sleep.is_main_sleep:
+			times.append(sleep.end_time)
+
+	return times
