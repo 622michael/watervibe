@@ -33,19 +33,24 @@ def time_from_date(date):
 	else:
 		utc_offset_string = "+%02d:00" % abs(utc_offset)
 
-	fitbit_time = "%02d:%02d"%(date.hour, date.minute) + utc_offset_string
+	fitbit_time = "%02d:%02d" % (date.hour, date.minute) + utc_offset_string
 
 	return fitbit_time
 
-def string_for_date(date):
-	date_string = "%(year)02d-%(month)02d-%(day)02d " % {'year': date.year, 'month': date.month, 'day': date.day}
-	time_string = time_from_date(date)
+def string_for_date(date, time = True):
+	date_string = "%(year)02d-%(month)02d-%(day)02d" % {'year': date.year, 'month': date.month, 'day': date.day}
 
-	return date_string + time_string
+	if not time:
+		return date_string
+	else:
+		time_string = time_from_date(date)
+		return date_string + " " + time_string
 
 def date_for_string(string):
 	return datetime.strptime(remove_timezone_from_string(string), "%Y-%m-%d %H:%M")
 
+def log_date_for_string(string):
+	return datetime.strptime(string[:-4], "%Y-%m-%dT%H:%M:%S")
 
 def now():
 	return datetime.now().replace(tzinfo=dateutil.tz.tzoffset(None, 0))

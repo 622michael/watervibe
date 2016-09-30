@@ -3,6 +3,10 @@ from datetime import datetime, date, timedelta
 from watervibe_time import time_zone_offset, date_for_string, hours_offset, string_for_date, now_in_user_timezone
 import dateutil.parser
 import importlib
+import math
+
+def users():
+	return User.objects.all()
 
 def calculate_stats(user): 
 	user.start_of_period = calculate_start_period(user)
@@ -76,6 +80,26 @@ def maximum_reminders(user):
 def user_timezone(user): 
 	return dateutil.tz.tzoffset(None, hours_offset(user.start_of_period)*60*60)
 
+
+##	Weighted Average Wake Time
+##  --------------------------------------
+##	Calculates how much time must be
+##  Between reminders in order for the
+##  Base amount of ounces is met.
+##  Input: user -> watervibe_user, day_of_week -> (1..7)
+def weighted_average_wake_time(user, day_of_the_week):
+	app = importlib.import_module(user.app + "." + user.app)
+	wake_times = app.wake_times(user)
+	parsed_times = []
+	for wake_time in wake_times:
+		date = watervibe.date_for_string(wake_time)
+		if date.isoweekday() == day_of_the_week:
+			time = date.hour + date.minute/60
+			parsed_times.append(time)
+
+	return stats.weighted_average(parsed_times, lambda x: math.exp(-x))
+
+
 ##	Maximum Time Between Reminders
 ##  --------------------------------------
 ##	Calculates how much time must be
@@ -113,6 +137,11 @@ def reminders_at_next_sync(user):
 
 	return reminders
 
+##	Reminders available at next sync
+##  --------------------------------------
+##	An integer for the amount of available
+##	spots when the next sync occurs.
+## 
 def reminders_availabe_at_next_sync(user):
 	available_spots = maximum_reminders(user)
 	return available_spots - reminders_at_next_sync(user).count()

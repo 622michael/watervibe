@@ -4,6 +4,22 @@ import dateutil
 import users
 import reminders
 
+def string_for_day(day): 
+	if isoweekday is 1:
+		return "MONDAY"
+	elif isoweekday is 2:
+		return "TUESDAY"
+	elif isoweekday is 3:
+		return "WEDNESDAY"
+	elif isoweekday is 4:
+		return "THURSDAY"
+	elif isoweekday is 5:
+		return "FRIDAY"
+	elif isoweekday is 6:
+		return "SATURDAY"
+	elif isoweekday is 7:
+		return "SUNDAY"
+
 def date_for_string(string):
 	if len(string) > 11:
 		date = datetime.strptime(remove_timezone_from_string(string), "%Y-%m-%d %H:%M")

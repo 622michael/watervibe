@@ -1,25 +1,27 @@
 from django.test import TestCase
 from . import fitbit
-from .models import User, Device, Alarm
+from .models import User, Device, Alarm, Sleep
 import dateutil.parser
 import authorization
 import alarms
 import users
+from fitbit_time import now, string_for_date
+from datetime import timedelta
 
 # Create your tests here.
 class AppTestClass(TestCase):
 	def setUp(self):
 		self.user = User.objects.create( fitbit_id="4TP97K", 
-								access_token="eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0VFA5N0siLCJhdWQiOiIyMjdSUjkiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJ3aHIgd3BybyB3c2xlIHd3ZWkgd3NldCB3YWN0IHdsb2MiLCJleHAiOjE0NzUwNzEyMDMsImlhdCI6MTQ3NTA0MjQwM30.NJKhIv_ESEPUNqe0Izrjq_O893m-4L72cir04bIIBZQ", 
+								access_token="eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0VFA5N0siLCJhdWQiOiIyMjdSUjkiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJ3aHIgd3BybyB3c2xlIHd3ZWkgd3NldCB3YWN0IHdsb2MiLCJleHAiOjE0NzUyMTU1MDMsImlhdCI6MTQ3NTE4NjcwM30.e1XUISIMtoYRiVXECxI7YCHQEg4NY6ZoNlCPwSlBNI8", 
 								scope="activity heartrate profile location sleep weight settings", 
-								refresh_token="e6188a45d20779cb8c4c4ae0b62c4dfb590823d40f1f5c86a5f6c5f1add9ece8",
+								refresh_token="f773b5ef603e8d2a5dfb681fad6a89d06726fd1f39fc0a3620f2136a89735516",
 								access_token_expiration = "2016-09-25 12:00+00:00")
 		self.device = Device.objects.create(fitbit_id = "310104047",
 										version = "Charge HR",
 										device_type = "TRACKER",
 										user = self.user)
 
-		users.update_profile(self.user)
+		# users.update_profile(self.user)
 
 		Alarm.objects.create(time = "2016-09-27 14:30-04:00", 
 			fitbit_id = "336601763", 
@@ -45,6 +47,20 @@ class UserTestClass(AppTestClass):
 	def test_update_profile(self):
 		users.update_profile(self.user)
 		self.assertEqual(self.user.weight, 134.92290445416)
+
+
+	def test_sleep_log (self): 
+		date = string_for_date(now() - timedelta(days = 1))
+		print "[****START TEST SLEEP LOG %s****]" %  date
+		log  = users.sleep_log(self.user, now() - timedelta(days = 1))
+		print "[****START TEST SLEEP LOG %s****]" % date
+
+		print log
+
+	def test_sync_sleep_logs (self): 
+		users.sync_sleep_logs(self.user)
+
+		self.assertTrue(len(Sleep.objects.filter(user_id = self.user.id)) != 0)
 
 
 
