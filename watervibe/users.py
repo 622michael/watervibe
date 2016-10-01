@@ -107,7 +107,7 @@ def weighted_average_wake_time(user, day_of_the_week):
 ##	that should decrease as the data gets further away (TODO)
 def weighted_average_sleep_time(user, day_of_the_week):
 	app = importlib.import_module(user.app + "." + user.app)
-	sleep_times = app.sleep_times(user.app_id)
+	sleep_times, wake_times = app.sleep_times(user.app_id)
 	parsed_times = []
 	for sleep_time in sleep_times:
 		date = date_for_string(sleep_time)

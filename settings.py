@@ -85,7 +85,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'watervibe',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': 'h2ogogogo!',
         'HOST': 'localhost',
         'PORT': '3306',
     }

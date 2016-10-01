@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
 from watervibe import users
-from watervibe.watervibe_time import string_for_day
+from watervibe.watervibe_time import string_for_day, date_for_string
 import importlib
 
 class Command(BaseCommand):
@@ -26,24 +26,29 @@ class Command(BaseCommand):
 				success = 0
 				total = 0
 				app = importlib.import_module(user.app + "." + user.app)
-				sleep_times, wake_times = app.sleep_times(user)
+				sleep_times, wake_times = app.sleep_times(user.id)
 
+				day_wake_times = []
+				day_sleep_times = []
 				for x in range(0, len(wake_times)):
-					wake_time = wake_times[i]
-					sleep_time = sleep_times[i]
+					wake_time = wake_times[x]
+					sleep_time = sleep_times[x]
 
-					wake_time_date = watervibe.date_for_string(wake_time)
-					sleep_time_date = watervibe.date_for_string(sleep_time)
+					wake_time_date = date_for_string(wake_time)
+					sleep_time_date = date_for_string(sleep_time)
 
-					start_of_period = wake_time_date.replace(hour = int(wake_average), minute = wake_average % 1)
-					end_of_period = sleep_time_date.replace(hour = int(sleep_average), minute = sleep_average % 1)
-
-					if wake_time_date.isoweekday() == day_of_the_week:
-						if start_of_period > wake_time:
+					start_of_period = wake_time_date.replace(hour = int(wake_average), minute = int((wake_average % 1)*60))
+					end_of_period = sleep_time_date.replace(hour = int(sleep_average), minute = int((sleep_average % 1)*60))
+						
+					if wake_time_date.isoweekday() is day_of_the_week:
+						day_wake_times.append(wake_time)
+						day_sleep_times.append(sleep_time)
+						
+						if start_of_period > wake_time_date:
 							wake_success += 1
-						if end_of_period < sleep_time:
+						if end_of_period < sleep_time_date:
 							sleep_success += 1
-						if end_of_period < sleep_time and start_of_period > wake_time:
+						if end_of_period < sleep_time_date and start_of_period > wake_time_date:
 							success += 1
 						total += 1
 	
@@ -56,9 +61,11 @@ class Command(BaseCommand):
 
 				day = string_for_day(day_of_the_week)
 
-				print "%s: %f %.2f" % (day, average, accuracy*100)
+				print "%s: (%f - %f) %.2f" % (day, sleep_average, wake_average, accuracy*100)
 				print "\t Starting Period Accuracy: %.2f" % wake_accuracy
 				print "\t Ending Period Accuracy: %.2f" % sleep_accuracy
+				print "\t \t Sleep times: %s" % day_sleep_times
+				print "\t \t Wake times: %s" % day_wake_times
 
 
 			print "------ END SLEEP INFO %d ---------" % user.id
