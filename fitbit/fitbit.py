@@ -42,7 +42,13 @@ def weight_for_user (user_id):
 
 def wake_times (user_id):
 	times = []
-	for sleep in Sleep.objects.filter(user_id = user_id):
+	
+	try: 
+		user = User.objects.get(id = user_id)
+	except:
+		return []
+
+	for sleep in Sleep.objects.filter(user = user):
 		if sleep.is_main_sleep:
 			times.append(sleep.end_time)
 

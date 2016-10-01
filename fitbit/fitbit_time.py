@@ -49,8 +49,8 @@ def string_for_date(date, time = True):
 def date_for_string(string):
 	return datetime.strptime(remove_timezone_from_string(string), "%Y-%m-%d %H:%M")
 
-def log_date_for_string(string):
-	return datetime.strptime(string[:-4], "%Y-%m-%dT%H:%M:%S")
+def log_date_for_string(user, string):
+	return pytz.timezone(user.timezone).localize(datetime.strptime(string[:-4], "%Y-%m-%dT%H:%M:%S"))
 
 def now():
 	return datetime.now().replace(tzinfo=dateutil.tz.tzoffset(None, 0))

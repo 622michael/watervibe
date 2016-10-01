@@ -3,6 +3,8 @@ import authorization
 import json, requests
 from fitbit_time import string_for_date, now, log_date_for_string, date_for_string
 from datetime import timedelta
+from pytz import timezone
+import dateutil
 
 profile_url = "https://api.fitbit.com/1/user/-/profile.json"
 sleep_log_url = "https://api.fitbit.com/1/user/-/sleep/date/*.json"
@@ -12,6 +14,7 @@ sleep_log_url = "https://api.fitbit.com/1/user/-/sleep/date/*.json"
 ##	Returns the json response from the 
 ## 	FitBit API profile call.
 ##
+
 def profile(user):
 	fitted_profile_url = "https://api.fitbit.com/1/user/-/profile.json".replace("-", user.fitbit_id)
 	headers = authorization.api_request_header_for (user)
@@ -25,9 +28,20 @@ def profile(user):
 ##	Stores all relavent information from
 ##	FitBit API profile call and stores it
 ##	in the relavent user fields.
+
 def update_profile(user):
 	user_profile = profile(user)
 	update_weight(user, user_profile)
+	update_timezone(user, user_profile)
+	user.save()
+
+##  Update Timezone
+## --------------------------------------
+##	Loads new timezone infomration into
+##	user.timezone. Sets as a UTC offset
+
+def update_timezone(user, user_profile):
+	user.timezone = user_profile["timezone"]
 	user.save()
 
 ##	Update Weight
@@ -47,14 +61,14 @@ def update_weight (user, user_profile):
 
 ##	Update Sleep Log
 ##  --------------------------------------
-##	Loads and stores all sleep logs since
+##	Loads and stores all sleep logs sinced
 ##	the last time they were loaded. Loads
-##	into fitbit.sleep.
+##	into fitbit_sleep.
 
 def sync_sleep_logs (user): 
-	last_sleep_sync = date_for_string(user.last_sleep_sync)
-
-	if last_sleep_sync is None:
+	try:
+		last_sleep_sync = date_for_string(user.last_sleep_sync).replace(tzinfo=dateutil.tz.offset(None,0))
+	except:
 		last_sleep_sync = now() - timedelta(days = 30)
 
 	days_since_last_sleep_sync = (now() - last_sleep_sync).days
@@ -68,9 +82,9 @@ def sync_sleep_logs (user):
 				sleep = Sleep.get(fitbit_id = log_id)
 			except:
 				main_sleep = sleep["isMainSleep"]
-				start_time = log_date_for_string(sleep["startTime"])
+				start_time = log_date_for_string(user, sleep["startTime"])
 				duration   = int(sleep["duration"])
-				end_time   = start_time + timedelta(seconds = duration)
+				end_time   = start_time + timedelta(milliseconds = duration)
 
 				s = Sleep.objects.create (is_main_sleep = main_sleep,
 							  fitbit_id  = log_id,
@@ -97,7 +111,6 @@ def sleep_log (user, date):
 	response = requests.get (fitted_sleep_url, headers = headers)
 	json_response = json.loads(response.content)
 
-	print json_response
 	return json_response["sleep"]
 
 ##	Sleep Logs

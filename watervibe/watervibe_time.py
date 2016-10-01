@@ -5,19 +5,19 @@ import users
 import reminders
 
 def string_for_day(day): 
-	if isoweekday is 1:
+	if day is 1:
 		return "MONDAY"
-	elif isoweekday is 2:
+	elif day is 2:
 		return "TUESDAY"
-	elif isoweekday is 3:
+	elif day is 3:
 		return "WEDNESDAY"
-	elif isoweekday is 4:
+	elif day is 4:
 		return "THURSDAY"
-	elif isoweekday is 5:
+	elif day is 5:
 		return "FRIDAY"
-	elif isoweekday is 6:
+	elif day is 6:
 		return "SATURDAY"
-	elif isoweekday is 7:
+	elif day is 7:
 		return "SUNDAY"
 
 def date_for_string(string):

@@ -4,6 +4,7 @@ from watervibe_time import time_zone_offset, date_for_string, hours_offset, stri
 import dateutil.parser
 import importlib
 import math
+import stats
 
 def users():
 	return User.objects.all()
@@ -89,15 +90,15 @@ def user_timezone(user):
 ##  Input: user -> watervibe_user, day_of_week -> (1..7)
 def weighted_average_wake_time(user, day_of_the_week):
 	app = importlib.import_module(user.app + "." + user.app)
-	wake_times = app.wake_times(user)
+	wake_times = app.wake_times(user.app_id)
 	parsed_times = []
 	for wake_time in wake_times:
-		date = watervibe.date_for_string(wake_time)
+		date = date_for_string(wake_time)
 		if date.isoweekday() == day_of_the_week:
-			time = date.hour + date.minute/60
+			time = float(date.hour) + float(date.minute)/60.0
 			parsed_times.append(time)
 
-	return stats.weighted_average(parsed_times, lambda x: math.exp(-x))
+	return stats.weighted_average(parsed_times, lambda x: 1)
 
 
 ##	Maximum Time Between Reminders

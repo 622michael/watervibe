@@ -12,7 +12,7 @@ class Command(BaseCommand):
 		##  for when to set an alarm.
 		for user in users.users():
 			print "------ BEGIN SLEEP INFO %d ---------" % user.id
-			for day_of_the_week in Range(1,7):
+			for day_of_the_week in range(1,7):
 				average = users.weighted_average_wake_time(user, 
 												 day_of_the_week)
 
@@ -27,12 +27,15 @@ class Command(BaseCommand):
 						if average > wake_time:
 							success += 1
 						total += 1
-
-				accuracy = success/total
+	
+				if total != 0:
+					accuracy = success/total
+				else: 
+					accuracy = 0
 
 				day = string_for_day(day_of_the_week)
 
-				print "%s: %d %.2f%" % (day, average, accuracy*100)
+				print "%s: %f %.2f" % (day, average, accuracy*100)
 
 
 			print "------ END SLEEP INFO %d ---------" % user.id

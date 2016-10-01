@@ -15,7 +15,7 @@ class User(models.Model):
 
 	# Profile fields
 	weight = models.FloatField(default = 0.0)
-
+	timezone = models.CharField(max_length = 260, null = True)
 
 class Device(models.Model):
 	fitbit_id = models.CharField(max_length = 20)

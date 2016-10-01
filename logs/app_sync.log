@@ -155,3 +155,313 @@ Setting alarm for 12:42-04:00
 Deleting: 2016-09-29 08:30-04:00
 Setting alarm for 12:42-04:00
 Failed to set alarm for 12:42-04:00. No spots.
+Running sync...
+Setting alarm for 12:42-04:00
+Deleting: 2016-09-29 09:33-04:00
+Setting alarm for 12:42-04:00
+Failed to set alarm for 12:42-04:00. No spots.
+Setting alarm for 18:06-04:00
+Deleting: 2016-09-29 09:34-04:00
+Setting alarm for 18:06-04:00
+Success.
+Running sync...
+Setting alarm for 12:42-04:00
+Success.
+Setting alarm for 13:45-04:00
+Success.
+Setting alarm for 14:48-04:00
+Deleting: 2016-09-29 10:36-04:00
+Setting alarm for 14:48-04:00
+Success.
+Setting alarm for 15:51-04:00
+Failed to set alarm for 15:51-04:00. No spots.
+Setting alarm for 19:10-04:00
+Deleting: 2016-09-29 10:38-04:00
+Setting alarm for 19:10-04:00
+Success.
+Running sync...
+Setting alarm for 15:51-04:00
+Failed to set alarm for 15:51-04:00. {u'errors': [{u'message': u'An error occurred with the Fitbit API while processing the request. Please contact api@fitbit.com for assistance. Please reference error id: ADF534DB:6429_A92D900A:01BB_57ED3BAE_A8F0DC2F:02DB', u'errorType': u'request', u'fieldName': u'500'}], u'success': False}
+Setting alarm for 20:14-04:00
+Failed to set alarm for 20:14-04:00. {u'errors': [{u'message': u'An error occurred with the Fitbit API while processing the request. Please contact api@fitbit.com for assistance. Please reference error id: ADF534DB:74AC_A92D900A:01BB_57ED3BAE_271A23A5:02DA', u'errorType': u'request', u'fieldName': u'500'}], u'success': False}
+Running sync...
+Setting alarm for 16:54-04:00
+Failed to set alarm for 16:54-04:00. No spots.
+Setting alarm for 08:30-04:00
+Failed to set alarm for 08:30-04:00. No spots.
+Running sync...
+Setting alarm for 16:54-04:00
+Deleting: 2016-09-29 13:45-04:00
+Setting alarm for 16:54-04:00
+Failed to set alarm for 16:54-04:00. No spots.
+Setting alarm for 09:34-04:00
+Deleting: 2016-09-29 13:50-04:00
+Setting alarm for 09:34-04:00
+Success.
+Running sync...
+Setting alarm for 16:54-04:00
+Deleting: 2016-09-29 14:48-04:00
+Setting alarm for 16:54-04:00
+Failed to set alarm for 16:54-04:00. No spots.
+Setting alarm for 10:38-04:00
+Deleting: 2016-09-29 14:54-04:00
+Setting alarm for 10:38-04:00
+Failed to set alarm for 10:38-04:00. No spots.
+Running sync...
+Setting alarm for 16:54-04:00
+Deleting: 2016-09-29 15:51-04:00
+Setting alarm for 16:54-04:00
+Success.
+Setting alarm for 17:57-04:00
+Failed to set alarm for 17:57-04:00. No spots.
+Setting alarm for 10:38-04:00
+Deleting: 2016-09-29 15:58-04:00
+Setting alarm for 10:38-04:00
+Failed to set alarm for 10:38-04:00. No spots.
+Running sync...
+Setting alarm for 17:57-04:00
+Deleting: 2016-09-29 16:54-04:00
+Setting alarm for 17:57-04:00
+Success.
+Setting alarm for 19:00-04:00
+Failed to set alarm for 19:00-04:00. No spots.
+Setting alarm for 10:38-04:00
+Deleting: 2016-09-29 17:02-04:00
+Setting alarm for 10:38-04:00
+Failed to set alarm for 10:38-04:00. No spots.
+Running sync...
+Setting alarm for 19:00-04:00
+Success.
+Setting alarm for 20:03-04:00
+Success.
+Setting alarm for 08:30-04:00
+Success.
+Setting alarm for 09:33-04:00
+Deleting: 2016-09-29 17:57-04:00
+Setting alarm for 09:33-04:00
+Success.
+Setting alarm for 10:36-04:00
+Failed to set alarm for 10:36-04:00. No spots.
+Setting alarm for 10:38-04:00
+Failed to set alarm for 10:38-04:00. No spots.
+Running sync...
+Setting alarm for 10:36-04:00
+Deleting: 2016-09-29 19:00-04:00
+Setting alarm for 10:36-04:00
+Failed to set alarm for 10:36-04:00. No spots.
+Setting alarm for 10:38-04:00
+Deleting: 2016-09-29 18:06-04:00
+Setting alarm for 10:38-04:00
+Failed to set alarm for 10:38-04:00. No spots.
+Running sync...
+Setting alarm for 10:36-04:00
+Deleting: 2016-09-29 20:03-04:00
+Setting alarm for 10:36-04:00
+Failed to set alarm for 10:36-04:00. No spots.
+Setting alarm for 10:38-04:00
+Success.
+Setting alarm for 11:42-04:00
+Success.
+Setting alarm for 12:46-04:00
+Success.
+Setting alarm for 13:50-04:00
+Success.
+Setting alarm for 14:54-04:00
+Deleting: 2016-09-29 19:10-04:00
+Setting alarm for 14:54-04:00
+Success.
+Running sync...
+Setting alarm for 10:36-04:00
+Success.
+Setting alarm for 11:39-04:00
+Success.
+Setting alarm for 12:42-04:00
+Failed to set alarm for 12:42-04:00. No spots.
+Setting alarm for 15:58-04:00
+Deleting: 2016-09-29 20:14-04:00
+Setting alarm for 15:58-04:00
+Success.
+Running sync...
+Setting alarm for 12:42-04:00
+Failed to set alarm for 12:42-04:00. No spots.
+Running sync...
+Setting alarm for 12:42-04:00
+Failed to set alarm for 12:42-04:00. No spots.
+Running sync...
+Setting alarm for 12:42-04:00
+Failed to set alarm for 12:42-04:00. No spots.
+Running sync...
+Setting alarm for 12:42-04:00
+Failed to set alarm for 12:42-04:00. No spots.
+Running sync...
+Setting alarm for 12:42-04:00
+Failed to set alarm for 12:42-04:00. No spots.
+Running sync...
+Setting alarm for 12:42-04:00
+Failed to set alarm for 12:42-04:00. No spots.
+Running sync...
+Setting alarm for 12:42-04:00
+Failed to set alarm for 12:42-04:00. No spots.
+Running sync...
+Setting alarm for 12:42-04:00
+Failed to set alarm for 12:42-04:00. No spots.
+Running sync...
+Setting alarm for 12:42-04:00
+Failed to set alarm for 12:42-04:00. No spots.
+Running sync...
+Setting alarm for 12:42-04:00
+Failed to set alarm for 12:42-04:00. No spots.
+Running sync...
+Setting alarm for 12:42-04:00
+Failed to set alarm for 12:42-04:00. No spots.
+Running sync...
+Setting alarm for 12:42-04:00
+Deleting: 2016-09-30 08:30-04:00
+Setting alarm for 12:42-04:00
+Failed to set alarm for 12:42-04:00. No spots.
+Setting alarm for 17:02-04:00
+Deleting: 2016-09-30 08:30-04:00
+Setting alarm for 17:02-04:00
+Success.
+Running sync...
+Setting alarm for 12:42-04:00
+Deleting: 2016-09-30 09:33-04:00
+Setting alarm for 12:42-04:00
+Success.
+Setting alarm for 13:45-04:00
+Failed to set alarm for 13:45-04:00. No spots.
+Setting alarm for 18:06-04:00
+Deleting: 2016-09-30 09:34-04:00
+Setting alarm for 18:06-04:00
+Failed to set alarm for 18:06-04:00. No spots.
+Running sync...
+Setting alarm for 13:45-04:00
+Deleting: 2016-09-30 10:36-04:00
+Setting alarm for 13:45-04:00
+Success.
+Setting alarm for 14:48-04:00
+Failed to set alarm for 14:48-04:00. No spots.
+Setting alarm for 18:06-04:00
+Success.
+Setting alarm for 19:10-04:00
+Deleting: 2016-09-30 10:38-04:00
+Setting alarm for 19:10-04:00
+Success.
+Running sync...
+Setting alarm for 14:48-04:00
+Success.
+Setting alarm for 15:51-04:00
+Deleting: 2016-09-30 11:39-04:00
+Setting alarm for 15:51-04:00
+Success.
+Setting alarm for 16:54-04:00
+Failed to set alarm for 16:54-04:00. No spots.
+Setting alarm for 20:14-04:00
+Deleting: 2016-09-30 11:42-04:00
+Setting alarm for 20:14-04:00
+Success.
+Running sync...
+Setting alarm for 16:54-04:00
+Deleting: 2016-09-30 12:42-04:00
+Setting alarm for 16:54-04:00
+Failed to set alarm for 16:54-04:00. No spots.
+Setting alarm for 08:30-04:00
+Deleting: 2016-09-30 12:46-04:00
+Setting alarm for 08:30-04:00
+Failed to set alarm for 08:30-04:00. No spots.
+Running sync...
+Setting alarm for 16:54-04:00
+Deleting: 2016-09-30 13:45-04:00
+Setting alarm for 16:54-04:00
+Failed to set alarm for 16:54-04:00. No spots.
+Setting alarm for 08:30-04:00
+Deleting: 2016-09-30 13:50-04:00
+Setting alarm for 08:30-04:00
+Failed to set alarm for 08:30-04:00. No spots.
+Running sync...
+Setting alarm for 16:54-04:00
+Deleting: 2016-09-30 14:48-04:00
+Setting alarm for 16:54-04:00
+Success.
+Setting alarm for 17:57-04:00
+Failed to set alarm for 17:57-04:00. No spots.
+Setting alarm for 08:30-04:00
+Deleting: 2016-09-30 14:54-04:00
+Setting alarm for 08:30-04:00
+Failed to set alarm for 08:30-04:00. No spots.
+Running sync...
+Setting alarm for 17:57-04:00
+Deleting: 2016-09-30 15:51-04:00
+Setting alarm for 17:57-04:00
+Success.
+Setting alarm for 19:00-04:00
+Failed to set alarm for 19:00-04:00. No spots.
+Setting alarm for 08:30-04:00
+Success.
+Setting alarm for 09:34-04:00
+Success.
+Setting alarm for 10:38-04:00
+Success.
+Setting alarm for 11:42-04:00
+Deleting: 2016-09-30 15:58-04:00
+Setting alarm for 11:42-04:00
+Failed to set alarm for 11:42-04:00. No spots.
+Running sync...
+Setting alarm for 19:00-04:00
+Deleting: 2016-09-30 16:54-04:00
+Setting alarm for 19:00-04:00
+Success.
+Setting alarm for 20:03-04:00
+Failed to set alarm for 20:03-04:00. No spots.
+Setting alarm for 11:42-04:00
+Success.
+Running sync...
+Setting alarm for 20:03-04:00
+Deleting: 2016-09-30 17:57-04:00
+Setting alarm for 20:03-04:00
+Success.
+Setting alarm for 08:30-04:00
+Failed to set alarm for 08:30-04:00. No spots.
+Setting alarm for 12:46-04:00
+Deleting: 2016-09-30 17:02-04:00
+Setting alarm for 12:46-04:00
+Success.
+Running sync...
+Setting alarm for 08:30-04:00
+Deleting: 2016-09-30 19:00-04:00
+Setting alarm for 08:30-04:00
+Success.
+Setting alarm for 09:33-04:00
+Failed to set alarm for 09:33-04:00. No spots.
+Setting alarm for 13:50-04:00
+Deleting: 2016-09-30 18:06-04:00
+Setting alarm for 13:50-04:00
+Success.
+Running sync...
+Setting alarm for 09:33-04:00
+Deleting: 2016-09-30 20:03-04:00
+Setting alarm for 09:33-04:00
+Success.
+Setting alarm for 10:36-04:00
+Failed to set alarm for 10:36-04:00. No spots.
+Setting alarm for 14:54-04:00
+Deleting: 2016-09-30 19:10-04:00
+Setting alarm for 14:54-04:00
+Failed to set alarm for 14:54-04:00. No spots.
+Running sync...
+Setting alarm for 10:36-04:00
+Failed to set alarm for 10:36-04:00. No spots.
+Setting alarm for 14:54-04:00
+Deleting: 2016-09-30 20:14-04:00
+Setting alarm for 14:54-04:00
+Failed to set alarm for 14:54-04:00. No spots.
+Running sync...
+Setting alarm for 10:36-04:00
+Failed to set alarm for 10:36-04:00. No spots.
+Setting alarm for 14:54-04:00
+Failed to set alarm for 14:54-04:00. No spots.
+Running sync...
+Setting alarm for 10:36-04:00
+Failed to set alarm for 10:36-04:00. No spots.
+Setting alarm for 14:54-04:00
+Failed to set alarm for 14:54-04:00. No spots.
