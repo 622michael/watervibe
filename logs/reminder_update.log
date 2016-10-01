@@ -376,3 +376,13 @@ Max reminders: 8
 Seconds: 3842.194193
 Adding reminder at 2016-10-02 08:30-04:00
 [END CRONTAB]
+[START CRONTAB]
+Num reminders: 7
+Max reminders: 8
+Seconds: 3817.244880
+Adding reminder at 2016-10-02 09:33-04:00
+Num reminders: 7
+Max reminders: 8
+Seconds: 3842.194193
+Adding reminder at 2016-10-02 09:34-04:00
+[END CRONTAB]

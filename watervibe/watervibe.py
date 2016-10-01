@@ -3,6 +3,7 @@ from tasks import setup
 import users, reminders
 from watervibe_time import now_in_user_timezone, string_for_date, date_for_string
 import importlib
+from datetime import timedelta
 
 def setup(user):
 	users.calculate_stats(user)
@@ -48,14 +49,15 @@ def register_event(app, app_id, tag, start_date, end_date):
 								   day_of_week = start_date.isoweekday())
 
 	event_length = int((end_date - start_date).total_seconds()/60)
+	print "Adding %s event from %s to %s. Minutes: %d" % (tag, string_for_date(start_date), string_for_date(end_date), event_length)
 	for minute in range(0, event_length + 1):
-		time_date = start_date + timedelta(minute = x)
+		time_date = start_date + timedelta(minutes = minute)
 
 		time = Time.objects.filter(hour = time_date.hour, minute = time_date.minute).first()
 		event.times.add(time)
 
 	event.save()
-
-	if start_date < date_for_string(user.beginning_sample_date):
+	
+	if user.beginning_sample_date is None or start_date < date_for_string(user.beginning_sample_date):
 		user.beginning_sample_date = event.start_date
 		user.save()

@@ -581,3 +581,12 @@ Setting alarm for 08:30-04:00
 Deleting: 2016-10-01 12:46-04:00
 Setting alarm for 08:30-04:00
 Success.
+Running sync...
+Setting alarm for 17:57-04:00
+Deleting: 2016-10-01 13:45-04:00
+Setting alarm for 17:57-04:00
+Failed to set alarm for 17:57-04:00. No spots.
+Setting alarm for 09:34-04:00
+Deleting: 2016-10-01 13:50-04:00
+Setting alarm for 09:34-04:00
+Success.
