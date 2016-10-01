@@ -5,6 +5,7 @@ from fitbit_time import string_for_date, now, log_date_for_string, date_for_stri
 from datetime import timedelta
 from pytz import timezone
 import dateutil
+from watervibe import watervibe
 
 profile_url = "https://api.fitbit.com/1/user/-/profile.json"
 sleep_log_url = "https://api.fitbit.com/1/user/-/sleep/date/*.json"
@@ -93,6 +94,8 @@ def sync_sleep_logs (user):
 							  end_time	 = string_for_date(end_time),
 							  user       = user)
 				s.save()
+
+				watervibe.register_event("fitbit", user.id, "sleep", start_time, end_time)
 
 	user.last_sleep_sync = string_for_date(now())
 	user.save()

@@ -2,7 +2,7 @@ from fitbit.tests import AppTestClass
 import watervibe
 from .models import User, Reminder
 import reminders, users
-from watervibe_time import now_in_user_timezone, seconds_till_reminder
+from watervibe_time import now_in_user_timezone, seconds_till_reminder, date_for_string
 from tasks import sync
 from datetime import timedelta, datetime
 
@@ -35,13 +35,22 @@ class WaterVibeAppTestClass(AppTestClass):
 								time = "2016-09-20 17:30-04:00")
 		Reminder.objects.create(app= "fitbit", user= self.watervibe_user, 
 								time = "2016-09-20 19:00-04:00")
+		user.save()
 
 #class WaterVibeTaskTestClass(WaterVibeAppTestClass):
 	# def test_sync(self):
 	#	sync(self.watervibe_user)
 	#	sync(self.watervibe_user)
 
-# class WaterVibeTestClass(AppTestClass):
+class WaterVibeTestClass(AppTestClass):
+	def test_register_event(self):
+		start_time = "2016-09-11 07:44-04:00"
+		end_time = "2016-09-11 13:22-04:00"
+
+		watervibe.register_event("fitbit", self.user.id, "sleep", 
+			date_for_string(start_time), date_for_string(end_time))
+
+
 # 	def test_setup(self):
 # 		watervibe.register_fitbit_user(self.user)
 
