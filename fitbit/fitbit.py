@@ -5,7 +5,7 @@ import authorization
 
 
 # This module is tasked with managing requests from
-# Outside of the app. This includes converting python
+# Outside of the app. This includes converting watervibe
 # Datatypes to one's readable by fitbit
 
 
