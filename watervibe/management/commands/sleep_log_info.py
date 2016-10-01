@@ -13,10 +13,19 @@ class Command(BaseCommand):
 			for time in Time.objects.all():
 				probability = stats.probability("sleep", time, user = user)
 
-				print "%d:%d -> %.2f%" % (time.hour, time.minute, probability*100)
+				print "%d:%d -> %.2f" % (time.hour, time.minute, probability*100)
 
 			print "------ END PMD: %d ---------" % user.id
-
+			
+			## Calculate probablity asleep for all times on a specific day
+			
+			for day_of_week in range(1,8):
+				print "------ BEGIN %s PMD: %d ---------" % (string_for_day(day_of_week), user.id)
+				for time in Time.objects.all():
+					probability = stats.probability("sleep", time, user = user, day_of_week = day_of_week)
+					
+					print "%d:%d -> %.2f" % (time.hour, time.minute, probability*100)
+				print "------ END %s PMD: %d ---------" % (string_for_day(day_of_week), user.id)	
 
 			##	Calculate weighted average
 			##  time waken up, and the accuracy

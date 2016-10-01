@@ -16,9 +16,14 @@ def weighted_average(data_set, weight):
 		return 0
 
 
-def probability(event_tag, at, user = None):
+def probability(event_tag, at, user = None, day_of_week = None):
+	all_events = Event.objects.filter(tag = event_tag)
+	
 	if user is not None:
-		total_events = (now_in_user_timezone(user) - date_for_string(user.beginning_sample_date)).days * 1440
-		count = Event.objects.filter(tag = event_tag, time = at, user = user)
-
-	return count/total_events
+		all_events = all_events.filter(user = user)
+	if day_of_week is not None:
+		all_events = Event.objects.filter(day_of_week = day_of_week)
+	
+	count = all_events.filter(times = at).count()
+	total_events = all_events.count()
+	return float(count)/float(total_events)
