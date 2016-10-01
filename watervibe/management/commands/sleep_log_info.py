@@ -1,16 +1,28 @@
 from django.core.management.base import BaseCommand, CommandError
 from watervibe import users
+from watervibe import stats
 from watervibe.watervibe_time import string_for_day, date_for_string
+from watervibe.models import Time
 import importlib
 
 class Command(BaseCommand):
 	def handle(self, *args, **options):
-
-		##	Calculate weighted average
-		##  time waken up, and the accuracy
-		##  this would hold if used as a measure
-		##  for when to set an alarm.
 		for user in users.users():
+			## Calculate probability for all times
+			print "------ BEGIN PMD: %d ---------" % user.id
+			for time in Time.objects.all():
+				probability = stats.probability("sleep", time, user = user)
+
+				print "%d:%d -> %.2f%" % (time.hour, time.minute, probability*100)
+
+			print "------ END PMD: %d ---------" % user.id
+
+
+			##	Calculate weighted average
+			##  time waken up, and the accuracy
+			##  this would hold if used as a measure
+			##  for when to set an alarm.
+
 			print "------ BEGIN SLEEP INFO %d ---------" % user.id
 			for day_of_the_week in range(1,8):
 				wake_average = users.weighted_average_wake_time(user, 
