@@ -84,16 +84,33 @@ def user_timezone(user):
 
 ##	Weighted Average Wake Time
 ##  --------------------------------------
-##	Calculates how much time must be
-##  Between reminders in order for the
-##  Base amount of ounces is met.
-##  Input: user -> watervibe_user, day_of_week -> (1..7)
+##	The average time that the user wakes up
+##	with an unset weight attached to the data
+##	that should decrease as the data gets further away (TODO)
 def weighted_average_wake_time(user, day_of_the_week):
 	app = importlib.import_module(user.app + "." + user.app)
 	wake_times = app.wake_times(user.app_id)
 	parsed_times = []
 	for wake_time in wake_times:
 		date = date_for_string(wake_time)
+		if date.isoweekday() == day_of_the_week:
+			time = float(date.hour) + float(date.minute)/60.0
+			parsed_times.append(time)
+
+	return stats.weighted_average(parsed_times, lambda x: 1)
+
+
+##	Weighted Average Sleep Time
+##  --------------------------------------
+##	The average time that the user wakes up
+##	with an unset weight attached to the data
+##	that should decrease as the data gets further away (TODO)
+def weighted_average_sleep_time(user, day_of_the_week):
+	app = importlib.import_module(user.app + "." + user.app)
+	sleep_times = app.sleep_times(user.app_id)
+	parsed_times = []
+	for sleep_time in sleep_times:
+		date = date_for_string(sleep_time)
 		if date.isoweekday() == day_of_the_week:
 			time = float(date.hour) + float(date.minute)/60.0
 			parsed_times.append(time)

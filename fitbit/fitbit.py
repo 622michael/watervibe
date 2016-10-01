@@ -40,8 +40,12 @@ def weight_for_user (user_id):
 
 	return user.weight
 
-def wake_times (user_id):
-	times = []
+##	Returns a string of the datetime
+##
+##
+def sleep_times (user_id):
+	start_times = []
+	end_times = []
 	
 	try: 
 		user = User.objects.get(id = user_id)
@@ -49,7 +53,23 @@ def wake_times (user_id):
 		return []
 
 	for sleep in Sleep.objects.filter(user = user):
-		if sleep.is_main_sleep:
+		if sleep.is_main_sleep == 1:
+			start_times.append(sleep.start_time)
+			end_times.append(sleep.end_time)
+
+	return start_times, end_times
+
+
+def wake_times (user_id):
+	times = []
+
+	try: 
+		user = User.objects.get(id = user_id)
+	except:
+		return []
+
+	for sleep in Sleep.objects.filter(user = user):
+		if sleep.is_main_sleep == 1:
 			times.append(sleep.end_time)
 
 	return times
