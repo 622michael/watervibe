@@ -16,4 +16,4 @@ class Command(BaseCommand):
 		all_users = User.objects.all().order_by('next_sync_time')
 
 		for user in all_users:
-			reminders.create_reminder_for_user(user)
+			reminders.create_reminders_for_user(user)
