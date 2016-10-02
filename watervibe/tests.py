@@ -1,54 +1,44 @@
 from fitbit.tests import AppTestClass
 import watervibe
-from .models import User, Reminder
+from .models import User, Reminder, Time
 import reminders, users
 from watervibe_time import now_in_user_timezone, seconds_till_reminder, date_for_string
 from tasks import sync
 from datetime import timedelta, datetime
+import fitbit.users
 
 
 class WaterVibeAppTestClass(AppTestClass): 
 	def setUp(self): 
 		super(WaterVibeAppTestClass, self).setUp()
 		
-		self.watervibe_user = user = User.objects.create(app= "fitbit", 
-														 app_id= self.user.id, 
-														 start_of_period= "08:30-04:00", 
-														 end_of_period="20:30-04:00",
-														 next_sync_time= "2016-09-19 00:00-04:00", 
-														 maximum_reminders = 8
-														)
+		self.watervibe_user = User.objects.create(app = "fitbit", 
+												  app_id = self.user.id, 
+												  start_of_period = "08:30-04:00", 
+												  end_of_period = "20:30-04:00",
+												  next_sync_time = "2016-09-19 00:00-04:00", 
+												  maximum_reminders = 8)
 
-		Reminder.objects.create(app= "fitbit", user= self.watervibe_user, 
-								app_id = 1, time = "2016-09-20 08:30-04:00")
-		Reminder.objects.create(app= "fitbit", user= self.watervibe_user, 
-								app_id = 2, time = "2016-09-20 10:00-04:00")
-		Reminder.objects.create(app= "fitbit", user= self.watervibe_user, 
-								app_id = 3, time = "2016-09-20 11:30-04:00")
-		Reminder.objects.create(app= "fitbit", user= self.watervibe_user, 
-								app_id = 4, time = "2016-09-20 13:00-04:00")
-		Reminder.objects.create(app= "fitbit", user= self.watervibe_user, 
-								time = "2016-09-20 14:30-04:00")
-		Reminder.objects.create(app= "fitbit", user= self.watervibe_user, 
-								time = "2016-09-20 16:00-04:00")
-		Reminder.objects.create(app= "fitbit", user= self.watervibe_user, 
-								time = "2016-09-20 17:30-04:00")
-		Reminder.objects.create(app= "fitbit", user= self.watervibe_user, 
-								time = "2016-09-20 19:00-04:00")
-		user.save()
+		for hour in range(0, 24):
+			for minute in range (0, 60):
+				t = Time.objects.create(hour = hour, minute = minute)
+				t.save
+
+		fitbit.users.sync_sleep_logs(self.user)
+
 
 #class WaterVibeTaskTestClass(WaterVibeAppTestClass):
 	# def test_sync(self):
 	#	sync(self.watervibe_user)
 	#	sync(self.watervibe_user)
 
-class WaterVibeTestClass(AppTestClass):
-	def test_register_event(self):
-		start_time = "2016-09-11 07:44-04:00"
-		end_time = "2016-09-11 13:22-04:00"
+# class WaterVibeTestClass(AppTestClass):
+	# def test_register_event(self):
+	# 	start_time = "2016-09-11 07:44-04:00"
+	# 	end_time = "2016-09-11 13:22-04:00"
 
-		watervibe.register_event("fitbit", self.user.id, "sleep", 
-			date_for_string(start_time), date_for_string(end_time))
+	# 	watervibe.register_event("fitbit", self.user.id, "sleep", 
+	# 		date_for_string(start_time), date_for_string(end_time))
 
 
 # 	def test_setup(self):
@@ -71,18 +61,9 @@ class WaterVibeTestClass(AppTestClass):
 # 		sync(user)
 # 		self.assertEqual(reminder.app_id, 1)
 
-# class RemindersTestClass(AppTestClass):
-# 	def setUp(self):
-# 		# super(RemindersTestClass, self).setUp()
-# 		# watervibe.register_fitbit_user(self.user)
-# 		# self.watervibe_user = User.objects.filter(app = "fitbit",
-# 		# 										  app_id = self.user.id).first()
-		
-# 		self.user = User.objects.create(app= "fitbit", app_id= 1, start_of_period= "08:30-04:00", end_of_period="20:30-04:00",
-# 		 							next_sync_time = "2016-09-19 00:00-04:00", maximum_reminders = 7)
-# 		self.reminder = Reminder.objects.create(app = "fitbit", time = "2016-09-19 14:30-04:00", user = self.user )
-# 		Reminder.objects.create(app = "fitbit", time = "2016-09-19 16:30-04:00", user = self.user )
-# 		Reminder.objects.create(app = "fitbit", time = "2016-09-19 11:30-04:00", user = self.user )
+class RemindersTestClass(WaterVibeAppTestClass):
+	def test_create_reminders_for_user(self):
+		reminders.create_reminders_for_user(self.watervibe_user)
 
 
 # 	def test_next_reminder_for(self):

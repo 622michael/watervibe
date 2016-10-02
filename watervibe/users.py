@@ -1,4 +1,4 @@
-from models import Reminder, User
+from models import Reminder, User, Time
 from datetime import datetime, date, timedelta
 from watervibe_time import time_zone_offset, date_for_string, hours_offset, string_for_date, now_in_user_timezone
 import dateutil.parser
@@ -81,6 +81,16 @@ def maximum_reminders(user):
 def user_timezone(user): 
 	return dateutil.tz.tzoffset(None, hours_offset(user.start_of_period)*60*60)
 
+def ounces_to_drink_in_period(user, start_date, end_date):
+	reminders = user_reminders(user).order_by("-time")
+	count = 0
+	for reminder in reminders:
+		reminder_date = date_for_string(reminder.time)
+		if reminder_date > start_date and reminder_date < end_date:
+			count += 1
+
+	return count * user.drink_size
+
 
 ##	Weighted Average Wake Time
 ##  --------------------------------------
@@ -125,15 +135,31 @@ def weighted_average_sleep_time(user, day_of_the_week):
 ##  Base amount of ounces is met.
 ##  Input: user -> watervibe_user, date -> datetime
 def maximum_time_between_reminders(user, date):
-	start_of_period, end_of_period = period_for_date(user, date)
+	minutes_in_a_day = 60*24
+	minutes_asleep_in_day = 0
+	for time in Time.objects.all():
+		probability_of_sleeping = stats.probability("sleep", 
+													time, 
+													user = user, 
+													day_of_week = date.isoweekday())
+
+		if probability_of_sleeping > 0.25: 
+			minutes_asleep_in_day += 1
+
+	minutes_for_reminders = minutes_in_a_day - minutes_asleep_in_day
+	seconds_for_reminders = minutes_for_reminders * 60
+
+	start_of_period = date.replace( hour = 0, minute = 0, second = 0)
+	end_of_period = start_of_period + timedelta(days = 1)
+
 	ounces = ounces_in_period (user, start_of_period, end_of_period)
+	
 	drink_size = user.drink_size
 
-	length_of_period = (end_of_period - start_of_period).total_seconds()
+	length_of_period = minutes_for_reminders
 	num_reminders = ounces/drink_size
 
 	time_between_reminders = length_of_period/num_reminders
-	print "Seconds: %f" % time_between_reminders
 	return timedelta(seconds = length_of_period/num_reminders)
 
 ##	Reminders at next sync

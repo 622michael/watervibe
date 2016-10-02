@@ -113,7 +113,7 @@ def sleep_log (user, date):
 	headers = authorization.api_request_header_for (user)
 	response = requests.get (fitted_sleep_url, headers = headers)
 	json_response = json.loads(response.content)
-
+	
 	return json_response["sleep"]
 
 ##	Sleep Logs

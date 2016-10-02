@@ -1,6 +1,5 @@
 import math
 from .models import Event, Time
-from watervibe_time import date_for_string, now_in_user_timezone
 
 
 def weighted_average(data_set, weight):
