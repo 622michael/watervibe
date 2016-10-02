@@ -6,7 +6,7 @@
 import users
 import watervibe_time
 # from watervibe_time import date_for_string, string_for_datepyth
-from .models import Reminder, Time
+from models import Reminder, Time
 from datetime import timedelta
 import stats
 
