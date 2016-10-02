@@ -67,12 +67,16 @@ def create_reminders_for_user (user):
 	hour = last_reminder_date.hour
 	minute = last_reminder_date.minute
 
-	start_of_period = last_reminder_date
+	start_of_period = last_reminder_date.replace(minute = 0, hour = 0)
 	end_of_period = last_reminder_date + timedelta(days = 1)
 	ounces_drunk_in_period = users.ounces_to_drink_in_period(user, start_of_period, end_of_period)
 	required_ounces = users.ounces_in_period(user, start_of_period, end_of_period)
-	time_between_reminders = time_between_reminders_for_user(user)
+	time_between_reminders = users.maximum_time_between_reminders(user, start_of_period)
 	last_distance = 0
+	
+	print "Setting reminders every %d seconds" % time_between_reminders.total_seconds()
+	print "Set to drink %d ounces this period" % ounces_drunk_in_period
+	
 	while ounces_drunk_in_period < required_ounces:
 		next_reminder_date = last_reminder_date + time_between_reminders - timedelta(minutes = last_distance)
 

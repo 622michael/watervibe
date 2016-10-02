@@ -148,6 +148,8 @@ def maximum_time_between_reminders(user, date):
 
 	minutes_for_reminders = minutes_in_a_day - minutes_asleep_in_day
 	seconds_for_reminders = minutes_for_reminders * 60
+	
+	print "Sleeping for %d minutes today" % minutes_asleep_in_day	
 
 	start_of_period = date.replace( hour = 0, minute = 0, second = 0)
 	end_of_period = start_of_period + timedelta(days = 1)
@@ -156,10 +158,10 @@ def maximum_time_between_reminders(user, date):
 	
 	drink_size = user.drink_size
 
-	length_of_period = minutes_for_reminders
+	length_of_period = seconds_for_reminders
 	num_reminders = ounces/drink_size
-
 	time_between_reminders = length_of_period/num_reminders
+	
 	return timedelta(seconds = length_of_period/num_reminders)
 
 ##	Reminders at next sync
