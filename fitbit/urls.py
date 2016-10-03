@@ -5,5 +5,5 @@ urlpatterns = [
 	url(r'^authorize', authorization.authorize, name='authorize'),
 	url(r'^button', views.permission_button, name='button'),
 	url(r'^subscribe', authorization.permissions_request, name='permissions'),
-	url(r'^notication/sleep', )
+	url(r'^notification/sleep', subscription.sleep_notification, name = 'sleep notification')
 ]
