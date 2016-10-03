@@ -10,6 +10,7 @@ import webbrowser
 import watervibe.watervibe
 import fitbit_time
 import users
+import subscription 
 from django.conf import settings
 
 client_id = "227RR9"
@@ -72,6 +73,9 @@ def authorize (request):
 
 	users.update_profile(user)
 	device.get_devices_for(user)
+
+	if "sleep" in user.scope:
+		subscription.subscribe(user, "sleep")
 
 	if(alarms.user_alarms_count(user) == 8): 
 		print "User account is full"

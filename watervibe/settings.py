@@ -86,7 +86,7 @@ DATABASES = {
         'NAME': 'watervibe',
         'USER': 'root',
         'PASSWORD': 'h2ogogogo!',
-        'HOST': 'localhost',
+        'HOST': '159.203.177.177',
         'PORT': '3306',
     }
 }
