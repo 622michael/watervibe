@@ -482,3 +482,11 @@ Setting reminders every 4637 seconds
 Set to drink 88 ounces this period
 Adding reminder at 2016-10-02 19:50-04:00
 [END CRONTAB]
+[START CRONTAB]
+Sleeping for 571 minutes today
+Setting reminders every 4607 seconds
+Set to drink 96 ounces this period
+Sleeping for 571 minutes today
+Setting reminders every 4637 seconds
+Set to drink 96 ounces this period
+[END CRONTAB]

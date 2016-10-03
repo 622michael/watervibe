@@ -67,7 +67,7 @@ def create_reminders_for_user (user):
 	hour = last_reminder_date.hour
 	minute = last_reminder_date.minute
 
-	start_of_period = last_reminder_date.replace(minute = 0, hour = 0)
+	start_of_period = last_reminder_date
 	end_of_period = last_reminder_date + timedelta(days = 1)
 	ounces_drunk_in_period = users.ounces_to_drink_in_period(user, start_of_period, end_of_period)
 	required_ounces = users.ounces_in_period(user, start_of_period, end_of_period)
@@ -76,53 +76,34 @@ def create_reminders_for_user (user):
 	
 	print "Setting reminders every %d seconds" % time_between_reminders.total_seconds()
 	print "Set to drink %d ounces this period" % ounces_drunk_in_period
-	
-	while ounces_drunk_in_period < required_ounces:
-		next_reminder_date = last_reminder_date + time_between_reminders - timedelta(minutes = last_distance)
+	print "Required to drink %d ounces" % required_ounces
 
-		time = Time.objects.filter(hour = next_reminder_date.hour, minute = next_reminder_date.minute)
+	while ounces_drunk_in_period < required_ounces:
+		next_reminder_date = last_reminder_date + time_between_reminders
+		
+		if next_reminder_date < watervibe_time.now_in_user_timezone(user):
+			next_reminder_date = watervibe_time.now_in_user_timezone(user) + timedelta(minutes = 5)
+			print "Trying ot set one before another"		
+		
+		event_reminder = 0
+		time = Time.objects.filter(hour = next_reminder_date.hour, minute = next_reminder_date.minute).first()
 		asleep_possibility = stats.probability("sleep", time, user = user, day_of_week = next_reminder_date.isoweekday())
 		if asleep_possibility > 0.25:
-			distance_before = None
-			distance_after = None
-			distance = 0
-
-			while distance_before is None or distance_after is None:
-				distance += 1
-				datetime_before = next_reminder_date - timedelta(minutes = distance)
-				if datetime_before < start_of_period:
-					datetime_before = -1
-
-				datetime_after = next_reminder_date + timedelta(minutes = distance)
-				if datetime_after > end_of_period:
-					datetime_after = -1
-
-				if distance_before is None:
-					possible_time = Time.objects.filter(hour = datetime_before.hour, minute = datetime_before.minute)
-					asleep_possibility = stats.probability("sleep", time, user = user, day_of_week = distance_before.isoweekday())
-					if asleep_possibility < 0.25:
-						distance_before = distance
-
-				if distance_after is None:
-					possible_time = Time.objects.filter(hour = datetime_after.hour, minute = datetime_before.minute)
-					asleep_possibility = stats.probability("sleep", time, user = user, day_of_week = distance_before.isoweekday())
-					if asleep_possibility < 0.25:
-						distance_after = distance
-
-			if distance_before < 0 and distance_after < 0:
-				break
-			elif distance_before < 0:
-				next_reminder_date = last_reminder_date - timedelta(minutes = distance_before)
-				last_distance = -1 * distance_before
-			elif distance_after < 0:
-				next_reminder_date = last_reminder_date + timedelta(minutes = distance_after)
-				last_distance = distance_after
-			elif distance_after < distance_before:
-				next_reminder_date = last_reminder_date + timedelta(minutes = distance_after)
-				last_distance = distance_after
-			elif distance_before < distance_after:
-				next_reminder_date = last_reminder_date - timedelta(minutes = distance_before)
-				last_distance = -1 * distance_before
-
-		create_reminder(next_reminder_date, user)
-		ounces_drunk_in_period = users.ounces_in_period(user, watervibe_time.string_for_date(start_of_period), watervibe_time.string_for_date(end_of_period))
+			print "Sleeping at %02d:%02d" % (time.hour, time.minute)
+			length = 0
+			while asleep_possibility > 0.25:
+				length += 1
+				next_reminder_date = next_reminder_date + timedelta(minutes = length)
+				time = Time.objects.filter(hour = next_reminder_date.hour, minute = next_reminder_date.minute).first()
+				asleep_possibility = stats.probability("sleep", time, user = user, day_of_week = next_reminder_date.isoweekday())
+			print "End sleep at %02d:%02d" % (time.hour, time.minute)
+			next_reminder_date = next_reminder_date + timedelta(hours = 1) # If I wasn't lazy this woudl be th variance of the event
+				
+	
+		last_reminder = create_reminder(next_reminder_date, user)
+		if(next_reminder_date > end_of_period):
+			break
+				
+		last_reminder_date = next_reminder_date
+		ounces_drunk_in_period = users.ounces_to_drink_in_period(user, start_of_period, end_of_period)
+		print ounces_drunk_in_period

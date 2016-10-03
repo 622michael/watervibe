@@ -21,8 +21,8 @@ def probability(event_tag, at, user = None, day_of_week = None):
 	if user is not None:
 		all_events = all_events.filter(user = user)
 	if day_of_week is not None:
-		all_events = Event.objects.filter(day_of_week = day_of_week)
-
-	count = all_events.filter(times = at).count()
+		all_events = all_events.filter(day_of_week = day_of_week)
+	
 	total_events = all_events.count()
+	count = all_events.filter(times = at).count()
 	return float(count)/float(total_events)
