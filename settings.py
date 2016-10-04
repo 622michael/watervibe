@@ -83,10 +83,10 @@ WSGI_APPLICATION = 'watervibe.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'watervibe',
+        'NAME': 'watervibe_test',
         'USER': 'root',
         'PASSWORD': 'h2ogogogo!',
-        'HOST': 'localhost',
+        'HOST': '159.203.177.177',
         'PORT': '3306',
     }
 }

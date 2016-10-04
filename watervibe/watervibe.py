@@ -4,6 +4,8 @@ import users, reminders
 from watervibe_time import now_in_user_timezone, string_for_date, date_for_string
 import importlib
 from datetime import timedelta
+import stats
+from events import minimum_time_between_event, fringe_time_for_event
 
 def setup(user):
 	users.calculate_stats(user)
@@ -35,29 +37,113 @@ def register_fitbit_user(fitbit_user):
 	 	user.save()
 	 	setup(user)
 
-##	Adds an event to the timeline
-##	Dates must be datetime objects
-## 
-def register_event(app, app_id, tag, start_date, end_date):
-	user = User.objects.filter(app = app, 
-								 app_id = app_id).first()
+##	Called when a new sample for an event
+##  is added to the users app. If the day
+## 	of the week is relavent to the event
+## 	the day_of_the_week should be set to
+## 	the event's isoweekday.
 
-	event = Event.objects.create(user = user,
-								   start_date = string_for_date(start_date),
-								   end_date = string_for_date(end_date),
-								   tag = tag,
-								   day_of_week = start_date.isoweekday())
+def register_sample (app, app_id, tag, day_of_the_week = None):
 
-	event_length = int((end_date - start_date).total_seconds()/60)
-	print "Adding %s event from %s to %s. Minutes: %d" % (tag, string_for_date(start_date), string_for_date(end_date), event_length)
-	for minute in range(0, event_length + 1):
-		time_date = start_date + timedelta(minutes = minute)
+	user = User.objects.filter(app = app,
+							   app_id = app_id).first()
 
-		time = Time.objects.filter(hour = time_date.hour, minute = time_date.minute).first()
-		event.times.add(time)
+	## Clear all the events of that tag
+	## Then recreate them from the new data
+	events = Event.objects.filter(user = user, tag = tag)
+	if day_of_the_week is not None:
+		events = events.filter(day_of_week = day_of_the_week)
+	for event in events:
+		event.delete()
 
-	event.save()
-	
-	if user.beginning_sample_date is None or start_date < date_for_string(user.beginning_sample_date):
-		user.beginning_sample_date = event.start_date
-		user.save()
+	app = importlib.import_module(user.app + "." + user.app)
+	event_times = getattr(app, "%s_times" % tag)(app_id, day_of_the_week = day_of_the_week)
+	if len(event_times) < 2: 
+		return
+	if len(event_times[0]) < 2: 
+		return
+
+	pmf = stats.event_pmf(event_times, 1440)
+	pmf_average = stats.average(pmf)
+
+	if pmf_average < 0.2:
+		## All weak probabilities. Only outlier events.
+		return
+
+	pmf_variance = stats.variance(pmf, average = pmf_average)
+	pmf_std = stats.standard_deviation(pmf, variance = pmf_variance)
+
+	in_event = False
+	event_start_minutes = []
+	event_end_minutes = []
+	event_probabilites = []
+	for minute in range(0,1440):
+		if pmf[minute] > pmf_average + pmf_variance:
+			if in_event is False:
+				event_start_minutes.append(minute)
+				in_event = True
+		else:
+			if in_event is True:
+				event_end_minutes.append(minute)
+				in_event = False
+
+
+	if len(event_start_minutes) > len(event_end_minutes): ## Assume the last event started at night and ends in the morning
+		event_start_minutes[0] = event_start_minutes[len(event_start_minutes) - 1]
+		del event_start_minutes[len(event_start_minutes) - 1]
+
+	## If events are too close together, combined them.
+	for index in range(0, len(event_end_minutes)):
+		if index + 1 >= len(event_start_minutes):
+			break
+
+		event_end_time = event_end_minutes[index]
+		next_event_start_time = event_start_minutes[index + 1]
+		time_between_event = next_event_start_time - event_end_time
+		if time_between_event < minimum_time_between_event(tag):
+			del event_end_minutes[index]
+			del event_start_minutes[index + 1]
+
+
+	for index in range(0, len(event_start_minutes)):
+		start_minute = event_start_minutes[index]
+		end_minute = event_end_minutes[index]
+
+		if start_minute < end_minute:
+			event_probability_set = pmf[start_minute:end_minute]
+		else:
+			event_probability_set = pmf[start_minute:1439]
+			event_probability_set.extend(pmf[0:end_minute])
+		event_average_probablity = stats.average(event_probability_set)
+		event_probability_variance = stats.variance(event_probability_set, average = event_average_probablity)
+
+		fringe_start_time = start_minute - fringe_time_for_event(tag)
+		if fringe_start_time < 0:
+			fringe_start_time = 1440 + fringe_start_time
+
+		fringe_end_time = end_minute + fringe_time_for_event(tag)
+		if fringe_end_time > 1440:
+			fringe_end_time = fringe_end_time - 1440
+
+		if fringe_end_time > fringe_start_time:
+			fringe_pmf = pmf[fringe_start_time:fringe_end_time]
+		else:
+			fringe_pmf = pmf[fringe_start_time:1439]
+			fringe_pmf.extend(pmf[0:fringe_end_time])
+
+		fringe_average_probability = stats.average(fringe_pmf)
+		fringe_variance = stats.variance(fringe_pmf, average = fringe_average_probability)
+
+		start_hour = float(start_minute)/60.0
+		end_hour = float(end_minute)/60.0
+
+		e = Event.objects.create(user = user,
+								 tag = tag,
+								 start_time = start_hour, 
+								 end_time = end_hour,
+								 day_of_week = day_of_the_week,
+								 probability = event_average_probablity,
+								 probability_variance = event_probability_variance,
+								 fringe_probability = fringe_average_probability,
+								 fringe_variance = fringe_variance)
+		e.save()

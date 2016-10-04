@@ -4,6 +4,8 @@ import dateutil
 import users
 import reminders
 
+seconds_in_a_day = 86400.0
+
 def string_for_day(day): 
 	if day is 1:
 		return "MONDAY"
@@ -82,4 +84,26 @@ def seconds_till_update(user):
 def now_in_user_timezone(user):
 	date = datetime.utcnow() + timedelta(hours=hours_offset(user.start_of_period))
 	return date.replace(tzinfo = users.user_timezone(user))
+
+# Supports Event times right now
+def time_is_between_period (time, start_time, end_time):
+	if start_time > end_time: ## Loops around the clock (ex. 8pm-3am)
+		if time > start_time:
+			return True
+		else:
+			adjusted_end_time = 24 + end_time 
+			adjusted_time = 24 + time
+			if adjusted_time < adjusted_end_time and adjusted_time > start_time:
+				return True
+	else:
+		if time > start_time and time < end_time:
+			return True
+
+	return False
+
+def event_time_from_date(date):
+	hour = date.hour
+	minute = float(date.minute)/60.0
+
+	return hour + minute
 

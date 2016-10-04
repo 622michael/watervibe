@@ -8,5 +8,7 @@ from fitbit import subscription
 ## automatically subscribed to the FitBit API.
 class Command(BaseCommand):
 	def handle(self, *args, **options):
+
 		for user in User.objects.all():
+			subscription.subscribitions_for_user(user)
 			subscription.subscribe(user, "sleep")

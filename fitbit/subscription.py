@@ -3,6 +3,7 @@ import authorization
 import json, requests
 
 subscribe_url = "https://api.fitbit.com/1/user/-/*/apiSubscriptions/!.json"
+subscriptions_url = "https://api.fitbit.com/1/user/-/sleep/apiSubscriptions.json"
 
 ## A dictionary of all the notification types
 ## The key is the name of the notification type
@@ -10,16 +11,25 @@ subscribe_url = "https://api.fitbit.com/1/user/-/*/apiSubscriptions/!.json"
 ## to the proper server url.
 notification_types = {"sleep": 1}
 
+def subscribitions_for_user(user):
+	headers = authorization.api_request_header_for(user)
+	response = requests.get(subscriptions_url, headers = headers)
+
+	print response.content
+
+
 ## Contacts FitBit API and subscribes
 ## the server to recieve updates on a
 ## certain piece of health information
 ## notification_type must be "sleep" for now
 def subscribe(user, notification_type):
 	fitbit_subscription_id = "%d" % notification_types[notification_type]
-	fitted_subscribe_url = subscribe_url.replace('-', user.fitbit_id).replace('*', notification_type).replace('!', fitbit_subscription_id)
+	fitted_subscribe_url = subscribe_url.replace('*', notification_type).replace('!', fitbit_subscription_id)
 	headers = authorization.api_request_header_for(user)
 	headers["X-Fitbit-Subscriber-Id"] = fitbit_subscription_id
 	response = requests.post(fitted_subscribe_url, headers= headers)
+
+	print response.content 
 
 
 ## Called by the FitBit API notifying

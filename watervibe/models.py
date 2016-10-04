@@ -38,8 +38,15 @@ class Time (models.Model):
 
 class Event (models.Model): 
 	user = models.ForeignKey(User, on_delete = models.CASCADE)
+	tag = models.CharField(max_length = 256)
+	start_time = models.FloatField(default = 0.0)
+	end_time = models.FloatField(default = 0.0)
+	day_of_week = models.IntegerField(default = 0)
+	probability = models.FloatField(null = True)
+	probability_variance = models.FloatField(null = True)
+	fringe_probability = models.FloatField(null = True)
+	fringe_variance = models.FloatField(null = True)
+
 	start_date = models.CharField(max_length = 22)
 	end_date = models.CharField(max_length = 22)
-	tag = models.CharField(max_length = 256)
-	day_of_week = models.IntegerField()
 	times = models.ManyToManyField(Time)

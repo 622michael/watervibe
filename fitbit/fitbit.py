@@ -43,19 +43,23 @@ def weight_for_user (user_id):
 ##	Returns a string of the datetime
 ##
 ##
-def sleep_times (user_id):
-	start_times = []
-	end_times = []
-			
+def sleep_times (user_id, day_of_the_week = None):
 	try: 
 		user = User.objects.get(id = user_id)
 	except:
 		return None, None
 
+	start_times = []
+	end_times = []
+
 	for sleep in Sleep.objects.filter(user = user):
-		if sleep.is_main_sleep == 1:
-			start_times.append(sleep.start_time)
-			end_times.append(sleep.end_time)
+		if day_of_the_week is not None:
+			if day_of_the_week is fitbit_time.date_for_string(sleep.start_time).isoweekday():
+				start_times.append(sleep.start_time)
+				end_times.append(sleep.end_time)
+		else:
+				start_times.append(sleep.start_time)
+				end_times.append(sleep.end_time)
 
 	return start_times, end_times
 

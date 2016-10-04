@@ -1,10 +1,11 @@
-from models import Reminder, User, Time
+from models import Reminder, User, Event
 from datetime import datetime, date, timedelta
 from watervibe_time import time_zone_offset, date_for_string, hours_offset, string_for_date, now_in_user_timezone
 import dateutil.parser
 import importlib
 import math
 import stats
+import events
 
 def users():
 	return User.objects.all()
@@ -137,14 +138,8 @@ def weighted_average_sleep_time(user, day_of_the_week):
 def maximum_time_between_reminders(user, date):
 	minutes_in_a_day = 60*24
 	minutes_asleep_in_day = 0
-	for time in Time.objects.all():
-		probability_of_sleeping = stats.probability("sleep", 
-													time, 
-													user = user, 
-													day_of_week = date.isoweekday())
-
-		if probability_of_sleeping > 0.25: 
-			minutes_asleep_in_day += 1
+	for event in Event.objects.filter(user = user, day_of_week = date.isoweekday()):
+		minutes_asleep_in_day += events.duration(event)
 
 	minutes_for_reminders = minutes_in_a_day - minutes_asleep_in_day
 	seconds_for_reminders = minutes_for_reminders * 60

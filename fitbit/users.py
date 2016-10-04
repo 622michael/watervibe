@@ -68,7 +68,7 @@ def update_weight (user, user_profile):
 
 def sync_sleep_logs (user): 
 	try:
-		last_sleep_sync = date_for_string(user.last_sleep_sync).replace(tzinfo=dateutil.tz.offset(None,0))
+		last_sleep_sync = date_for_string(user.last_sleep_sync).replace(tzinfo=dateutil.tz.tzoffset(None,0))
 	except:
 		last_sleep_sync = now() - timedelta(days = 30)
 
@@ -76,6 +76,7 @@ def sync_sleep_logs (user):
 
 	for x in range(1, days_since_last_sleep_sync):
 		date = last_sleep_sync + timedelta(days = x)
+		print "Date: %s" % string_for_date(date)
 		new_sleep_log = sleep_log(user, date)
 		for sleep in new_sleep_log:
 			log_id = sleep["logId"]
@@ -95,7 +96,7 @@ def sync_sleep_logs (user):
 							  user       = user)
 				s.save()
 
-				watervibe.register_event("fitbit", user.id, "sleep", start_time, end_time)
+				watervibe.register_sample ("fitbit", user.id, "sleep", day_of_the_week = start_time.isoweekday())
 
 	user.last_sleep_sync = string_for_date(now())
 	user.save()

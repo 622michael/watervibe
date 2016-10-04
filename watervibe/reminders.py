@@ -6,9 +6,10 @@
 import users
 import watervibe_time
 # from watervibe_time import date_for_string, string_for_datepyth
-from models import Reminder, Time
+from models import Reminder, Event
 from datetime import timedelta
 import stats
+import events
 
 def date(reminder):
 	return watervibe_time.date_for_string(reminder.time)
@@ -27,6 +28,16 @@ def reminders_available_at_next_sync(user):
 	return available_spots
 
 def create_reminder(time, user):
+	reminder_event_time = watervibe_time.event_time_from_date(time)
+	for event in Event.objects.filter(user = user, day_of_week = time.isoweekday()):
+		if watervibe_time.time_is_between_period(reminder_event_time, event.start_time, event.end_time):
+			print "%f is during event from %f to %f" % (reminder_event_time, event.start_time, event.end_time)
+			reminder_event_time = events.adjust_reminder_at(reminder_event_time, event)
+			print "Adjusted to %f" % reminder_event_time
+			hour = int(reminder_event_time)
+			minute = float(reminder_event_time - hour) * 60
+			time = time.replace(hour = int(hour), minute = int(minute))
+
 	print "Adding reminder at " + watervibe_time.string_for_date(time)
 	reminder = Reminder.objects.create(time= watervibe_time.string_for_date(time),
 							user= user)
@@ -83,27 +94,12 @@ def create_reminders_for_user (user):
 		
 		if next_reminder_date < watervibe_time.now_in_user_timezone(user):
 			next_reminder_date = watervibe_time.now_in_user_timezone(user) + timedelta(minutes = 5)
-			print "Trying ot set one before another"		
-		
-		event_reminder = 0
-		time = Time.objects.filter(hour = next_reminder_date.hour, minute = next_reminder_date.minute).first()
-		asleep_possibility = stats.probability("sleep", time, user = user, day_of_week = next_reminder_date.isoweekday())
-		if asleep_possibility > 0.25:
-			print "Sleeping at %02d:%02d" % (time.hour, time.minute)
-			length = 0
-			while asleep_possibility > 0.25:
-				length += 1
-				next_reminder_date = next_reminder_date + timedelta(minutes = length)
-				time = Time.objects.filter(hour = next_reminder_date.hour, minute = next_reminder_date.minute).first()
-				asleep_possibility = stats.probability("sleep", time, user = user, day_of_week = next_reminder_date.isoweekday())
-			print "End sleep at %02d:%02d" % (time.hour, time.minute)
-			next_reminder_date = next_reminder_date + timedelta(hours = 1) # If I wasn't lazy this woudl be th variance of the event
 				
 	
 		last_reminder = create_reminder(next_reminder_date, user)
 		if(next_reminder_date > end_of_period):
 			break
 				
-		last_reminder_date = next_reminder_date
+		last_reminder_date = watervibe_time.date_for_string(last_reminder.time) 
 		ounces_drunk_in_period = users.ounces_to_drink_in_period(user, start_of_period, end_of_period)
 		print ounces_drunk_in_period
