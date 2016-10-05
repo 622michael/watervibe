@@ -35,7 +35,7 @@ def subscribe(user, notification_type):
 ## Called by the FitBit API notifying
 ## the server with new sleep information
 ##
-
+@csrf_exempt
 def sleep_notification (request):
 	if not request.GET.get("verify", "") == "":
 		if request.GET.get("verify", "") == "3007b326a29814af227edab671c5ae12315ef15f571d01485bccc33b3f9c8a23":

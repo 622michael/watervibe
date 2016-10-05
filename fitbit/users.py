@@ -110,9 +110,9 @@ def sync_sleep_logs (user):
 
 def sleep_log (user, date):
 	date_string = string_for_date (date, time = False)
-	fitted_sleep_url = sleep_log_url.replace ("-", user.fitbit_id).replace("*", date_string)
-	headers = authorization.api_request_header_for (user)
-	response = requests.get (fitted_sleep_url, headers = headers)
+	fitted_sleep_url = sleep_log_url.replace("-", user.fitbit_id).replace("*", date_string)
+	headers = authorization.api_request_header_for(user)
+	response = requests.get(fitted_sleep_url, headers = headers)
 	json_response = json.loads(response.content)
 	
 	return json_response["sleep"]
