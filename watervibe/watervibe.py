@@ -5,7 +5,7 @@ from watervibe_time import now_in_user_timezone, string_for_date, date_for_strin
 import importlib
 from datetime import timedelta
 import stats
-from events import minimum_time_between_event, fringe_time_for_event
+from events.events import minimum_time_between_event, fringe_time_for_event
 
 def setup(user):
 	users.calculate_stats(user)
@@ -37,6 +37,8 @@ def register_fitbit_user(fitbit_user):
 	 	user.save()
 	 	setup(user)
 
+##	Register Sample
+## 	-------------------------------------
 ##	Called when a new sample for an event
 ##  is added to the users app. If the day
 ## 	of the week is relavent to the event
@@ -54,7 +56,8 @@ def register_sample (app, app_id, tag, day_of_the_week = None):
 	if day_of_the_week is not None:
 		events = events.filter(day_of_week = day_of_the_week)
 	for event in events:
-		event.delete()
+		event.is_active = False
+		event.save()
 
 	app = importlib.import_module(user.app + "." + user.app)
 	event_times = getattr(app, "%s_times" % tag)(app_id, day_of_the_week = day_of_the_week)
@@ -66,7 +69,7 @@ def register_sample (app, app_id, tag, day_of_the_week = None):
 	pmf = stats.event_pmf(event_times, 1440)
 	pmf_average = stats.average(pmf)
 
-	if pmf_average < 0.2:
+	if pmf_average < events.minimum_pmf_mean(tag):
 		## All weak probabilities. Only outlier events.
 		return
 

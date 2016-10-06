@@ -1,10 +1,5 @@
 from __future__ import unicode_literals
-
 from django.db import models
-
-# Right now this app has a dependency on the FitBit app
-# Reminder model should eventually include refrence to an abstract user class
-# That is not reliant on the specific fitbit.user class
 
 class User(models.Model):
 	app = models.CharField(max_length=256)
@@ -50,3 +45,5 @@ class Event (models.Model):
 	start_date = models.CharField(max_length = 22)
 	end_date = models.CharField(max_length = 22)
 	times = models.ManyToManyField(Time)
+
+	is_active = models.BooleanField(default = True)

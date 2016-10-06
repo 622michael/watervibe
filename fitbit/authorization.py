@@ -90,7 +90,6 @@ def authorize (request):
 ##	uses the refresh token to refresh the access token	
 ##
 ##
-
 def refresh_access_for_user(user):
 	
 	access_info, errors = request_access_info(refresh_token = user.refresh_token, grant_type = "refresh_token")
@@ -127,6 +126,7 @@ def request_access_info (code = "", refresh_token = "", grant_type = "authorizat
 ##	returns the header necessary to make
 ## 	an api calls. It also refreshes the
 ##	access token if it is out of date
+
 def api_request_header_for(user):
 	expiration_date = fitbit_time.date_for_string(user.access_token_expiration)
 

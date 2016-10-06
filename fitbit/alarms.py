@@ -10,6 +10,12 @@ from datetime import timedelta
 add_alarm_url = "https://api.fitbit.com/1/user/-/devices/tracker/*/alarms.json"
 delete_alarm_url = "https://api.fitbit.com/1/user/-/devices/tracker/*/alarms/$.json"
 
+##	Set Alarm
+##  --------------------------------------
+##	Sets an alarm for the user on the given
+##  date. FitBit sets alarms by day of the
+##  week, so alarms should not be set a
+##  week in advance.
 def set_alarm (user, device, date, day):
 	fitted_alarm_url = add_alarm_url.replace("-", user.fitbit_id).replace("*", device.fitbit_id)
 	headers = authorization.api_request_header_for(user)
@@ -80,6 +86,9 @@ def user_alarms_count(user):
 	except:
 		return json_response["errors"]
 
+##	Delete Alarm
+##  --------------------------------------
+##  Deletes alarm from FitBit
 def delete_alarm(user, device, alarm):
 	print "Deleting: " + alarm.time
 	fitted_alarm_url = delete_alarm_url.replace("-", user.fitbit_id).replace("*", device.fitbit_id).replace('$', alarm.fitbit_id)
@@ -88,6 +97,10 @@ def delete_alarm(user, device, alarm):
 	requests.delete(fitted_alarm_url, headers=headers)
 	alarm.delete()
 
+##	Clear Used Alarms on Device
+##  --------------------------------------
+##  Deletes every alarm from the device
+##  that has already passed.
 def clear_used_alarms_on_device (user, device):
 	result = False
 	try:

@@ -1,11 +1,12 @@
 from fitbit.tests import AppTestClass
 import watervibe
-from .models import User, Reminder, Time
+from .models import User, Reminder
 import reminders, users
 from watervibe_time import now_in_user_timezone, seconds_till_reminder, date_for_string
 from tasks import sync
 from datetime import timedelta, datetime
 import fitbit.users
+from events import events
 
 
 class WaterVibeAppTestClass(AppTestClass): 
@@ -19,12 +20,17 @@ class WaterVibeAppTestClass(AppTestClass):
 												  next_sync_time = "2016-09-19 00:00-04:00", 
 												  maximum_reminders = 8)
 
-		for hour in range(0, 24):
-			for minute in range (0, 60):
-				t = Time.objects.create(hour = hour, minute = minute)
-				t.save
 
-		fitbit.users.sync_sleep_logs(self.user)
+class EventsTestClass(WaterVibeAppTestClass):
+	def test_minimum_pmf_mean(self):
+		self.assertEqual(.2, events.minimum_pmf_mean("sleep"))
+
+	def test_minimum_time_between_event(self):
+		self.assertEqual(60, events.minimum_time_between_event("sleep"))
+
+	def test_fringe_time_for_event(self):
+		self.assertEqual(60, events.fringe_time_for_event("sleep"))
+
 
 
 #class WaterVibeTaskTestClass(WaterVibeAppTestClass):
@@ -32,7 +38,9 @@ class WaterVibeAppTestClass(AppTestClass):
 	#	sync(self.watervibe_user)
 	#	sync(self.watervibe_user)
 
-# class WaterVibeTestClass(AppTestClass):
+class WaterVibeTestClass(WaterVibeAppTestClass):
+	def test_register_sample(self):
+		watervibe.register_sample("fitbit", self.watervibe_user.app_id, "sleep", day_of_the_week = 1)
 	# def test_register_event(self):
 	# 	start_time = "2016-09-11 07:44-04:00"
 	# 	end_time = "2016-09-11 13:22-04:00"

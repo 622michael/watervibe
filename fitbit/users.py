@@ -20,6 +20,7 @@ def profile(user):
 	fitted_profile_url = "https://api.fitbit.com/1/user/-/profile.json".replace("-", user.fitbit_id)
 	headers = authorization.api_request_header_for (user)
 	response = requests.post (fitted_profile_url, headers= headers)
+	print response
 	json_response = json.loads (response.content)
 
 	return json_response["user"]
@@ -60,12 +61,11 @@ def update_weight (user, user_profile):
 	user.weight = weight
 	user.save()
 
-##	Update Sleep Log
+##	Sync Sleep Logs
 ##  --------------------------------------
-##	Loads and stores all sleep logs sinced
+##	Loads and stores all sleep logs since
 ##	the last time they were loaded. Loads
 ##	into fitbit_sleep.
-
 def sync_sleep_logs (user): 
 	try:
 		last_sleep_sync = date_for_string(user.last_sleep_sync).replace(tzinfo=dateutil.tz.tzoffset(None,0))
@@ -107,7 +107,6 @@ def sync_sleep_logs (user):
 ##	Returns the sleep log for the given
 ## 	date from the FitBit API sleep log
 ##  call.
-
 def sleep_log (user, date):
 	date_string = string_for_date (date, time = False)
 	fitted_sleep_url = sleep_log_url.replace("-", user.fitbit_id).replace("*", date_string)
@@ -122,6 +121,5 @@ def sleep_log (user, date):
 ##	Returns all sleep logs for the given
 ##	User. 
 ##
-
 def sleep_logs(user):
 	return Sleep.objects.filter(user = user.id)

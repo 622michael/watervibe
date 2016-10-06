@@ -12,18 +12,61 @@ from datetime import timedelta
 class AppTestClass(TestCase):
 	def setUp(self):
 		self.user = User.objects.create( fitbit_id="4TP97K", 
-								access_token="eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0VFA5N0siLCJhdWQiOiIyMjdSUjkiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJ3aHIgd3BybyB3c2xlIHd3ZWkgd3NldCB3YWN0IHdsb2MiLCJleHAiOjE0NzU0NDA2ODAsImlhdCI6MTQ3NTQxMTg4MH0.L8AwcuJBCR54BdeEcZMJQVZpd1qHyytTJXRbLv_pl4A", 
+								access_token="eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0VFA5N0siLCJhdWQiOiIyMjdSUjkiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJ3aHIgd3BybyB3c2xlIHd3ZWkgd3NldCB3YWN0IHdsb2MiLCJleHAiOjE0NzU3NTU1MDIsImlhdCI6MTQ3NTcyNjcwMn0.HwEyw2lzqO2Qk5PDGLKBp7SdIAcG1dyjB0SWdUgn41k", 
 								scope="activity heartrate profile location sleep weight settings", 
-								refresh_token="4e8ab05646fdb1d0b15b931ecc89647381e4dab301074a1b5da0642bd1e91cf2",
+								refresh_token="65739a29c12bc74ba563bac4c24cf49e9942389cac7d5376f371184243d2ca87",
 								access_token_expiration = "2016-09-25 12:00+00:00")
 		self.device = Device.objects.create(fitbit_id = "310104047",
 										version = "Charge HR",
 										device_type = "TRACKER",
 										user = self.user)
 
+
+		Sleep.objects.create(fitbit_id = "12613384968",
+									 is_main_sleep = 1,
+									start_time = "2016-09-22 06:23-04:00",
+									end_time = "2016-09-22 07:56-04:00",
+									duration = 5580000,
+									user = self.user)
+		Sleep.objects.create(fitbit_id = "12626120836",
+									 is_main_sleep = 1,
+									start_time = "2016-09-24 03:42-04:00",
+									end_time = "2016-09-24 08:06-04:00",
+									duration = 5580000,
+									user = self.user)
+		Sleep.objects.create(fitbit_id = "12628859393",
+									 is_main_sleep = 1,
+									start_time = "2016-09-25 02:03-04:00",
+									end_time = "2016-09-25 08:02-04:00",
+									duration = 5580000,
+									user = self.user)
+		Sleep.objects.create(fitbit_id = "12642373013",
+									 is_main_sleep = 1,
+									start_time = "2016-09-25 15:28-04:00",
+									end_time = "2016-09-25 18:17-04:00",
+									duration = 5580000,
+									user = self.user)
+		Sleep.objects.create(fitbit_id = "12660782864",
+									 is_main_sleep = 1,
+									start_time = "2016-09-26 02:36-04:00",
+									end_time = "2016-09-26 06:56-04:00",
+									duration = 5580000,
+									user = self.user)
+		Sleep.objects.create(fitbit_id = "12669899859",
+									 is_main_sleep = 1,
+									start_time = "2016-09-28 00:38-04:00",
+									end_time = "2016-09-27 08:24-04:00 ",
+									duration = 5580000,
+									user = self.user)
+		Sleep.objects.create(fitbit_id = "12682157426",
+									 is_main_sleep = 1,
+									start_time = "2016-09-28 23:40-04:00",
+									end_time = "2016-09-28 07:26-04:00",
+									duration = 5580000,
+									user = self.user)
 		
 		users.update_profile(self.user)
-
+ 
 		# Alarm.objects.create(time = "2016-09-27 14:30-04:00", 
 		# 	fitbit_id = "336601763", 
 		# 	user = self.user,
