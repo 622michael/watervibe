@@ -5,7 +5,7 @@ from watervibe_time import now_in_user_timezone, string_for_date, date_for_strin
 import importlib
 from datetime import timedelta
 import stats
-from events.events import minimum_time_between_event, fringe_time_for_event
+from events.events import minimum_time_between_event, fringe_time_for_event, minimum_pmf_mean
 
 def setup(user):
 	users.calculate_stats(user)
@@ -69,7 +69,7 @@ def register_sample (app, app_id, tag, day_of_the_week = None):
 	pmf = stats.event_pmf(event_times, 1440)
 	pmf_average = stats.average(pmf)
 
-	if pmf_average < events.minimum_pmf_mean(tag):
+	if pmf_average < minimum_pmf_mean(tag):
 		## All weak probabilities. Only outlier events.
 		return
 
