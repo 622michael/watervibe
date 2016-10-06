@@ -5,7 +5,7 @@ import dateutil.parser
 import importlib
 import math
 import stats
-import events
+from events import events
 
 def users():
 	return User.objects.all()

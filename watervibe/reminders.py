@@ -9,7 +9,7 @@ import watervibe_time
 from models import Reminder, Event
 from datetime import timedelta
 import stats
-import events
+from events import events
 
 def date(reminder):
 	return watervibe_time.date_for_string(reminder.time)
