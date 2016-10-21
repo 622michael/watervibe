@@ -91,7 +91,6 @@ def authorize (request):
 ##
 ##
 def refresh_access_for_user(user):
-	
 	access_info, errors = request_access_info(refresh_token = user.refresh_token, grant_type = "refresh_token")
 	if errors is not None:
 		return None
