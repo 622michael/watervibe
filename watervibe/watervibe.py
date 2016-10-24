@@ -45,7 +45,7 @@ def fitbit_dashboard_alarms (app_id):
 	alarms = []
 
 	count = 0
-	for reminder in Reminder.objects.filter(user = user):
+	for reminder in Reminder.objects.filter(user = user).order_by("-time"):
 		if count >= 5:
 			break
 
