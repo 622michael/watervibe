@@ -22,4 +22,7 @@ def request_permissions(request):
 	return redirect_reponse
 
 def alarms_full(request): 
-	return render(request, 'fitbit/full.html', {})
+	return error(request, "You have too many alarms on your FitBit (max is 8). Please remove at least one and register again.")
+
+def error(request, message):
+	return render(request, 'fitbit/error.html', {'message' : message})

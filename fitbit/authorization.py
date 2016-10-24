@@ -56,7 +56,6 @@ def authorize (request):
 	expiration_date = fitbit_time.now() + timedelta(seconds = access_info["expires_in"])
 	expiration_date = fitbit_time.string_for_date(expiration_date)
 
-	print user_id
 	try:
 		user = User.objects.get(fitbit_id = user_id)
 		user.access_token = access_token
@@ -64,6 +63,8 @@ def authorize (request):
 		user.refresh_token = refresh_token
 		user.access_token_expiration = expiration_date
 		user.save()
+
+		return views.authorization_success(scope, request) 
 	except:
 		user = User.objects.create( fitbit_id = user_id, 
 								access_token = access_token, 
