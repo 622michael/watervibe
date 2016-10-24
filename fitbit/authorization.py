@@ -75,8 +75,8 @@ def authorize (request):
 	users.update_profile(user)
 	devices = device.get_devices_for(user)
 
-	if len(devices) == 0:
-		return views.error(request, "No devices on your FitBit account support silent alarms. WaterVibe could not be set up")
+	if devices is None:
+		return views.error(request, "No device on your FitBit account supports silent alarms. Please try again after adding a device to your FitBit account.")
 
 	if "sleep" in user.scope:
 		subscription.subscribe(user, "sleep")
