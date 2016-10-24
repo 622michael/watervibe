@@ -48,8 +48,8 @@
         <div class="blocks">
           <div class="notification">
             <div><span> Upcoming WaterVibes</span></div>
-            {% for alarm in alarms %}
-              <p id="time"> { alarm["time"] }<span>{ alarm["date"] }</span><p>
+            {% for (time,date) in alarms %}
+              <p id="time"> {{ time }} <span>{{ date }}</span><p>
             {% endfor %}
 
           </div>

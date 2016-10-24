@@ -38,7 +38,7 @@ def register_fitbit_user(fitbit_user):
 
 def fitbit_dashboard_alarms (app_id):
 	try:
-		user = User.objects.get(app_id = fitbit_user.id, app = "fitbit")
+		user = User.objects.get(app_id = app_id, app = "fitbit")
 	except:
 		return []
 
@@ -54,7 +54,7 @@ def fitbit_dashboard_alarms (app_id):
 		time_string = date.strftime("%I:%M%p")
 		date_string = date.strftime("%m/%d/%Y")
 
-		alarm = {"time" : time_string, "date": date_string}
+		alarm = (time_string, date_string)
 		alarms.append(alarm)
 		count += 1
 
