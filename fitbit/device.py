@@ -26,6 +26,8 @@ def get_devices_for(user):
 		print device_fitbit_id
 		try:
 			device = Device.objects.get(fitbit_id = device_fitbit_id)
+			
+			devices.append(device)
 		except:
 			device = Device.objects.create(fitbit_id = device_fitbit_id,
 										version = device_version,
