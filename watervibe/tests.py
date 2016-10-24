@@ -1,6 +1,6 @@
 from fitbit.tests import AppTestClass
 import watervibe
-from .models import User, Reminder
+from .models import User, Reminder, Event
 import reminders, users
 from watervibe_time import now_in_user_timezone, seconds_till_reminder, date_for_string
 from tasks import sync
@@ -19,6 +19,11 @@ class WaterVibeAppTestClass(AppTestClass):
 												  end_of_period = "20:30-04:00",
 												  next_sync_time = "2016-09-19 00:00-04:00", 
 												  maximum_reminders = 8)
+
+		Event.objects.create(tag = "sleep", day_of_week = 1, start_time = 1.0, end_time = 8.0, is_active = 1, 
+			probability = 100, probability_variance = 0.0, fringe_probability = 0.0, fringe_variance = 1.0, user = self.watervibe_user)
+
+
 
 
 class EventsTestClass(WaterVibeAppTestClass):
@@ -39,8 +44,12 @@ class EventsTestClass(WaterVibeAppTestClass):
 	#	sync(self.watervibe_user)
 
 class WaterVibeTestClass(WaterVibeAppTestClass):
-	def test_register_sample(self):
-		watervibe.register_sample("fitbit", self.watervibe_user.app_id, "sleep", day_of_the_week = 1)
+	def test_fitbit_sleep_dashboard(self):
+		self.assertEqual([("01:00AM", "08:00AM")], watervibe.fitbit_dashboard_sleep_times(self.user.id))
+
+
+	# def test_register_sample(self):
+	# 	watervibe.register_sample("fitbit", self.watervibe_user.app_id, "sleep", day_of_the_week = 1)
 	# def test_register_event(self):
 	# 	start_time = "2016-09-11 07:44-04:00"
 	# 	end_time = "2016-09-11 13:22-04:00"

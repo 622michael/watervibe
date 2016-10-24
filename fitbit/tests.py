@@ -65,7 +65,7 @@ class AppTestClass(TestCase):
 									duration = 5580000,
 									user = self.user)
 		
-		users.update_profile(self.user)
+		# users.update_profile(self.user)
  
 		# Alarm.objects.create(time = "2016-09-27 14:30-04:00", 
 		# 	fitbit_id = "336601763", 

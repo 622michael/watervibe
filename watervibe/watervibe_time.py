@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, time
 from reminders import last_reminder_for_user
 import dateutil
 import users
@@ -106,4 +106,9 @@ def event_time_from_date(date):
 	minute = float(date.minute)/60.0
 
 	return hour + minute
+
+def time_from_event_time (event_time):
+	minute = (event_time%1)*60
+	return time(hour = int(event_time), minute = int(minute))
+
 

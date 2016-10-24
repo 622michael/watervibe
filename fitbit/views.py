@@ -6,8 +6,8 @@ import authorization
 
 # Create your views here.
 
-def authorization_success(request, alarms):
-	return render(request, 'dashboard.html', {"alarms" : alarms })
+def authorization_success(request, alarms, sleep):
+	return render(request, 'dashboard.html', {"alarms" : alarms, "sleep": sleep})
 
 def authorization_failed(errors, request):
 	return render(request, 'failed.html', {})

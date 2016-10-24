@@ -65,6 +65,7 @@ def authorize (request):
 		user.save()
 
 		alarms = watervibe.watervibe.fitbit_dashboard_alarms(user.id)
+		sleep = watervibe.watervibe.fitbit_dashboard_sleep_times(user.id)
 
 		return views.authorization_success(request, alarms)  
 	except:

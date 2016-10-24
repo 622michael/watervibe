@@ -1,6 +1,6 @@
 from .models import User, Event, Reminder 
 import users, reminders
-from watervibe_time import now_in_user_timezone, string_for_date, date_for_string
+from watervibe_time import now_in_user_timezone, string_for_date, date_for_string, time_from_event_time
 import importlib
 from datetime import timedelta
 import stats
@@ -65,6 +65,27 @@ def fitbit_dashboard_alarms (app_id):
 			count += 1
 
 	return alarms
+
+def fitbit_dashboard_sleep_times (app_id): 
+	try: 
+		user = User.objects.get(app_id = app_id, app = "fitbit")
+	except:
+		return []
+
+	today = now_in_user_timezone(user).isoweekday()
+
+	sleep_times = []
+
+	sleeps = Event.objects.filter(tag = "sleep", day_of_week = today, user = user, is_active = 1)
+	for sleep in sleeps:
+		sleep_time = time_from_event_time(sleep.start_time)
+		end_time = time_from_event_time(sleep.end_time)
+
+		time_string = sleep_time.strftime("%I:%M%p")
+		end_time_string = end_time.strftime("%I:%M%p")
+		sleep_times.append((time_string, end_time_string))
+
+	return sleep_times
 
 
 ##	Register Sample

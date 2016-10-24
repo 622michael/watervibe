@@ -49,7 +49,10 @@
           <div class="notification">
             <div><span> Upcoming WaterVibes</span></div>
             {% for time,date in alarms %}
-              <p id="time"> {{ time }} <span>{{ date }}</span><p>
+              <p id="time"><img src= "/img/alarm.png"> {{ time }} <span>{{ date }}</span></p>
+            {% endfor %}
+            {% for time, end_time in sleep %}
+              <p id="time"><img src= "/img/sleep.png">{{ time }} to {{ end_time }} <span>{{ date }}</span></p>
             {% endfor %}
 
           </div>
