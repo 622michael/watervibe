@@ -45,18 +45,24 @@ def fitbit_dashboard_alarms (app_id):
 	alarms = []
 
 	count = 0
-	for reminder in Reminder.objects.filter(user = user).order_by("-time"):
-		if count >= 5:
-			break
+	save = 0
+	for reminder in Reminder.objects.filter(user = user).order_by("time"):
+		if save is not 1:
+			if reminders.date(reminder) > now_in_user_timezone(user):
+				save = 1
 
-		date = reminders.date(reminder)
+		if save is 1:
+			if count >= 5:
+				break
 
-		time_string = date.strftime("%I:%M%p")
-		date_string = date.strftime("%m/%d/%Y")
+			date = reminders.date(reminder)
 
-		alarm = (time_string, date_string)
-		alarms.append(alarm)
-		count += 1
+			time_string = date.strftime("%I:%M%p")
+			date_string = date.strftime("%m/%d/%Y")
+
+			alarm = (time_string, date_string)
+			alarms.append(alarm)
+			count += 1
 
 	return alarms
 
