@@ -1,5 +1,4 @@
 from .models import User, Event, Reminder 
-from tasks import setup
 import users, reminders
 from watervibe_time import now_in_user_timezone, string_for_date, date_for_string
 import importlib
