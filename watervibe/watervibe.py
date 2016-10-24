@@ -1,4 +1,4 @@
-from .models import User, Event, Time
+from .models import User, Event, Reminder 
 from tasks import setup
 import users, reminders
 from watervibe_time import now_in_user_timezone, string_for_date, date_for_string
@@ -36,6 +36,31 @@ def register_fitbit_user(fitbit_user):
 							  	   app_id = fitbit_user.id)
 	 	user.save()
 	 	setup(user)
+
+def fitbit_dashboard_alarms (app_id):
+	try:
+		user = User.objects.get(app_id = fitbit_user.id, app = "fitbit")
+	except:
+		return []
+
+	alarms = []
+
+	count = 0
+	for reminder in Reminder.objects.filter(user = user):
+		if count >= 5:
+			break
+
+		date = reminders.date(reminder)
+
+		time_string = date.strftime("%I:%M%p")
+		date_string = date.strftime("%m/%d/%Y")
+
+		alarm = {"time" : time_string, "date": date_string}
+		alarms.append(alarm)
+		count += 1
+
+	return alarms
+
 
 ##	Register Sample
 ## 	-------------------------------------

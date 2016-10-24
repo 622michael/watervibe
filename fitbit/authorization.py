@@ -64,7 +64,9 @@ def authorize (request):
 		user.access_token_expiration = expiration_date
 		user.save()
 
-		return views.authorization_success(scope, request) 
+		alarms = watervibe.watervibe.fitbit_dashboard_alarms(user.id)
+
+		return views.authorization_success(request, alarms)  
 	except:
 		user = User.objects.create( fitbit_id = user_id, 
 								access_token = access_token, 
@@ -87,7 +89,9 @@ def authorize (request):
 
 	watervibe.watervibe.register_fitbit_user(user)
 
-	return views.authorization_success(scope, request)
+	alarms = watervibe.watervibe.fitbit_dashboard_alarms(user.id)
+
+	return views.authorization_success(request, alarms)
 
 ##	Refresh Access
 ##  --------------------------------------
