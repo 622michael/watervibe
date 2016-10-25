@@ -24,25 +24,25 @@
 
         <header>
           <div class="menu-container">
-              <img class="small-logo" src="/img/WaterVibe.png"></img>
-                <a class="sm-menu" href="index.html">
+              <img class="small-logo" src="/img/WaterVibe.png" href = "/"></img>
+                <a class="sm-menu" href="/">
                   <p>home</p>
                 </a>
-                <a class="sm-menu"  href="#">
+<!--                 <a class="sm-menu"  href="#">
                   <p>contact us</p>
                 </a>
                 <a class="sm-menu" href="#">
                   <p>login</p>
-                </a>
+                </a> -->
             </div>
         </header>
         <div class="header-wrapper">
         <div class="quote"><p>"All of your problems ever are because you are not drinking enough water!"<p></div>
         <div class="profile">
-          <div>
+<!--           <div>
           <p id="name">John Doe</p>
           <p id="location">Bethleham, PA</p>
-          </div>
+          </div> -->
           <iframe src="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&layout=button_count&size=large&mobile_iframe=false&width=106&height=28&appId" width="106" height="28" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>        </div>
         </div>
         <div class="blocks">
@@ -52,11 +52,12 @@
               <p id="time"><img src= "/img/alarm.png"> {{ time }} <span>{{ date }}</span></p>
             {% endfor %}
             {% for time, end_time in sleep %}
-              <p id="time"><img src= "/img/sleep.png">{{ time }} to {{ end_time }} <span>{{ date }}</span></p>
+              <p id="time"><img src= "/img/sleep.png">{{ time }} to {{ end_time }} </p>
             {% endfor %}
 
           </div>
         </div>
+        <li href = "/fitbit/unsubscribe"> unsubscribe </li>
         <p class="copyright">© 2016 WATERVIBE</p>
       </div>
 

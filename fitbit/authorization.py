@@ -47,7 +47,7 @@ def authorize (request):
 
 	access_info, errors = request_access_info(code = request.GET['code'])
 	if errors is not None:
-		return views.authorization_failed(errors, request)
+		return views.error(request, "Something went wrong authenticating with FitBit. Please try again.")
 
 	user_id = access_info["user_id"]
 	access_token = access_info["access_token"]
