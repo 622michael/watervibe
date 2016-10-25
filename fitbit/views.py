@@ -26,3 +26,7 @@ def alarms_full(request):
 
 def error(request, message):
 	return render(request, 'error.html', {'message' : message})
+
+
+def handler500(request):
+	return error(request, "An unknown error has occured. Please let watervibe.co@gmail.com know you have recieved this message. Thank you!")
