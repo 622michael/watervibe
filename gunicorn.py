@@ -1,7 +1,7 @@
-import "multiprocessing"
+import multiprocessing
 
 bind = "127.0.0.1:8000"
-workers = multiprocessing.cpu() + 1
-access_logfile = "logs/gunicorn_access.log"
-error-logfile = "logs/gunicorn_error.log"
-capture-output = True
+workers = multiprocessing.cpu_count() + 1
+accesslog = "logs/gunicorn_access.log"
+errorlog = "logs/gunicorn_error.log"
+capture_output = True

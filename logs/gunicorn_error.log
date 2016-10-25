@@ -1,0 +1,14 @@
+2016-10-25 08:59:54 [24924] [INFO] Starting gunicorn 17.5
+2016-10-25 08:59:54 [24924] [INFO] Listening at: http://127.0.0.1:8000 (24924)
+2016-10-25 08:59:54 [24924] [INFO] Using worker: sync
+2016-10-25 08:59:54 [24929] [INFO] Booting worker with pid: 24929
+2016-10-25 08:59:54 [24930] [INFO] Booting worker with pid: 24930
+2016-10-25 09:00:18 [24929] [INFO] Worker exiting (pid: 24929)
+2016-10-25 09:00:18 [24930] [INFO] Worker exiting (pid: 24930)
+2016-10-25 09:00:18 [24924] [INFO] Handling signal: int
+2016-10-25 09:00:18 [24924] [INFO] Shutting down: Master
+2016-10-25 09:00:21 [24938] [INFO] Starting gunicorn 17.5
+2016-10-25 09:00:21 [24938] [INFO] Listening at: http://127.0.0.1:8000 (24938)
+2016-10-25 09:00:21 [24938] [INFO] Using worker: sync
+2016-10-25 09:00:21 [24943] [INFO] Booting worker with pid: 24943
+2016-10-25 09:00:21 [24944] [INFO] Booting worker with pid: 24944
