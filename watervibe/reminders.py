@@ -38,6 +38,9 @@ def create_reminder(time, user):
 			minute = float(reminder_event_time - hour) * 60
 			time = time.replace(hour = int(hour), minute = int(minute))
 
+			if time < watervibe_time.now_in_user_timezone(user) or time < watervibe_time.date_for_string(last_reminder_for_user(user).time):
+				time = time + timedelta(days = 1)
+
 	print "Adding reminder at " + watervibe_time.string_for_date(time)
 	reminder = Reminder.objects.create(time= watervibe_time.string_for_date(time),
 							user= user)
@@ -91,6 +94,8 @@ def create_reminders_for_user (user):
 
 	while ounces_drunk_in_period < required_ounces:
 		next_reminder_date = last_reminder_date + time_between_reminders
+
+		print next_reminder_date
 		
 		if next_reminder_date < watervibe_time.now_in_user_timezone(user):
 			next_reminder_date = watervibe_time.now_in_user_timezone(user) + timedelta(minutes = 5)
@@ -101,5 +106,7 @@ def create_reminders_for_user (user):
 			break
 				
 		last_reminder_date = watervibe_time.date_for_string(last_reminder.time) 
+
+		print last_reminder_date
 		ounces_drunk_in_period = users.ounces_to_drink_in_period(user, start_of_period, end_of_period)
 		print ounces_drunk_in_period

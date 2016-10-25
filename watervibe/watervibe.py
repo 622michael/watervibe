@@ -7,6 +7,19 @@ import stats
 from events.events import minimum_time_between_event, fringe_time_for_event, minimum_pmf_mean
 
 def setup(user):
+	for day in range(1, 8):
+		e = Event.objects.create(user = user,
+						 tag = "sleep",
+						 start_time = 20.5, 
+						 end_time = 8.5,
+						 day_of_week = day,
+						 probability = 0.0,
+						 probability_variance = 0.0,
+						 fringe_probability = 0.0,
+						 fringe_variance = 0.0)
+		e.save()
+
+
 	users.calculate_stats(user)
 	reminders.create_reminders_for_user(user)
 	sync(user)

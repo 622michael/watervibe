@@ -1,6 +1,15 @@
 ## Stores all information needed to understand
 ## and process a sleep event. Units are in minutes.
 
+## --- reminder_interaction
+## Sets when the event is "viewed" by watervibes.
+## An interruptive event is seen when trying to set
+## an alarm during the event.
+## An additive event is seen when setting reminders
+## and when calculating how much water should be drank.
+
+reminder_interaction = "interruptive"
+
 ## --- minimum_pfm_mean
 ## The value that a pmf must pass so
 ## that it acutally counts as a pattern
@@ -28,4 +37,11 @@ fringe_time_for_event = 60
 ## Returns the proper time for the reminder
 ## That is set to occur during an event.
 def adjust_reminder_at(reminder_time, event):
-	return event.end_time + fringe_time_for_event
+	if event.is_active:
+		new_reminder_time = event.end_time + fringe_time_for_event/60.0
+		if new_reminder_time > 23:
+			new_reminder_time = new_reminder_time - 23
+
+		return new_reminder_time
+	else:
+		return event.end_time

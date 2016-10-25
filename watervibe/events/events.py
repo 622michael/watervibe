@@ -53,5 +53,5 @@ def fringe_time_for_event(tag):
 ## That is set to occur during an event.
 
 def adjust_reminder_at(reminder_time, event):
-	event_abstract = importlib.import_module("events." + tag)
+	event_abstract = importlib.import_module("watervibe.events." + event.tag)
 	return event_abstract.adjust_reminder_at(reminder_time, event)
