@@ -32,10 +32,14 @@ def profile(user):
 ##	in the relavent user fields.
 
 def update_profile(user):
-	user_profile = profile(user)
-	update_weight(user, user_profile)
-	update_timezone(user, user_profile)
-	user.save()
+	try:
+		user_profile = profile(user)
+		update_weight(user, user_profile)
+		update_timezone(user, user_profile)
+		update_name(user, user_profile)
+		user.save()
+	except:
+		pass
 
 ##  Update Timezone
 ## --------------------------------------
@@ -44,7 +48,6 @@ def update_profile(user):
 
 def update_timezone(user, user_profile):
 	user.timezone = user_profile["timezone"]
-	user.save()
 
 ##	Update Weight
 ##  --------------------------------------
@@ -59,7 +62,22 @@ def update_weight (user, user_profile):
 		weight = weight * 2.2046226218
 		
 	user.weight = weight
-	user.save()
+
+##	Update Name
+##  --------------------------------------
+##	Seperates the name from the FitBit API
+##  by space. The first is the first name;
+##	the rest is the last name.
+
+def update_name(user, user_profile):
+	words = user_profile["fullName"].split()
+	first_name = words[0]
+	words.remove(first_name)
+	last_name =  " ".join(words)
+
+	user.first_name = first_name
+	user.last_name = last_name
+
 
 ##  Sync Logs Of Type
 ##  --------------------------------------
