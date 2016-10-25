@@ -14,7 +14,7 @@ def authorization_success(request, user):
 	ounces  	= watervibe.watervibe.fitbit_dashboard_ounces(user.id)
 	first_name  = user.first_name
 
-	return render(request, 'dashboard.html', {"alarms" : alarms, "sleep": sleep, "ounces": ounces, "first_name": first_name})
+	return render(request, 'dashboard.html', {"alarms" : alarm_times, "sleep": sleep_times, "ounces": ounces, "first_name": first_name})
 
 def authorization_failed(errors, request):
 	return render(request, 'failed.html', {})
