@@ -65,7 +65,7 @@ def authorize (request):
 		user.save()
 
 		alarm_times = watervibe.watervibe.fitbit_dashboard_alarms(user.id)
-		sleep = watervibe.watervibe.fitbit_dashboard_sleep_times(user.id)
+		sleep_times = watervibe.watervibe.fitbit_dashboard_sleep_times(user.id)
 
 		return views.authorization_success(request, alarms_times, sleep)  
 	except:
@@ -90,9 +90,10 @@ def authorize (request):
 
 	watervibe.watervibe.register_fitbit_user(user)
 
-	alarms = watervibe.watervibe.fitbit_dashboard_alarms(user.id)
+	alarm_times = watervibe.watervibe.fitbit_dashboard_alarms(user.id)
+	sleep_times = watervibe.watervibe.fitbit_dashboard_sleep_times(user.id)
 
-	return views.authorization_success(request, alarms)
+	return views.authorization_success(request, alarm_times, sleep_times)
 
 ##	Refresh Access
 ##  --------------------------------------
