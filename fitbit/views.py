@@ -11,7 +11,7 @@ import users
 def authorization_success(request, user):
 	alarm_times = watervibe.watervibe.fitbit_dashboard_alarms(user.id)
 	sleep_times = watervibe.watervibe.fitbit_dashboard_sleep_times(user.id)
-	ounces  	= watervibe.watervibe.fitbit_dashboard_ounces(user.id)
+	ounces  	= int(watervibe.watervibe.fitbit_dashboard_ounces(user.id))
 	first_name  = user.first_name
 
 	return render(request, 'dashboard.html', {"alarms" : alarm_times, "sleep": sleep_times, "ounces": ounces, "first_name": first_name})
