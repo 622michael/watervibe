@@ -64,10 +64,10 @@ def authorize (request):
 		user.access_token_expiration = expiration_date
 		user.save()
 
-		alarms = watervibe.watervibe.fitbit_dashboard_alarms(user.id)
+		alarm_times = watervibe.watervibe.fitbit_dashboard_alarms(user.id)
 		sleep = watervibe.watervibe.fitbit_dashboard_sleep_times(user.id)
 
-		return views.authorization_success(request, alarms, sleep)  
+		return views.authorization_success(request, alarms_times, sleep)  
 	except:
 		user = User.objects.create( fitbit_id = user_id, 
 								access_token = access_token, 
