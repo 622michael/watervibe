@@ -12,3 +12,27 @@
 2016-10-25 09:00:21 [24938] [INFO] Using worker: sync
 2016-10-25 09:00:21 [24943] [INFO] Booting worker with pid: 24943
 2016-10-25 09:00:21 [24944] [INFO] Booting worker with pid: 24944
+2016-10-25 10:50:32 [24938] [INFO] Handling signal: term
+2016-10-25 14:50:32 [24944] [INFO] Worker exiting (pid: 24944)
+<Response [200]>
+310104047
+<Response [200]>
+310104047
+2016-10-25 14:50:32 [24943] [INFO] Worker exiting (pid: 24943)
+<Response [200]>
+310104047
+2016-10-25 10:50:32 [24938] [INFO] Shutting down: Master
+2016-10-25 10:50:37 [25861] [INFO] Starting gunicorn 17.5
+2016-10-25 10:50:37 [25861] [INFO] Listening at: http://127.0.0.1:8000 (25861)
+2016-10-25 10:50:37 [25861] [INFO] Using worker: sync
+2016-10-25 10:50:37 [25866] [INFO] Booting worker with pid: 25866
+2016-10-25 10:50:37 [25867] [INFO] Booting worker with pid: 25867
+2016-10-25 10:51:45 [25867] [INFO] Worker exiting (pid: 25867)
+2016-10-25 10:51:45 [25866] [INFO] Worker exiting (pid: 25866)
+2016-10-25 10:51:45 [25861] [INFO] Handling signal: int
+2016-10-25 10:51:45 [25861] [INFO] Shutting down: Master
+2016-10-25 10:51:48 [25878] [INFO] Starting gunicorn 17.5
+2016-10-25 10:51:48 [25878] [INFO] Listening at: http://127.0.0.1:8000 (25878)
+2016-10-25 10:51:48 [25878] [INFO] Using worker: sync
+2016-10-25 10:51:48 [25883] [INFO] Booting worker with pid: 25883
+2016-10-25 10:51:48 [25884] [INFO] Booting worker with pid: 25884

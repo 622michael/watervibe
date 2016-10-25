@@ -48,7 +48,7 @@
         <div class="blocks">
           <div class="notification">
             <div><h1> Welcome, {{ first_name }}! </h1> <p> WaterVibe has begun to sync to your FitBit! Every reminder WaterVibe assumes you will <b>drink a cup of water</b>, based on the philosophy that sipping a little bit throughout the day is better than drinking a lot at ounce. Below you will see how much water WaterVibe thinks you should drink, when you will get alarms, and when WaterVibe thinks you will go to bed (which will become more accurate the longer WaterVibe is active). We are still in development so come back later to have more control over WaterVibe.</p></div>
-            <p id= "time">{ounces} Oz. <span> {{ today }}</span></p>
+            <p id= "time">{{ounces}} Oz. <span> {{ today }}</span></p>
             {% for time,date in alarms %}
               <p id="time"><img src= "/img/alarm.png"> {{ time }} <span>{{ date }}</span></p>
             {% endfor %}
