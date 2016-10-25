@@ -3,11 +3,18 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import Context, loader
 # from . import authorization
 import authorization
+import watervibe.watervibe
+import users
 
 # Create your views here.
 
-def authorization_success(request, alarms, sleep):
-	return render(request, 'dashboard.html', {"alarms" : alarms, "sleep": sleep})
+def authorization_success(request, user):
+	alarm_times = watervibe.watervibe.fitbit_dashboard_alarms(user.id)
+	sleep_times = watervibe.watervibe.fitbit_dashboard_sleep_times(user.id)
+	ounces  	= watervibe.watervibe.fitbit_dashboard_ounces(user.id)
+	first_name  = user.first_name
+
+	return render(request, 'dashboard.html', {"alarms" : alarms, "sleep": sleep, "ounces": ounces, "first_name": first_name})
 
 def authorization_failed(errors, request):
 	return render(request, 'failed.html', {})

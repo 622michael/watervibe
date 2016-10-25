@@ -8,8 +8,8 @@
     <title>WaterVibe</title>
 
     <!-- Bootstrap -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/costom.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/costom.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Yanone+Kaffeesatz" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -24,7 +24,7 @@
 
         <header>
           <div class="menu-container">
-              <img class="small-logo" src="/img/WaterVibe.png" href = "/"></img>
+              <img class="small-logo" src="img/WaterVibe.png" href = "/"></img>
                 <a class="sm-menu" href="/">
                   <p>home</p>
                 </a>
@@ -43,16 +43,17 @@
           <p id="name">John Doe</p>
           <p id="location">Bethleham, PA</p>
           </div> -->
-<!--           <iframe src="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&layout=button_count&size=large&mobile_iframe=false&width=106&height=28&appId" width="106" height="28" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>   -->      </div>
+          <!-- <iframe src="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&layout=button_count&size=large&mobile_iframe=false&width=106&height=28&appId" width="106" height="28" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>        </div> -->
         </div>
         <div class="blocks">
           <div class="notification">
-            <div><span> Upcoming WaterVibes</span></div>
+            <div><h1> Welcome, {{ first_name }}! </h1> <p> WaterVibe has begun to sync to your FitBit! Every reminder WaterVibe assumes you will <b>drink a cup of water</b>, based on the philosophy that sipping a little bit throughout the day is better than drinking a lot at ounce. Below you will see how much water WaterVibe thinks you should drink, when you will get alarms, and when WaterVibe thinks you will go to bed (which will become more accurate the longer WaterVibe is active). We are still in development so come back later to have more control over WaterVibe.</p></div>
+            <p id= "time">{ounces} Oz. <span> {{ today }}</span></p>
             {% for time,date in alarms %}
-              <p id="time"><img src= "/img/alarm.png"> {{ time }} <span>{{ date }}</span></p>
+              <p id="time"><img src= "img/alarm.png"> {{ time }} <span>{{ date }}</span></p>
             {% endfor %}
             {% for time, end_time in sleep %}
-              <p id="time"><img src= "/img/sleep.png">{{ time }} to {{ end_time }} </p>
+              <p id="time"><img src= "img/sleep.png">{{ time }} to {{ end_time }} </p>
             {% endfor %}
 
           </div>
@@ -63,6 +64,6 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="/js/bootstrap.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
   </body>
 </html>

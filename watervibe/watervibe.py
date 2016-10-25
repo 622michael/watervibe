@@ -100,6 +100,18 @@ def fitbit_dashboard_sleep_times (app_id):
 
 	return sleep_times
 
+def fitbit_dashboard_ounces(app_id):
+	try:
+		user = User.objects.get(app_id = app_id, app = "fitbit")
+	except: 
+		return 0.0
+
+	now = now_in_user_timezone(user)
+	start_of_day = now.replace(hour = 0, minute = 0)
+	end_of_day = start_of_day + timedelta(days = 1)
+
+	return users.ounces_in_period(user, start_of_day, end_of_day)
+
 
 ##	Register Sample
 ## 	-------------------------------------

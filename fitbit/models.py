@@ -14,6 +14,8 @@ class User(models.Model):
 	last_sleep_sync = models.CharField(max_length = 22, null = True)
 
 	# Profile fields
+	first_name = models.CharField(max_length = 255, default="John")
+	last_name = models.CharField(max_length = 255, default="Doe")
 	weight = models.FloatField(default = 0.0)
 	timezone = models.CharField(max_length = 260, null = True)
 

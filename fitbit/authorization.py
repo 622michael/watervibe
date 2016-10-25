@@ -86,10 +86,7 @@ def authorize (request):
 
 	watervibe.watervibe.register_fitbit_user(user)
 
-	alarm_times = watervibe.watervibe.fitbit_dashboard_alarms(user.id)
-	sleep_times = watervibe.watervibe.fitbit_dashboard_sleep_times(user.id)
-
-	return views.authorization_success(request, alarm_times, sleep_times)
+	return views.authorization_success(request, user)
 
 ##	Refresh Access
 ##  --------------------------------------
