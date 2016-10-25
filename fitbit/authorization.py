@@ -84,6 +84,7 @@ def authorize (request):
 	if "sleep" in user.scope:
 		subscription.subscribe(user, "sleep")
 
+	import alarms
 	if(alarms.user_alarms_count(user) == 8): 
 		print "User account is full"
 		return views.alarms_full(request)
