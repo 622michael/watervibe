@@ -13,8 +13,9 @@ class Command(BaseCommand):
 		for user in users.users():
 			start_of_period = now_in_user_timezone(user)
 			end_of_period = start_of_period + timedelta(days = 1)
+			ounces_required = users.ounces_in_period(user, start_of_period, end_of_period)
 			ounces_drunk_in_period = users.ounces_to_drink_in_period(user, start_of_period, end_of_period)
 			time_between_reminders = users.maximum_time_between_reminders(user, start_of_period)
 
-			print "%d: %d %d" % (user.id, ounces_drunk_in_period, time_between_reminders.total_seconds())
+			print "%d: %d %d %d" % (user.id, ounces_drunk_in_period, time_between_reminders.total_seconds(), ounces_required)
 		

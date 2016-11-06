@@ -88,6 +88,7 @@ def ounces_to_drink_in_period(user, start_date, end_date):
 	for reminder in reminders:
 		reminder_date = date_for_string(reminder.time)
 		if reminder_date > start_date and reminder_date < end_date:
+			print reminder.time + " is between %s and %s" % (string_for_date(start_date), string_for_date(end_date))
 			count += 1
 
 	return count * user.drink_size
@@ -138,13 +139,14 @@ def weighted_average_sleep_time(user, day_of_the_week):
 def maximum_time_between_reminders(user, date):
 	minutes_in_a_day = 60*24
 	minutes_asleep_in_day = 0
-	for event in Event.objects.filter(user = user, day_of_week = date.isoweekday()):
+	for event in Event.objects.filter(user = user, day_of_week = date.isoweekday(), is_active = 1):
 		minutes_asleep_in_day += events.duration(event)
 
 	minutes_for_reminders = minutes_in_a_day - minutes_asleep_in_day
 	seconds_for_reminders = minutes_for_reminders * 60
 	
 	print "Sleeping for %d minutes today" % minutes_asleep_in_day	
+	print "Time for reminders: %d" % seconds_for_reminders
 
 	start_of_period = date.replace( hour = 0, minute = 0, second = 0)
 	end_of_period = start_of_period + timedelta(days = 1)

@@ -20,8 +20,8 @@ def profile(user):
 	fitted_profile_url = "https://api.fitbit.com/1/user/-/profile.json".replace("-", user.fitbit_id)
 	headers = authorization.api_request_header_for (user)
 	response = requests.post (fitted_profile_url, headers= headers)
-	print response
 	json_response = json.loads (response.content)
+	print json_response
 
 	return json_response["user"]
 
@@ -77,6 +77,17 @@ def update_name(user, user_profile):
 
 	user.first_name = first_name
 	user.last_name = last_name
+
+##	Update Weight
+##  --------------------------------------
+##	Loads a new city,state into user.city
+## 	and user.state from the FitBit API 
+##	profile call.
+
+def update_location(user, user_profile):
+	user.city = user_profile["city"]
+	user.state = user_profile["state"]
+
 
 
 ##  Sync Logs Of Type

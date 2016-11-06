@@ -26,7 +26,7 @@ api_scope = ["activity", "heartrate", "location", "profile", "settings", "sleep"
 ##
 
 def permissions_request(request):
-	base_url = scope_requesttests_url
+	base_url = scope_request_url
 	scope = ""
 	for data_point in api_scope: 
 		scope += data_point + " "
