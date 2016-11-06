@@ -89,8 +89,6 @@ def create_reminders_for_user (user):
 	last_distance = 0
 	
 	print "Setting reminders every %d seconds" % time_between_reminders.total_seconds()
-	print "Set to drink %d ounces this period" % ounces_drunk_in_period
-	print "Required to drink %d ounces" % required_ounces
 
 	while ounces_drunk_in_period < required_ounces:
 		next_reminder_date = last_reminder_date + time_between_reminders
