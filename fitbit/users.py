@@ -98,7 +98,7 @@ def update_location(user, user_profile):
 
 def sync_logs_of_type(user, type):
 	try:
-		last_sync = date_for_string(getattr(user, "last_%s_sync" % type)).replace(tzinfo = dateutil.tz.tzoffset(None, 0))
+		last_sync = date_for_string(getattr(user, "last_%s_sync" % type)).replace(tzinfo = dateutil.tz.tzoffset(None, 0)) - timedelta(days = 1)
 	except:
 		last_sync = now() - timedelta(days = 30)
 
