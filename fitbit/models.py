@@ -18,7 +18,7 @@ class User(models.Model):
 	last_name = models.CharField(max_length = 255, default="Doe")
 	weight = models.FloatField(default = 0.0)
 	timezone = models.CharField(max_length = 260, null = True)
-	city 	= models.CharField(max_length = 260, null = True)
+	city 	= models.CharField(max_length = 260, null = True, default = "")
 	state 	= models.CharField(max_length = 260, null = True)
 
 class Device(models.Model):
