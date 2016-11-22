@@ -29,6 +29,11 @@ def reminders_available_at_next_sync(user):
 
 def create_reminder(time, user):
 	reminder_event_time = watervibe_time.event_time_from_date(time)
+	if(last_reminder_for_user(user) is None): 
+		time = watervibe_time.now_in_user_timezone(user) + timedelta(minutes = 1)
+		reminder = Reminder.objects.create(time = watervibe_time.string_for_date(time), user = user)
+		reminder.save()
+
 	for event in Event.objects.filter(user = user, day_of_week = time.isoweekday()):
 		if watervibe_time.time_is_between_period(reminder_event_time, event.start_time, event.end_time):
 			print "%f is during event from %f to %f" % (reminder_event_time, event.start_time, event.end_time)
